@@ -14,7 +14,7 @@ please note that you need to edit 2 files on your system:
 - frndashboard.service @ ExecStart
 
 You need to determint the dashboard to run it at boot of the device.
---- ExecStart=/usr/bin/sudo /usr/bin/python3 /home/pi/dashboard.py ---
+- ExecStart=/usr/bin/sudo /usr/bin/python3 /home/pi/dashboard.py
 
 - dashboard.py
 The following lines need also to be edited to work on your system:
