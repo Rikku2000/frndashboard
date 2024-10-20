@@ -61,6 +61,7 @@ class MyHttpRequestHandler(http.server.SimpleHTTPRequestHandler):
                         'InFactor': str(fields.get('Audio_InFactor')).replace('[\'', '').replace('\']', ''), \
                         'InPreCapturedTime': str(fields.get('Audio_InPreCapturedTime')).replace('[\'', '').replace('\']', ''), \
                         'InAgcEnabled': str(fields.get('Audio_InAgcEnabled')).replace('[\'', '').replace('\']', ''), \
+                        'InAgcMaxGain': str(fields.get('Audio_InAgcMaxGain')).replace('[\'', '').replace('\']', ''), \
                         'InAgcLevel': str(fields.get('Audio_InAgcLevel')).replace('[\'', '').replace('\']', ''), \
                         'InHpfEnabled': str(fields.get('Audio_InHpfEnabled')).replace('[\'', '').replace('\']', ''), \
                         'InHpfOrder': str(fields.get('Audio_InHpfOrder')).replace('[\'', '').replace('\']', ''), \
