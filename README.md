@@ -29,3 +29,6 @@ Here you need to define where the web script files are located (at line 27):
 
 Same as in config.read, you need to define the config file location (at line 219):
 - with open(r'/home/pi/frnconsole.cfg', 'w') as configfile:
+
+And finaly you need to define where the log file is located (at line 533):
+- with open(r'/home/pi/frnclientconsole.log', 'r') as fp:
