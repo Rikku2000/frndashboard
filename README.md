@@ -1,5 +1,7 @@
 FRN Client Console (AlterFRN) - Dashboard by 13MAD86 / Martin
 
+<img src="screenshot.jpg">
+
 !!! WARING !!!
 Please use the script at your own risk, do not harm me if any corruption to your system, thanks.
 
