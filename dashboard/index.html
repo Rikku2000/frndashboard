@@ -1,0 +1,1172 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+	<html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" lang="en">
+		<head>
+			<title>FRN Client Console - Dashboard</title>
+			<meta charset="UTF-8">
+			<meta name="viewport" content="width=device-width, initial-scale=1">
+			<meta name="robots" content="index" />
+			<meta name="robots" content="follow" />
+			<meta name="language" content="English" />
+			<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+			<meta http-equiv="cache-control" content="max-age=0" />
+			<meta http-equiv="cache-control" content="no-cache, no-store, must-revalidate" />
+			<meta http-equiv="expires" content="0" />
+			<meta http-equiv="pragma" content="no-cache" />
+			<link rel="stylesheet" href="w3.css">
+			<link rel="stylesheet" href="custom.css">
+			<style>
+				.config { display: none; }
+			</style>
+		</head>
+		<body class="w3-theme-light">
+			<div class="w3-top">
+				<div class="w3-bar w3-theme-dark w3-left-align w3-large">
+					<a href="index.html" class="w3-bar-item w3-button w3-padding-large w3-theme-dark w3-hover-theme-dark w3-hover-text-theme"><span id="statsSYSTitle">FRN Client Console - Dashboard</span></a>
+					<a class="w3-bar-item w3-button w3-padding-large w3-theme-dark w3-hover-theme-dark w3-hover-text-theme w3-right" href="javascript:void(0);" onclick="openConfig()">Config</a>
+				</div>
+			</div>
+
+			<div class="w3-container w3-content w3-scrollbar" style="max-width: 100%; margin-top: 60px; margin-bottom: 80px">
+				<div class="w3-row">
+					<div class="w3-col w3-padding m12">
+						<div class="w3-card w3-round w3-theme-dark w3-padding-large">
+							<table class="w3-table w3-striped w3-white">
+								<tr>
+									<td class="w3-border w3-border-black w3-center w3-theme-light" style="width: 20%">
+										CPU Speed: <b id="statsCPUSpeed">--- MHz</b> (<b id="statsCPUTemp">-- °C</b>)
+									</td>
+									<td class="w3-border w3-border-black w3-center w3-theme-light" style="width: 13%">
+										CPU Load: <b id="statsSYSLoad">x.xx, x.xx, x.xx</b>
+									</td>
+									<td class="w3-border w3-border-black w3-center w3-theme-light" style="width: 17%">
+										RAM Use: <b id="statsRAMFree">--- MB</b> / <b id="statsRAMTotal">--- MB</b>
+									</td>
+									<td class="w3-border w3-border-black w3-center w3-theme-light" style="width: 15%">
+										Host: <b id="statsSYSHOST">---</b>
+									</td>
+									<td class="w3-border w3-border-black w3-center w3-theme-light" style="width: 12%">
+										IP: <b id="statsSYSIP">xxx.xxx.xxx.xxx</b>
+									</td>
+									<td class="w3-border w3-border-black w3-center w3-theme-light" style="width: 18%">
+										Uptime: <b id="statsSYSUptime">Up xx Days, xx Hours</b>
+									</td>
+								</tr>
+							</table>
+						</div>
+					</div>
+
+					<div class="w3-col w3-padding m9">
+						<div class="w3-container w3-card w3-round w3-black w3-padding-large w3-center">
+							<b><span id="output">---</span></b>
+						</div>
+						</br>
+
+						<div id="frn_dashboard" class="w3-show">
+							<div class="w3-card w3-round w3-theme-dark w3-padding-large">
+								<b>Activities</b>
+								<p><div id="statsLastLog">---</div></p>
+							</div>
+							</br>
+
+							<div class="w3-container w3-card w3-round w3-theme-dark w3-padding-large">
+								<b>Plugin</b>
+								<p><table class="w3-table w3-striped w3-white">
+									<tr>
+										<td class="w3-border w3-border-black w3-center w3-theme-light" style="width: 25%">
+											Hours: <b><span id="statsCFGHours">---</span></b>
+										</td>
+										<td class="w3-border w3-border-black w3-center w3-theme-light" style="width: 25%">
+											Informer: <b><span id="statsCFGInformer">---</span></b>
+										</td>
+										<td class="w3-border w3-border-black w3-center w3-theme-light" style="width: 25%">
+											Recorder: <b><span id="statsCFGRecorder">---</span></b>
+										</td>
+										<td class="w3-border w3-border-black w3-center w3-theme-light" style="width: 25%">
+											Command: <b><span id="statsCFGCommand">---</span></b>
+										</td>
+									</tr>
+								</table></p>
+							</div>
+						</div>
+
+						<div id="frn_config" class="w3-hide">
+							<form method='POST' enctype='multipart/form-data' action='/config'>
+								<div class="w3-container w3-card w3-round w3-theme-dark w3-padding-large">
+									<b class="w3-hover-text-theme collapsible" style="cursor: pointer;">Auth</b>
+									<div class="config"><p>
+										<div class="w3-row-padding">
+											<div class="w3-col w3-padding m6">
+												<label>Callsign</label>
+												<input class="w3-input w3-border w3-grey w3-border-black" id="Auth_Callsign" name="Auth_Callsign" type="text" placeholder="">
+											</div>
+											<div class="w3-col w3-padding m6">
+												<label>Operator Name</label>
+												<input class="w3-input w3-border w3-grey w3-border-black" id="Auth_OperatorName" name="Auth_OperatorName" type="text" placeholder="">
+											</div>
+											<div class="w3-col w3-padding m6">
+												<label>EMail Address</label>
+												<input class="w3-input w3-border w3-grey w3-border-black" id="Auth_EMailAddress" name="Auth_EMailAddress" type="text" placeholder="">
+											</div>
+											<div class="w3-col w3-padding m6">
+												<label>City</label>
+												<input class="w3-input w3-border w3-grey w3-border-black" id="Auth_City" name="Auth_City" type="text" placeholder="">
+											</div>
+											<div class="w3-col w3-padding m6">
+												<label>City Part</label>
+												<input class="w3-input w3-border w3-grey w3-border-black" id="Auth_CityPart" name="Auth_CityPart" type="text" placeholder="">
+											</div>
+											<div class="w3-col w3-padding m6">
+												<label>Password</label>
+												<input class="w3-input w3-border w3-grey w3-border-black" id="Auth_Password" name="Auth_Password" type="text" placeholder="">
+											</div>
+											<div class="w3-col w3-padding m6">
+												<label>Country</label>
+												<input class="w3-input w3-border w3-grey w3-border-black" id="Auth_Country" name="Auth_Country" type="text" placeholder="">
+											</div>
+											<div class="w3-col w3-padding m6">
+												<label>Description</label>
+												<input class="w3-input w3-border w3-grey w3-border-black" id="Auth_Description" name="Auth_Description" type="text" placeholder="">
+											</div>
+											<div class="w3-col w3-padding m6">
+												<label>Band Channel</label>
+												<input class="w3-input w3-border w3-grey w3-border-black" id="Auth_BandChannel" name="Auth_BandChannel" type="text" placeholder="">
+											</div>
+											<div class="w3-col w3-padding m6">
+												<label>Client Type</label>
+												<input class="w3-input w3-border w3-grey w3-border-black" id="Auth_ClientType" name="Auth_ClientType" type="text" placeholder="">
+											</div>
+											<div class="w3-col w3-padding m6">
+												<label>Charset Name</label>
+												<input class="w3-input w3-border w3-grey w3-border-black" id="Auth_CharsetName" name="Auth_CharsetName" type="text" placeholder="">
+											</div>
+										</div>
+									</p></div>
+								</div>
+								</br>
+
+								<div class="w3-container w3-card w3-round w3-theme-dark w3-padding-large">
+									<b class="w3-hover-text-theme collapsible" style="cursor: pointer;">Audio</b>
+									<div class="config"><p>
+										<div class="w3-row-padding">
+											<div class="w3-col w3-padding m6">
+												<label>In Device</label>
+												<input class="w3-input w3-border w3-grey w3-border-black" id="Audio_InDevice" name="Audio_InDevice" type="text" placeholder="">
+											</div>
+											<div class="w3-col w3-padding m6">
+												<label>In Sample Rate</label>
+												<input class="w3-input w3-border w3-grey w3-border-black" id="Audio_InSampleRate" name="Audio_InSampleRate" type="text" placeholder="">
+											</div>
+											<div class="w3-col w3-padding m6">
+												<label>In Quality</label>
+												<input class="w3-input w3-border w3-grey w3-border-black" id="Audio_InQuality" name="Audio_InQuality" type="text" placeholder="">
+											</div>
+											<div class="w3-col w3-padding m6">
+												<label>In Factor</label>
+												<input class="w3-input w3-border w3-grey w3-border-black" id="Audio_InFactor" name="Audio_InFactor" type="text" placeholder="">
+											</div>
+											<div class="w3-col w3-padding m6">
+												<label>In Pre Captured Time</label>
+												<input class="w3-input w3-border w3-grey w3-border-black" id="Audio_InPreCapturedTime" name="Audio_InPreCapturedTime" type="text" placeholder="">
+											</div>
+											<div class="w3-col w3-padding m6">
+												<label>In Agc Enabled</label>
+												<input class="w3-input w3-border w3-grey w3-border-black" id="Audio_InAgcEnabled" name="Audio_InAgcEnabled" type="text" placeholder="">
+											</div>
+											<div class="w3-col w3-padding m6">
+												<label>In Agc Level</label>
+												<input class="w3-input w3-border w3-grey w3-border-black" id="Audio_InAgcLevel" name="Audio_InAgcLevel" type="text" placeholder="">
+											</div>
+											<div class="w3-col w3-padding m6">
+												<label>In Agc Max Gain</label>
+												<input class="w3-input w3-border w3-grey w3-border-black" id="Audio_InAgcMaxGain" name="Audio_InAgcMaxGain" type="text" placeholder="">
+											</div>
+											<div class="w3-col w3-padding m6">
+												<label>In Hpf Enabled</label>
+												<input class="w3-input w3-border w3-grey w3-border-black" id="Audio_InHpfEnabled" name="Audio_InHpfEnabled" type="text" placeholder="">
+											</div>
+											<div class="w3-col w3-padding m6">
+												<label>In Hpf Order</label>
+												<input class="w3-input w3-border w3-grey w3-border-black" id="Audio_InHpfOrder" name="Audio_InHpfOrder" type="text" placeholder="">
+											</div>
+											<div class="w3-col w3-padding m6">
+												<label>In Dtmf Enabled</label>
+												<input class="w3-input w3-border w3-grey w3-border-black" id="Audio_InDtmfEnabled" name="Audio_InDtmfEnabled" type="text" placeholder="">
+											</div>
+											<div class="w3-col w3-padding m6">
+												<label>Out Device</label>
+												<input class="w3-input w3-border w3-grey w3-border-black" id="Audio_OutDevice" name="Audio_OutDevice" type="text" placeholder="">
+											</div>
+											<div class="w3-col w3-padding m6">
+												<label>Out Sample Rate</label>
+												<input class="w3-input w3-border w3-grey w3-border-black" id="Audio_OutSampleRate" name="Audio_OutSampleRate" type="text" placeholder="">
+											</div>
+											<div class="w3-col w3-padding m6">
+												<label>Out Quality</label>
+												<input class="w3-input w3-border w3-grey w3-border-black" id="Audio_OutQuality" name="Audio_OutQuality" type="text" placeholder="">
+											</div>
+											<div class="w3-col w3-padding m6">
+												<label>Out Factor</label>
+												<input class="w3-input w3-border w3-grey w3-border-black" id="Audio_OutFactor" name="Audio_OutFactor" type="text" placeholder="">
+											</div>
+											<div class="w3-col w3-padding m6">
+												<label>Out Agc Enabled</label>
+												<input class="w3-input w3-border w3-grey w3-border-black" id="Audio_OutAgcEnabled" name="Audio_OutAgcEnabled" type="text" placeholder="">
+											</div>
+											<div class="w3-col w3-padding m6">
+												<label>Out Agc Level</label>
+												<input class="w3-input w3-border w3-grey w3-border-black" id="Audio_OutAgcLevel" name="Audio_OutAgcLevel" type="text" placeholder="">
+											</div>
+											<div class="w3-col w3-padding m6">
+												<label>Out Agc Max Gain</label>
+												<input class="w3-input w3-border w3-grey w3-border-black" id="Audio_OutAgcMaxGain" name="Audio_OutAgcMaxGain" type="text" placeholder="">
+											</div>
+											<div class="w3-col w3-padding m6">
+												<label>Out Hpf Enabled</label>
+												<input class="w3-input w3-border w3-grey w3-border-black" id="Audio_OutHpfEnabled" name="Audio_OutHpfEnabled" type="text" placeholder="">
+											</div>
+											<div class="w3-col w3-padding m6">
+												<label>Out Hpf Order</label>
+												<input class="w3-input w3-border w3-grey w3-border-black" id="Audio_OutHpfOrder" name="Audio_OutHpfOrder" type="text" placeholder="">
+											</div>
+											<div class="w3-col w3-padding m6">
+												<label>Out Delay Const</label>
+												<input class="w3-input w3-border w3-grey w3-border-black" id="Audio_OutDelayConst" name="Audio_OutDelayConst" type="text" placeholder="">
+											</div>
+											<div class="w3-col w3-padding m6">
+												<label>Re Init Audio Engine</label>
+												<input class="w3-input w3-border w3-grey w3-border-black" id="Audio_ReInitAudioEngine" name="Audio_ReInitAudioEngine" type="text" placeholder="">
+											</div>
+										</div>
+									</p></div>
+								</div>
+								</br>
+
+								<div class="w3-container w3-card w3-round w3-theme-dark w3-padding-large">
+									<b class="w3-hover-text-theme collapsible" style="cursor: pointer;">Radio</b>
+									<div class="config"><p>
+										<div class="w3-row-padding">
+											<div class="w3-col w3-padding m6">
+												<label>Ptt Enabled</label>
+												<input class="w3-input w3-border w3-grey w3-border-black" id="Radio_PttEnabled" name="Radio_PttEnabled" type="text" placeholder="">
+											</div>
+											<div class="w3-col w3-padding m6">
+												<label>Cos Enabled</label>
+												<input class="w3-input w3-border w3-grey w3-border-black" id="Radio_CosEnabled" name="Radio_CosEnabled" type="text" placeholder="">
+											</div>
+											<div class="w3-col w3-padding m6">
+												<label>PTT</label>
+												<input class="w3-input w3-border w3-grey w3-border-black" id="Radio_PTT" name="Radio_PTT" type="text" placeholder="">
+											</div>
+											<div class="w3-col w3-padding m6">
+												<label>COS</label>
+												<input class="w3-input w3-border w3-grey w3-border-black" id="Radio_COS" name="Radio_COS" type="text" placeholder="">
+											</div>
+											<div class="w3-col w3-padding m6">
+												<label>LIGHT</label>
+												<input class="w3-input w3-border w3-grey w3-border-black" id="Radio_LIGHT" name="Radio_LIGHT" type="text" placeholder="">
+											</div>
+											<div class="w3-col w3-padding m6">
+												<label>STATIC</label>
+												<input class="w3-input w3-border w3-grey w3-border-black" id="Radio_STATIC" name="Radio_STATIC" type="text" placeholder="">
+											</div>
+											<div class="w3-col w3-padding m6">
+												<label>CONNECT</label>
+												<input class="w3-input w3-border w3-grey w3-border-black" id="Radio_CONNECT" name="Radio_CONNECT" type="text" placeholder="">
+											</div>
+											<div class="w3-col w3-padding m6">
+												<label>CTCSS Wake Time</label>
+												<input class="w3-input w3-border w3-grey w3-border-black" id="Radio_CTCSSWakeTime" name="Radio_CTCSSWakeTime" type="text" placeholder="">
+											</div>
+											<div class="w3-col w3-padding m6">
+												<label>Carrier Catch Time</label>
+												<input class="w3-input w3-border w3-grey w3-border-black" id="Radio_CarrierCatchTime" name="Radio_CarrierCatchTime" type="text" placeholder="">
+											</div>
+											<div class="w3-col w3-padding m6">
+												<label>Carrier Lost Time</label>
+												<input class="w3-input w3-border w3-grey w3-border-black" id="Radio_CarrierLostTime" name="Radio_CarrierLostTime" type="text" placeholder="">
+											</div>
+											<div class="w3-col w3-padding m6">
+												<label>Squelch Settling Time</label>
+												<input class="w3-input w3-border w3-grey w3-border-black" id="Radio_SquelchSettlingTime" name="Radio_SquelchSettlingTime" type="text" placeholder="">
+											</div>
+											<div class="w3-col w3-padding m6">
+												<label>Dtmf Timeout</label>
+												<input class="w3-input w3-border w3-grey w3-border-black" id="Radio_DtmfTimeout" name="Radio_DtmfTimeout" type="text" placeholder="">
+											</div>
+											<div class="w3-col w3-padding m6">
+												<label>Dtmf Commands</label>
+												<input class="w3-input w3-border w3-grey w3-border-black" id="Radio_DtmfCommands" name="Radio_DtmfCommands" type="text" placeholder="">
+											</div>
+											<div class="w3-col w3-padding m6">
+												<label>Id No Sound List File Name</label>
+												<input class="w3-input w3-border w3-grey w3-border-black" id="Radio_IdNoSoundListFileName" name="Radio_IdNoSoundListFileName" type="text" placeholder="">
+											</div>
+										</div>
+									</p></div>
+								</div>
+								</br>
+
+								<div class="w3-container w3-card w3-round w3-theme-dark w3-padding-large">
+									<b class="w3-hover-text-theme collapsible" style="cursor: pointer;">Manager</b>
+									<div class="config"><p>
+										<div class="w3-row-padding">
+											<div class="w3-col w3-padding m6">
+												<label>Manager Address</label>
+												<input class="w3-input w3-border w3-grey w3-border-black" id="Manager_ManagerAddress" name="Manager_ManagerAddress" type="text" placeholder="">
+											</div>
+											<div class="w3-col w3-padding m6">
+												<label>Manager Port</label>
+												<input class="w3-input w3-border w3-grey w3-border-black" id="Manager_ManagerPort" name="Manager_ManagerPort" type="text" placeholder="">
+											</div>
+											<div class="w3-col w3-padding m6">
+												<label>Dynamic Password Mode</label>
+												<input class="w3-input w3-border w3-grey w3-border-black" id="Manager_DynamicPasswordMode" name="Manager_DynamicPasswordMode" type="text" placeholder="">
+											</div>
+										</div>
+									</p></div>
+								</div>
+								</br>
+
+								<div class="w3-container w3-card w3-round w3-theme-dark w3-padding-large">
+									<b class="w3-hover-text-theme collapsible" style="cursor: pointer;">Server</b>
+									<div class="config"><p>
+										<div class="w3-row-padding">
+											<div class="w3-col w3-padding m6">
+												<label>Server Reconnect Count</label>
+												<input class="w3-input w3-border w3-grey w3-border-black" id="Server_ServerReconnectCount" name="Server_ServerReconnectCount" type="text" placeholder="">
+											</div>
+											<div class="w3-col w3-padding m6">
+												<label>Server Reconnect Interval</label>
+												<input class="w3-input w3-border w3-grey w3-border-black" id="Server_ServerReconnectInterval" name="Server_ServerReconnectInterval" type="text" placeholder="">
+											</div>
+											<div class="w3-col w3-padding m6">
+												<label>Server Address</label>
+												<input class="w3-input w3-border w3-grey w3-border-black" id="Server_ServerAddress" name="Server_ServerAddress" type="text" placeholder="">
+											</div>
+											<div class="w3-col w3-padding m6">
+												<label>Server Port</label>
+												<input class="w3-input w3-border w3-grey w3-border-black" id="Server_ServerPort" name="Server_ServerPort" type="text" placeholder="">
+											</div>
+											<div class="w3-col w3-padding m6">
+												<label>Visible Status</label>
+												<input class="w3-input w3-border w3-grey w3-border-black" id="Server_VisibleStatus" name="Server_VisibleStatus" type="text" placeholder="">
+											</div>
+											<div class="w3-col w3-padding m6">
+												<label>Network</label>
+												<input class="w3-input w3-border w3-grey w3-border-black" id="Server_Network" name="Server_Network" type="text" placeholder="">
+											</div>
+											<div class="w3-col w3-padding m6">
+												<label>Backup Server Mode</label>
+												<input class="w3-input w3-border w3-grey w3-border-black" id="Server_BackupServerMode" name="Server_BackupServerMode" type="text" placeholder="">
+											</div>
+											<div class="w3-col w3-padding m6">
+												<label>Forced Backup Server Address</label>
+												<input class="w3-input w3-border w3-grey w3-border-black" id="Server_ForcedBackupServerAddress" name="Server_ForcedBackupServerAddress" type="text" placeholder="">
+											</div>
+											<div class="w3-col w3-padding m6">
+												<label>Forced Backup Server Port</label>
+												<input class="w3-input w3-border w3-grey w3-border-black" id="Server_ForcedBackupServerPort" name="Server_ForcedBackupServerPort" type="text" placeholder="">
+											</div>
+											<div class="w3-col w3-padding m6">
+												<label>Forced Backup Server Network</label>
+												<input class="w3-input w3-border w3-grey w3-border-black" id="Server_ForcedBackupServerNetwork" name="Server_ForcedBackupServerNetwork" type="text" placeholder="">
+											</div>
+											<div class="w3-col w3-padding m6">
+												<label>Rx Tx Hook Script</label>
+												<input class="w3-input w3-border w3-grey w3-border-black" id="Server_RxTxHookScript" name="Server_RxTxHookScript" type="text" placeholder="">
+											</div>
+											<div class="w3-col w3-padding m6">
+												<label>Invalid Static Password Script</label>
+												<input class="w3-input w3-border w3-grey w3-border-black" id="Server_InvalidStaticPasswordScript" name="Server_InvalidStaticPasswordScript" type="text" placeholder="">
+											</div>
+											<div class="w3-col w3-padding m6">
+												<label>Proto List Format</label>
+												<input class="w3-input w3-border w3-grey w3-border-black" id="Server_ProtoListFormat" name="Server_ProtoListFormat" type="text" placeholder="">
+											</div>
+											<div class="w3-col w3-padding m6">
+												<label>Proto Speaker Info</label>
+												<input class="w3-input w3-border w3-grey w3-border-black" id="Server_ProtoSpeakerInfo" name="Server_ProtoSpeakerInfo" type="text" placeholder="">
+											</div>
+											<div class="w3-col w3-padding m6">
+												<label>Proto Messages From Server</label>
+												<input class="w3-input w3-border w3-grey w3-border-black" id="Server_ProtoMessagesFromServer" name="Server_ProtoMessagesFromServer" type="text" placeholder="">
+											</div>
+											<div class="w3-col w3-padding m6">
+												<label>Proto Short Frames</label>
+												<input class="w3-input w3-border w3-grey w3-border-black" id="Server_ProtoShortFrames" name="Server_ProtoShortFrames" type="text" placeholder="">
+											</div>
+										</div>
+									</p></div>
+								</div>
+								</br>
+
+								<div class="w3-container w3-card w3-round w3-theme-dark w3-padding-large">
+									<b class="w3-hover-text-theme collapsible" style="cursor: pointer;">Internet</b>
+									<div class="config"><p>
+										<div class="w3-row-padding">
+											<div class="w3-col w3-padding m6">
+												<label>Prefer IPv4</label>
+												<input class="w3-input w3-border w3-grey w3-border-black" id="Internet_PreferIPv4" name="Internet_PreferIPv4" type="text" placeholder="">
+											</div>
+										</div>
+									</p></div>
+								</div>
+								</br>
+
+								<div class="w3-container w3-card w3-round w3-theme-dark w3-padding-large">
+									<b class="w3-hover-text-theme collapsible" style="cursor: pointer;">Message</b>
+									<div class="config"><p>
+										<div class="w3-row-padding">
+											<div class="w3-col w3-padding m6">
+												<label>Private Auto Response</label>
+												<input class="w3-input w3-border w3-grey w3-border-black" id="Message_PrivateAutoResponse" name="Message_PrivateAutoResponse" type="text" placeholder="">
+											</div>
+											<div class="w3-col w3-padding m6">
+												<label>Message Hook Script</label>
+												<input class="w3-input w3-border w3-grey w3-border-black" id="Message_MessageHookScript" name="Message_MessageHookScript" type="text" placeholder="">
+											</div>
+										</div>
+									</p></div>
+								</div>
+								</br>
+
+								<div class="w3-container w3-card w3-round w3-theme-dark w3-padding-large">
+									<b class="w3-hover-text-theme collapsible" style="cursor: pointer;">System</b>
+									<div class="config"><p>
+										<div class="w3-row-padding">
+											<div class="w3-col w3-padding m6">
+												<label>Write Dir</label>
+												<input class="w3-input w3-border w3-grey w3-border-black" id="System_WriteDir" name="System_WriteDir" type="text" placeholder="">
+											</div>
+											<div class="w3-col w3-padding m6">
+												<label>Charset Name</label>
+												<input class="w3-input w3-border w3-grey w3-border-black" id="System_CharsetName" name="System_CharsetName" type="text" placeholder="">
+											</div>
+											<div class="w3-col w3-padding m6">
+												<label>Pid File</label>
+												<input class="w3-input w3-border w3-grey w3-border-black" id="System_PidFile" name="System_PidFile" type="text" placeholder="">
+											</div>
+											<div class="w3-col w3-padding m6">
+												<label>Log File</label>
+												<input class="w3-input w3-border w3-grey w3-border-black" id="System_LogFile" name="System_LogFile" type="text" placeholder="">
+											</div>
+											<div class="w3-col w3-padding m6">
+												<label>Log Control Sound</label>
+												<input class="w3-input w3-border w3-grey w3-border-black" id="System_LogControlSound" name="System_LogControlSound" type="text" placeholder="">
+											</div>
+											<div class="w3-col w3-padding m6">
+												<label>Log External Sound</label>
+												<input class="w3-input w3-border w3-grey w3-border-black" id="System_LogExternalSound" name="System_LogExternalSound" type="text" placeholder="">
+											</div>
+											<div class="w3-col w3-padding m6">
+												<label>Log Client List</label>
+												<input class="w3-input w3-border w3-grey w3-border-black" id="System_LogClientList" name="System_LogClientList" type="text" placeholder="">
+											</div>
+											<div class="w3-col w3-padding m6">
+												<label>Log Carrier</label>
+												<input class="w3-input w3-border w3-grey w3-border-black" id="System_LogCarrier" name="System_LogCarrier" type="text" placeholder="">
+											</div>
+											<div class="w3-col w3-padding m6">
+												<label>Log Timing</label>
+												<input class="w3-input w3-border w3-grey w3-border-black" id="System_LogTiming" name="System_LogTiming" type="text" placeholder="">
+											</div>
+											<div class="w3-col w3-padding m6">
+												<label>Log Backup Server Mode</label>
+												<input class="w3-input w3-border w3-grey w3-border-black" id="System_LogBackupServerMode" name="System_LogBackupServerMode" type="text" placeholder="">
+											</div>
+											<div class="w3-col w3-padding m6">
+												<label>Log Check Server</label>
+												<input class="w3-input w3-border w3-grey w3-border-black" id="System_LogCheckServer" name="System_LogCheckServer" type="text" placeholder="">
+											</div>
+											<div class="w3-col w3-padding m6">
+												<label>Log Dtmf Tones</label>
+												<input class="w3-input w3-border w3-grey w3-border-black" id="System_LogDtmfTones" name="System_LogDtmfTones" type="text" placeholder="">
+											</div>
+											<div class="w3-col w3-padding m6">
+												<label>Log Dtmf Commands</label>
+												<input class="w3-input w3-border w3-grey w3-border-black" id="System_LogDtmfCommands" name="System_LogDtmfCommands" type="text" placeholder="">
+											</div>
+											<div class="w3-col w3-padding m6">
+												<label>Log Client List Delimiter</label>
+												<input class="w3-input w3-border w3-grey w3-border-black" id="System_LogClientListDelimiter" name="System_LogClientListDelimiter" type="text" placeholder="">
+											</div>
+											<div class="w3-col w3-padding m6">
+												<label>Log Cache</label>
+												<input class="w3-input w3-border w3-grey w3-border-black" id="System_LogCache" name="System_LogCache" type="text" placeholder="">
+											</div>
+											<div class="w3-col w3-padding m6">
+												<label>Log PTT</label>
+												<input class="w3-input w3-border w3-grey w3-border-black" id="System_LogPTT" name="System_LogPTT" type="text" placeholder="">
+											</div>
+											<div class="w3-col w3-padding m6">
+												<label>Log Exec</label>
+												<input class="w3-input w3-border w3-grey w3-border-black" id="System_LogExec" name="System_LogExec" type="text" placeholder="">
+											</div>
+											<div class="w3-col w3-padding m6">
+												<label>Log Recorder</label>
+												<input class="w3-input w3-border w3-grey w3-border-black" id="System_LogRecorder" name="System_LogRecorder" type="text" placeholder="">
+											</div>
+										</div>
+									</p></div>
+								</div>
+								</br>
+
+								<div class="w3-container w3-card w3-round w3-theme-dark w3-padding-large">
+									<b class="w3-hover-text-theme collapsible" style="cursor: pointer;">Sounds</b>
+									<div class="config"><p>
+										<div class="w3-row-padding">
+											<div class="w3-col w3-padding m6">
+												<label>Sounds Dir</label>
+												<input class="w3-input w3-border w3-grey w3-border-black" id="Sounds_SoundsDir" name="Sounds_SoundsDir" type="text" placeholder="">
+											</div>
+											<div class="w3-col w3-padding m6">
+												<label>Sound Courtesy</label>
+												<input class="w3-input w3-border w3-grey w3-border-black" id="Sounds_SoundCourtesy" name="Sounds_SoundCourtesy" type="text" placeholder="">
+											</div>
+											<div class="w3-col w3-padding m6">
+												<label>Enable Courtesy</label>
+												<input class="w3-input w3-border w3-grey w3-border-black" id="Sounds_EnableCourtesy" name="Sounds_EnableCourtesy" type="text" placeholder="">
+											</div>
+											<div class="w3-col w3-padding m6">
+												<label>Sound Courtesy Empty Net</label>
+												<input class="w3-input w3-border w3-grey w3-border-black" id="Sounds_SoundCourtesyEmptyNet" name="Sounds_SoundCourtesyEmptyNet" type="text" placeholder="">
+											</div>
+											<div class="w3-col w3-padding m6">
+												<label>Enable Courtesy Empty Net</label>
+												<input class="w3-input w3-border w3-grey w3-border-black" id="Sounds_EnableCourtesyEmptyNet" name="Sounds_EnableCourtesyEmptyNet" type="text" placeholder="">
+											</div>
+											<div class="w3-col w3-padding m6">
+												<label>Sound Roger</label>
+												<input class="w3-input w3-border w3-grey w3-border-black" id="Sounds_SoundRoger" name="Sounds_SoundRoger" type="text" placeholder="">
+											</div>
+											<div class="w3-col w3-padding m6">
+												<label>Enable Roger</label>
+												<input class="w3-input w3-border w3-grey w3-border-black" id="Sounds_EnableRoger" name="Sounds_EnableRoger" type="text" placeholder="">
+											</div>
+											<div class="w3-col w3-padding m6">
+												<label>Sound No Connection</label>
+												<input class="w3-input w3-border w3-grey w3-border-black" id="Sounds_SoundNoConnection" name="Sounds_SoundNoConnection" type="text" placeholder="">
+											</div>
+											<div class="w3-col w3-padding m6">
+												<label>Enable No Connection</label>
+												<input class="w3-input w3-border w3-grey w3-border-black" id="Sounds_EnableNoConnection" name="Sounds_EnableNoConnection" type="text" placeholder="">
+											</div>
+											<div class="w3-col w3-padding m6">
+												<label>Sound Reject</label>
+												<input class="w3-input w3-border w3-grey w3-border-black" id="Sounds_SoundReject" name="Sounds_SoundReject" type="text" placeholder="">
+											</div>
+											<div class="w3-col w3-padding m6">
+												<label>Enable Reject</label>
+												<input class="w3-input w3-border w3-grey w3-border-black" id="Sounds_EnableReject" name="Sounds_EnableReject" type="text" placeholder="">
+											</div>
+											<div class="w3-col w3-padding m6">
+												<label>Sound Error</label>
+												<input class="w3-input w3-border w3-grey w3-border-black" id="Sounds_SoundError" name="Sounds_SoundError" type="text" placeholder="">
+											</div>
+											<div class="w3-col w3-padding m6">
+												<label>Enable Error</label>
+												<input class="w3-input w3-border w3-grey w3-border-black" id="Sounds_EnableError" name="Sounds_EnableError" type="text" placeholder="">
+											</div>
+											<div class="w3-col w3-padding m6">
+												<label>Sound Radio BOT</label>
+												<input class="w3-input w3-border w3-grey w3-border-black" id="Sounds_SoundRadioBOT" name="Sounds_SoundRadioBOT" type="text" placeholder="">
+											</div>
+											<div class="w3-col w3-padding m6">
+												<label>Enable Radio BOT</label>
+												<input class="w3-input w3-border w3-grey w3-border-black" id="Sounds_EnableRadioBOT" name="Sounds_EnableRadioBOT" type="text" placeholder="">
+											</div>
+											<div class="w3-col w3-padding m6">
+												<label>Enable Connect</label>
+												<input class="w3-input w3-border w3-grey w3-border-black" id="Sounds_EnableConnect" name="Sounds_EnableConnect" type="text" placeholder="">
+											</div>
+											<div class="w3-col w3-padding m6">
+												<label>Sound Connect</label>
+												<input class="w3-input w3-border w3-grey w3-border-black" id="Sounds_SoundConnect" name="Sounds_SoundConnect" type="text" placeholder="">
+											</div>
+											<div class="w3-col w3-padding m6">
+												<label>Connect Sound Cfg Enabled</label>
+												<input class="w3-input w3-border w3-grey w3-border-black" id="Sounds_ConnectSoundCfgEnabled" name="Sounds_ConnectSoundCfgEnabled" type="text" placeholder="">
+											</div>
+											<div class="w3-col w3-padding m6">
+												<label>Connect Sound Cfg File Name</label>
+												<input class="w3-input w3-border w3-grey w3-border-black" id="Sounds_ConnectSoundCfgFileName" name="Sounds_ConnectSoundCfgFileName" type="text" placeholder="">
+											</div>
+											<div class="w3-col w3-padding m6">
+												<label>Connect Sound Ext Enabled</label>
+												<input class="w3-input w3-border w3-grey w3-border-black" id="Sounds_ConnectSoundExtEnabled" name="Sounds_ConnectSoundExtEnabled" type="text" placeholder="">
+											</div>
+											<div class="w3-col w3-padding m6">
+												<label>Connect Sound Ext Script</label>
+												<input class="w3-input w3-border w3-grey w3-border-black" id="Sounds_ConnectSoundExtScript" name="Sounds_ConnectSoundExtScript" type="text" placeholder="">
+											</div>
+											<div class="w3-col w3-padding m6">
+												<label>Connect Sound Ext Dir</label>
+												<input class="w3-input w3-border w3-grey w3-border-black" id="Sounds_ConnectSoundExtDir" name="Sounds_ConnectSoundExtDir" type="text" placeholder="">
+											</div>
+											<div class="w3-col w3-padding m6">
+												<label>Enable Server BOT</label>
+												<input class="w3-input w3-border w3-grey w3-border-black" id="Sounds_EnableServerBOT" name="Sounds_EnableServerBOT" type="text" placeholder="">
+											</div>
+											<div class="w3-col w3-padding m6">
+												<label>Sound Server BOT</label>
+												<input class="w3-input w3-border w3-grey w3-border-black" id="Sounds_SoundServerBOT" name="Sounds_SoundServerBOT" type="text" placeholder="">
+											</div>
+											<div class="w3-col w3-padding m6">
+												<label>Enable Server EOT</label>
+												<input class="w3-input w3-border w3-grey w3-border-black" id="Sounds_EnableServerEOT" name="Sounds_EnableServerEOT" type="text" placeholder="">
+											</div>
+											<div class="w3-col w3-padding m6">
+												<label>Sound Server EOT</label>
+												<input class="w3-input w3-border w3-grey w3-border-black" id="Sounds_SoundServerEOT" name="Sounds_SoundServerEOT" type="text" placeholder="">
+											</div>
+											<div class="w3-col w3-padding m6">
+												<label>Enable Disconnect</label>
+												<input class="w3-input w3-border w3-grey w3-border-black" id="Sounds_EnableDisconnect" name="Sounds_EnableDisconnect" type="text" placeholder="">
+											</div>
+											<div class="w3-col w3-padding m6">
+												<label>Sound Disconnect</label>
+												<input class="w3-input w3-border w3-grey w3-border-black" id="Sounds_SoundDisconnect" name="Sounds_SoundDisconnect" type="text" placeholder="">
+											</div>
+											<div class="w3-col w3-padding m6">
+												<label>Roger Sound Cfg Enabled</label>
+												<input class="w3-input w3-border w3-grey w3-border-black" id="Sounds_RogerSoundCfgEnabled" name="Sounds_RogerSoundCfgEnabled" type="text" placeholder="">
+											</div>
+											<div class="w3-col w3-padding m6">
+												<label>Roger Sound Cfg File Name</label>
+												<input class="w3-input w3-border w3-grey w3-border-black" id="Sounds_RogerSoundCfgFileName" name="Sounds_RogerSoundCfgFileName" type="text" placeholder="">
+											</div>
+										</div>
+									</p></div>
+								</div>
+								</br>
+
+								<div class="w3-container w3-card w3-round w3-theme-dark w3-padding-large">
+									<b class="w3-hover-text-theme collapsible" style="cursor: pointer;">Hours</b>
+									<div class="config"><p>
+										<div class="w3-row-padding">
+											<div class="w3-col w3-padding m6">
+												<label>Enabled</label>
+												<input class="w3-input w3-border w3-grey w3-border-black" id="Hours_Enabled" name="Hours_Enabled" type="text" placeholder="">
+											</div>
+											<div class="w3-col w3-padding m6">
+												<label>Dir</label>
+												<input class="w3-input w3-border w3-grey w3-border-black" id="Hours_Dir" name="Hours_Dir" type="text" placeholder="">
+											</div>
+											<div class="w3-col w3-padding m6">
+												<label>Interval</label>
+												<input class="w3-input w3-border w3-grey w3-border-black" id="Hours_Interval" name="Hours_Interval" type="text" placeholder="">
+											</div>
+											<div class="w3-col w3-padding m6">
+												<label>Correction</label>
+												<input class="w3-input w3-border w3-grey w3-border-black" id="Hours_Correction" name="Hours_Correction" type="text" placeholder="">
+											</div>
+											<div class="w3-col w3-padding m6">
+												<label>Ext Enabled</label>
+												<input class="w3-input w3-border w3-grey w3-border-black" id="Hours_ExtEnabled" name="Hours_ExtEnabled" type="text" placeholder="">
+											</div>
+											<div class="w3-col w3-padding m6">
+												<label>Ext Script</label>
+												<input class="w3-input w3-border w3-grey w3-border-black" id="Hours_ExtScript" name="Hours_ExtScript" type="text" placeholder="">
+											</div>
+											<div class="w3-col w3-padding m6">
+												<label>Ext Dir</label>
+												<input class="w3-input w3-border w3-grey w3-border-black" id="Hours_ExtDir" name="Hours_ExtDir" type="text" placeholder="">
+											</div>
+											<div class="w3-col w3-padding m6">
+												<label>Ext Temp Dir</label>
+												<input class="w3-input w3-border w3-grey w3-border-black" id="Hours_ExtTempDir" name="Hours_ExtTempDir" type="text" placeholder="">
+											</div>
+											<div class="w3-col w3-padding m6">
+												<label>Time Range</label>
+												<input class="w3-input w3-border w3-grey w3-border-black" id="Hours_TimeRange" name="Hours_TimeRange" type="text" placeholder="">
+											</div>
+										</div>
+									</p></div>
+								</div>
+								</br>
+
+								<div class="w3-container w3-card w3-round w3-theme-dark w3-padding-large">
+									<b class="w3-hover-text-theme collapsible" style="cursor: pointer;">Informer</b>
+									<div class="config"><p>
+										<div class="w3-row-padding">
+											<div class="w3-col w3-padding m6">
+												<label>Enabled</label>
+												<input class="w3-input w3-border w3-grey w3-border-black" id="Informer_Enabled" name="Informer_Enabled" type="text" placeholder="">
+											</div>
+											<div class="w3-col w3-padding m6">
+												<label>Dir</label>
+												<input class="w3-input w3-border w3-grey w3-border-black" id="Informer_Dir" name="Informer_Dir" type="text" placeholder="">
+											</div>
+											<div class="w3-col w3-padding m6">
+												<label>Interval</label>
+												<input class="w3-input w3-border w3-grey w3-border-black" id="Informer_Interval" name="Informer_Interval" type="text" placeholder="">
+											</div>
+											<div class="w3-col w3-padding m6">
+												<label>Mode</label>
+												<input class="w3-input w3-border w3-grey w3-border-black" id="Informer_Mode" name="Informer_Mode" type="text" placeholder="">
+											</div>
+											<div class="w3-col w3-padding m6">
+												<label>Silence Enabled</label>
+												<input class="w3-input w3-border w3-grey w3-border-black" id="Informer_SilenceEnabled" name="Informer_SilenceEnabled" type="text" placeholder="">
+											</div>
+											<div class="w3-col w3-padding m6">
+												<label>Silence Interval</label>
+												<input class="w3-input w3-border w3-grey w3-border-black" id="Informer_SilenceInterval" name="Informer_SilenceInterval" type="text" placeholder="">
+											</div>
+											<div class="w3-col w3-padding m6">
+												<label>Silence Time</label>
+												<input class="w3-input w3-border w3-grey w3-border-black" id="Informer_SilenceTime" name="Informer_SilenceTime" type="text" placeholder="">
+											</div>
+											<div class="w3-col w3-padding m6">
+												<label>Ext Enabled</label>
+												<input class="w3-input w3-border w3-grey w3-border-black" id="Informer_ExtEnabled" name="Informer_ExtEnabled" type="text" placeholder="">
+											</div>
+											<div class="w3-col w3-padding m6">
+												<label>Ext Script</label>
+												<input class="w3-input w3-border w3-grey w3-border-black" id="Informer_ExtScript" name="Informer_ExtScript" type="text" placeholder="">
+											</div>
+											<div class="w3-col w3-padding m6">
+												<label>Ext Dir</label>
+												<input class="w3-input w3-border w3-grey w3-border-black" id="Informer_ExtDir" name="Informer_ExtDir" type="text" placeholder="">
+											</div>
+											<div class="w3-col w3-padding m6">
+												<label>Ext Temp Dir</label>
+												<input class="w3-input w3-border w3-grey w3-border-black" id="Informer_ExtTempDir" name="Informer_ExtTempDir" type="text" placeholder="">
+											</div>
+										</div>
+									</p></div>
+								</div>
+								</br>
+
+								<div class="w3-container w3-card w3-round w3-theme-dark w3-padding-large">
+									<b class="w3-hover-text-theme collapsible" style="cursor: pointer;">Recorder</b>
+									<div class="config"><p>
+										<div class="w3-row-padding">
+											<div class="w3-col w3-padding m6">
+												<label>Enabled</label>
+												<input class="w3-input w3-border w3-grey w3-border-black" id="Recorder_Enabled" name="Recorder_Enabled" type="text" placeholder="">
+											</div>
+											<div class="w3-col w3-padding m6">
+												<label>Dir</label>
+												<input class="w3-input w3-border w3-grey w3-border-black" id="Recorder_Dir" name="Recorder_Dir" type="text" placeholder="">
+											</div>
+											<div class="w3-col w3-padding m6">
+												<label>Direction</label>
+												<input class="w3-input w3-border w3-grey w3-border-black" id="Recorder_Direction" name="Recorder_Direction" type="text" placeholder="">
+											</div>
+											<div class="w3-col w3-padding m6">
+												<label>File Name Format</label>
+												<input class="w3-input w3-border w3-grey w3-border-black" id="Recorder_FileNameFormat" name="Recorder_FileNameFormat" type="text" placeholder="">
+											</div>
+											<div class="w3-col w3-padding m6">
+												<label>Subdir Mode</label>
+												<input class="w3-input w3-border w3-grey w3-border-black" id="Recorder_SubdirMode" name="Recorder_SubdirMode" type="text" placeholder="">
+											</div>
+											<div class="w3-col w3-padding m6">
+												<label>Script</label>
+												<input class="w3-input w3-border w3-grey w3-border-black" id="Recorder_Script" name="Recorder_Script" type="text" placeholder="">
+											</div>
+										</div>
+									</p></div>
+								</div>
+								</br>
+
+								<div class="w3-container w3-card w3-round w3-theme-dark w3-padding-large">
+									<b class="w3-hover-text-theme collapsible" style="cursor: pointer;">Command</b>
+									<div class="config"><p>
+										<div class="w3-row-padding">
+											<div class="w3-col w3-padding m6">
+												<label>Enabled</label>
+												<input class="w3-input w3-border w3-grey w3-border-black" id="Command_CommandEnabled" name="Command_CommandEnabled" type="text" placeholder="">
+											</div>
+											<div class="w3-col w3-padding m6">
+												<label>Port</label>
+												<input class="w3-input w3-border w3-grey w3-border-black" id="Command_CommandPort" name="Command_CommandPort" type="text" placeholder="">
+											</div>
+											<div class="w3-col w3-padding m6">
+												<label>IP Version</label>
+												<input class="w3-input w3-border w3-grey w3-border-black" id="Command_CommandIPVersion" name="Command_CommandIPVersion" type="text" placeholder="">
+											</div>
+											<div class="w3-col w3-padding m6">
+												<label>Prefer IPv4</label>
+												<input class="w3-input w3-border w3-grey w3-border-black" id="Command_CommandPreferIPv4" name="Command_CommandPreferIPv4" type="text" placeholder="">
+											</div>
+											<div class="w3-col w3-padding m6">
+												<label>Amplitude Enabled</label>
+												<input class="w3-input w3-border w3-grey w3-border-black" id="Command_AmplitudeEnabled" name="Command_AmplitudeEnabled" type="text" placeholder="">
+											</div>
+											<div class="w3-col w3-padding m6">
+												<label>Amplitude Port</label>
+												<input class="w3-input w3-border w3-grey w3-border-black" id="Command_AmplitudePort" name="Command_AmplitudePort" type="text" placeholder="">
+											</div>
+										</div>
+									</p></div>
+								</div>
+								</br>
+
+								<div class="w3-container w3-card w3-round w3-theme-dark w3-padding-large">
+									<div class="w3-col w3-padding w3-center m12">
+										Reboot the device after submit config!
+									</div>
+									<div class="w3-col w3-padding w3-center m6">
+										<label>Current Password</label>
+										<input class="w3-input w3-border w3-grey w3-border-black" id="config_password" name="config_password" type="password" placeholder="">
+									</div>
+									<div class="w3-col w3-padding w3-center m6">
+										<label >Submit Config</label>
+										<input class="w3-button w3-block w3-theme-button w3-hover-theme-button" id="config_submit" name="config_submit" type="submit" value="Submit">  
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
+
+					<div class="w3-col w3-padding m3">
+						<div class="w3-card w3-round w3-theme-dark w3-padding-large">
+							<div class="w3-container w3-center">
+								<h4 class="w3-center">System Security</h4>
+								<p>
+									<input class="w3-input w3-border w3-grey w3-border-black" id="password" name="password" type="password" placeholder="Password" required>
+								</p>
+							</div>
+						</div>
+						</br>
+
+						<div class="w3-card w3-round w3-theme-dark w3-padding-large">
+							<div class="w3-container w3-center">
+								<h4 id="statsSYSPlatform" class="w3-center">System: ---</h4>
+								<p>
+									<div class="w3-col w3-padding m6">
+										<div onclick="getApi('output','/run/reboot','')" class="w3-button w3-block w3-theme-button w3-hover-theme-button">Reboot</div>
+									</div>
+									<div class="w3-col w3-padding m6">
+										<div onclick="getApi('output','/run/poweroff','')" class="w3-button w3-block w3-theme-button w3-hover-theme-button">Shutdown</div>
+									</div>
+								</p>
+							</div>
+						</div>
+						</br>
+
+						<div class="w3-card w3-round w3-theme-dark w3-padding-large">
+							<div class="w3-container w3-center">
+								<h4 class="w3-center">FRN Client Console</h4>
+								<p>
+									<div onclick="getApi('output_info','/run/service/start/frnclientconsole','')" class="w3-button w3-block w3-theme-button w3-hover-theme-button">Start</div>
+									<div class="w3-col w3-padding m6">
+										<div onclick="getApi('output','/run/service/restart/frnclientconsole','')" class="w3-button w3-block w3-theme-button w3-hover-theme-button">Restart</div>
+									</div>
+									<div class="w3-col w3-padding m6">
+										<div onclick="getApi('output','/run/service/stop/frnclientconsole','')" class="w3-button w3-block w3-theme-button w3-hover-theme-button">Stop</div>
+									</div>
+								</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<footer class="w3-center w3-theme-dark" id="footer">
+				<p>
+					<small>
+						AlterFRN Client by Valery (<a class="w3-hover-text-theme" href="https://alterfrn.ucoz.ru/" target="_new">alterfrn.ucoz.ru</a>)</br>
+						- Dashboard © 13MAD86 / Martin | Version 0.1 (BETA) -</br>
+						powered by <a class="w3-hover-text-theme" href="http://www.sdr-mkk.de" target="_new">www.sdr-mkk.de</a>
+					</small>
+				</p>
+			</footer>
+
+			<script type="text/javascript" src="jquery.min.js"></script>
+			<script type="text/javascript">
+				var coll = document.getElementsByClassName("collapsible");
+				ga = [];
+				var i;
+
+				for (i = 0; i < coll.length; i++) {
+					coll[i].addEventListener("click", function() {
+						this.classList.toggle("active");
+						var content = this.nextElementSibling;
+						if (content.style.display === "block")
+							content.style.display = "none";
+						else
+							content.style.display = "block";
+					});
+				}
+
+				function openConfig() {
+					var d = document.getElementById("frn_dashboard");
+					var c = document.getElementById("frn_config");
+					if (d.className.indexOf("w3-show") == -1) {
+						d.className = d.className.replace("w3-hide", "w3-show");
+						c.className = c.className.replace("w3-show", "w3-hide");
+					} else {
+						d.className = d.className.replace("w3-show", "w3-hide");
+						c.className = c.className.replace("w3-hide", "w3-show");
+					}
+				}
+
+				function getApi(id,action,values) { 
+					if (!values)
+						values = "?tm"+ Math.random();
+					else
+						values = values +"&tm"+ Math.random();
+
+					pass = document.getElementById("password").value;
+					if (pass != "") {
+						document.getElementById(id).innerHTML="";
+						values = values + "&pass=" + pass;
+						if (window.XMLHttpRequest)
+							ga[id]=new XMLHttpRequest();
+						else
+							ga[id]=new ActiveXObject("Microsoft.XMLHTTP");
+
+						ga[id].onreadystatechange = function() {
+							if (ga[id].readyState==4 && ga[id].status==200) {
+								var result=ga[id].responseText;		
+								var values=JSON.parse(result);	
+								if(!values.error) {
+									if(values.html)
+										document.getElementById(id).innerHTML=values.html;
+
+									if(values.cmd){
+										for(var c=0;c<values.cmd.length;c++){
+											console.log("Eval: "+values.cmd[c]);
+											eval(values.cmd[c]);
+										}
+									}
+									
+								} else
+									document.getElementById(id).innerHTML=values.error;
+							}
+						}
+
+						ga[id].open("GET",action+values,true);
+						ga[id].send();
+					} else
+						document.getElementById(id).innerHTML="Password can't be empty."	
+				}
+
+				function geConfigs(id) {
+					if (window.XMLHttpRequest)
+						gConfigs=new XMLHttpRequest();
+					else
+						gConfigs=new ActiveXObject("Microsoft.XMLHTTP");
+
+					gConfigs.onreadystatechange = function() {
+						if (gConfigs.readyState==4 && gConfigs.status==200) {
+							var result = gConfigs.responseText;		
+							var values = JSON.parse(result);
+							if (!values.error) {
+								document.getElementById("Auth_Callsign").value=values.Auth_Callsign;
+								document.getElementById("Auth_OperatorName").value=values.Auth_OperatorName;
+								document.getElementById("Auth_EMailAddress").value=values.Auth_EMailAddress;
+								document.getElementById("Auth_City").value=values.Auth_City;
+								document.getElementById("Auth_CityPart").value=values.Auth_CityPart;
+								document.getElementById("Auth_Password").value=values.Auth_Password;
+								document.getElementById("Auth_Country").value=values.Auth_Country;
+								document.getElementById("Auth_Description").value=values.Auth_Description;
+								document.getElementById("Auth_BandChannel").value=values.Auth_BandChannel;
+								document.getElementById("Auth_ClientType").value=values.Auth_ClientType;
+								document.getElementById("Auth_CharsetName").value=values.Auth_CharsetName;
+								document.getElementById("Audio_InSampleRate").value=values.Audio_InSampleRate;
+								document.getElementById("Audio_InQuality").value=values.Audio_InQuality;
+								document.getElementById("Audio_InFactor").value=values.Audio_InFactor;
+								document.getElementById("Audio_InPreCapturedTime").value=values.Audio_InPreCapturedTime;
+								document.getElementById("Audio_InAgcEnabled").value=values.Audio_InAgcEnabled;
+								document.getElementById("Audio_InAgcLevel").value=values.Audio_InAgcLevel;
+								document.getElementById("Audio_InAgcMaxGain").value=values.Audio_InAgcMaxGain;
+								document.getElementById("Audio_InHpfEnabled").value=values.Audio_InHpfEnabled;
+								document.getElementById("Audio_InHpfOrder").value=values.Audio_InHpfOrder;
+								document.getElementById("Audio_InDtmfEnabled").value=values.Audio_InDtmfEnabled;
+								document.getElementById("Audio_OutDevice").value=values.Audio_OutDevice;
+								document.getElementById("Audio_OutSampleRate").value=values.Audio_OutSampleRate;
+								document.getElementById("Audio_OutQuality").value=values.Audio_OutQuality;
+								document.getElementById("Audio_OutFactor").value=values.Audio_OutFactor;
+								document.getElementById("Audio_OutAgcEnabled").value=values.Audio_OutAgcEnabled;
+								document.getElementById("Audio_OutAgcLevel").value=values.Audio_OutAgcLevel;
+								document.getElementById("Audio_OutAgcMaxGain").value=values.Audio_OutAgcMaxGain;
+								document.getElementById("Audio_OutHpfEnabled").value=values.Audio_OutHpfEnabled;
+								document.getElementById("Audio_OutHpfOrder").value=values.Audio_OutHpfOrder;
+								document.getElementById("Audio_OutDelayConst").value=values.Audio_OutDelayConst;
+								document.getElementById("Audio_ReInitAudioEngine").value=values.Audio_ReInitAudioEngine;
+								document.getElementById("Radio_PttEnabled").value=values.Radio_PttEnabled;
+								document.getElementById("Radio_CosEnabled").value=values.Radio_CosEnabled;
+								document.getElementById("Radio_PTT").value=values.Radio_PTT;
+								document.getElementById("Radio_COS").value=values.Radio_COS;
+								document.getElementById("Radio_LIGHT").value=values.Radio_LIGHT;
+								document.getElementById("Radio_STATIC").value=values.Radio_STATIC;
+								document.getElementById("Radio_CONNECT").value=values.Radio_CONNECT;
+								document.getElementById("Radio_CTCSSWakeTime").value=values.Radio_CTCSSWakeTime;
+								document.getElementById("Radio_CarrierCatchTime").value=values.Radio_CarrierCatchTime;
+								document.getElementById("Radio_CarrierLostTime").value=values.Radio_CarrierLostTime;
+								document.getElementById("Radio_SquelchSettlingTime").value=values.Radio_SquelchSettlingTime;
+								document.getElementById("Radio_DtmfTimeout").value=values.Radio_DtmfTimeout;
+								document.getElementById("Radio_DtmfCommands").value=values.Radio_DtmfCommands;
+								document.getElementById("Radio_IdNoSoundListFileName").value=values.Radio_IdNoSoundListFileName;
+								document.getElementById("Manager_ManagerAddress").value=values.Manager_ManagerAddress;
+								document.getElementById("Manager_ManagerPort").value=values.Manager_ManagerPort;
+								document.getElementById("Manager_DynamicPasswordMode").value=values.Manager_DynamicPasswordMode;
+								document.getElementById("Server_ServerReconnectCount").value=values.Server_ServerReconnectCount;
+								document.getElementById("Server_ServerReconnectInterval").value=values.Server_ServerReconnectInterval;
+								document.getElementById("Server_ServerAddress").value=values.Server_ServerAddress;
+								document.getElementById("Server_ServerPort").value=values.Server_ServerPort;
+								document.getElementById("Server_VisibleStatus").value=values.Server_VisibleStatus;
+								document.getElementById("Server_Network").value=values.Server_Network;
+								document.getElementById("Server_BackupServerMode").value=values.Server_BackupServerMode;
+								document.getElementById("Server_ForcedBackupServerAddress").value=values.Server_ForcedBackupServerAddress;
+								document.getElementById("Server_ForcedBackupServerPort").value=values.Server_ForcedBackupServerPort;
+								document.getElementById("Server_ForcedBackupServerNetwork").value=values.Server_ForcedBackupServerNetwork;
+								document.getElementById("Server_RxTxHookScript").value=values.Server_RxTxHookScript;
+								document.getElementById("Server_InvalidStaticPasswordScript").value=values.Server_InvalidStaticPasswordScript;
+								document.getElementById("Server_ProtoListFormat").value=values.Server_ProtoListFormat;
+								document.getElementById("Server_ProtoSpeakerInfo").value=values.Server_ProtoSpeakerInfo;
+								document.getElementById("Server_ProtoMessagesFromServer").value=values.Server_ProtoMessagesFromServer;
+								document.getElementById("Server_ProtoShortFrames").value=values.Server_ProtoShortFrames;
+								document.getElementById("Internet_PreferIPv4").value=values.Internet_PreferIPv4;
+								document.getElementById("Message_PrivateAutoResponse").value=values.Message_PrivateAutoResponse;
+								document.getElementById("Message_MessageHookScript").value=values.Message_MessageHookScript;
+								document.getElementById("System_WriteDir").value=values.System_WriteDir;
+								document.getElementById("System_CharsetName").value=values.System_CharsetName;
+								document.getElementById("System_PidFile").value=values.System_PidFile;
+								document.getElementById("System_LogFile").value=values.System_LogFile;
+								document.getElementById("System_LogControlSound").value=values.System_LogControlSound;
+								document.getElementById("System_LogExternalSound").value=values.System_LogExternalSound;
+								document.getElementById("System_LogClientList").value=values.System_LogClientList;
+								document.getElementById("System_LogCarrier").value=values.System_LogCarrier;
+								document.getElementById("System_LogTiming").value=values.System_LogTiming;
+								document.getElementById("System_LogBackupServerMode").value=values.System_LogBackupServerMode;
+								document.getElementById("System_LogCheckServer").value=values.System_LogCheckServer;
+								document.getElementById("System_LogDtmfTones").value=values.System_LogDtmfTones;
+								document.getElementById("System_LogDtmfCommands").value=values.System_LogDtmfCommands;
+								document.getElementById("System_LogClientListDelimiter").value=values.System_LogClientListDelimiter;
+								document.getElementById("System_LogCache").value=values.System_LogCache;
+								document.getElementById("System_LogPTT").value=values.System_LogPTT;
+								document.getElementById("System_LogExec").value=values.System_LogExec;
+								document.getElementById("System_LogRecorder").value=values.System_LogRecorder;
+								document.getElementById("Sounds_SoundsDir").value=values.Sounds_SoundsDir;
+								document.getElementById("Sounds_SoundCourtesy").value=values.Sounds_SoundCourtesy;
+								document.getElementById("Sounds_EnableCourtesy").value=values.Sounds_EnableCourtesy;
+								document.getElementById("Sounds_SoundCourtesyEmptyNet").value=values.Sounds_SoundCourtesyEmptyNet;
+								document.getElementById("Sounds_EnableCourtesyEmptyNet").value=values.Sounds_EnableCourtesyEmptyNet;
+								document.getElementById("Sounds_SoundRoger").value=values.Sounds_SoundRoger;
+								document.getElementById("Sounds_EnableRoger").value=values.Sounds_EnableRoger;
+								document.getElementById("Sounds_SoundNoConnection").value=values.Sounds_SoundNoConnection;
+								document.getElementById("Sounds_EnableNoConnection").value=values.Sounds_EnableNoConnection;
+								document.getElementById("Sounds_SoundReject").value=values.Sounds_SoundReject;
+								document.getElementById("Sounds_EnableReject").value=values.Sounds_EnableReject;
+								document.getElementById("Sounds_SoundError").value=values.Sounds_SoundError;
+								document.getElementById("Sounds_EnableError").value=values.Sounds_EnableError;
+								document.getElementById("Sounds_SoundRadioBOT").value=values.Sounds_SoundRadioBOT;
+								document.getElementById("Sounds_EnableRadioBOT").value=values.Sounds_EnableRadioBOT;
+								document.getElementById("Sounds_EnableConnect").value=values.Sounds_EnableConnect;
+								document.getElementById("Sounds_SoundConnect").value=values.Sounds_SoundConnect;
+								document.getElementById("Sounds_ConnectSoundCfgEnabled").value=values.Sounds_ConnectSoundCfgEnabled;
+								document.getElementById("Sounds_ConnectSoundCfgFileName").value=values.Sounds_ConnectSoundCfgFileName;
+								document.getElementById("Sounds_ConnectSoundExtEnabled").value=values.Sounds_ConnectSoundExtEnabled;
+								document.getElementById("Sounds_ConnectSoundExtScript").value=values.Sounds_ConnectSoundExtScript;
+								document.getElementById("Sounds_ConnectSoundExtDir").value=values.Sounds_ConnectSoundExtDir;
+								document.getElementById("Sounds_EnableServerBOT").value=values.Sounds_EnableServerBOT;
+								document.getElementById("Sounds_SoundServerBOT").value=values.Sounds_SoundServerBOT;
+								document.getElementById("Sounds_EnableServerEOT").value=values.Sounds_EnableServerEOT;
+								document.getElementById("Sounds_SoundServerEOT").value=values.Sounds_SoundServerEOT;
+								document.getElementById("Sounds_EnableDisconnect").value=values.Sounds_EnableDisconnect;
+								document.getElementById("Sounds_SoundDisconnect").value=values.Sounds_SoundDisconnect;
+								document.getElementById("Sounds_RogerSoundCfgEnabled").value=values.Sounds_RogerSoundCfgEnabled;
+								document.getElementById("Sounds_RogerSoundCfgFileName").value=values.Sounds_RogerSoundCfgFileName;
+								document.getElementById("Hours_Enabled").value=values.Hours_Enabled;
+								document.getElementById("Hours_Dir").value=values.Hours_Dir;
+								document.getElementById("Hours_Interval").value=values.Hours_Interval;
+								document.getElementById("Hours_Correction").value=values.Hours_Correction;
+								document.getElementById("Hours_ExtEnabled").value=values.Hours_ExtEnabled;
+								document.getElementById("Hours_ExtScript").value=values.Hours_ExtScript;
+								document.getElementById("Hours_ExtDir").value=values.Hours_ExtDir;
+								document.getElementById("Hours_ExtTempDir").value=values.Hours_ExtTempDir;
+								document.getElementById("Hours_TimeRange").value=values.Hours_TimeRange;
+								document.getElementById("Informer_Enabled").value=values.Informer_Enabled;
+								document.getElementById("Informer_Dir").value=values.Informer_Dir;
+								document.getElementById("Informer_Interval").value=values.Informer_Interval;
+								document.getElementById("Informer_Mode").value=values.Informer_Mode;
+								document.getElementById("Informer_SilenceEnabled").value=values.Informer_SilenceEnabled;
+								document.getElementById("Informer_SilenceInterval").value=values.Informer_SilenceInterval;
+								document.getElementById("Informer_SilenceTime").value=values.Informer_SilenceTime;
+								document.getElementById("Informer_ExtEnabled").value=values.Informer_ExtEnabled;
+								document.getElementById("Informer_ExtScript").value=values.Informer_ExtScript;
+								document.getElementById("Informer_ExtDir").value=values.Informer_ExtDir;
+								document.getElementById("Informer_ExtTempDir").value=values.Informer_ExtTempDir;
+								document.getElementById("Recorder_Enabled").value=values.Recorder_Enabled;
+								document.getElementById("Recorder_Dir").value=values.Recorder_Dir;
+								document.getElementById("Recorder_Direction").value=values.Recorder_Direction;
+								document.getElementById("Recorder_FileNameFormat").value=values.Recorder_FileNameFormat;
+								document.getElementById("Recorder_SubdirMode").value=values.Recorder_SubdirMode;
+								document.getElementById("Recorder_Script").value=values.Recorder_Script;
+								document.getElementById("Command_CommandEnabled").value=values.Command_CommandEnabled;
+								document.getElementById("Command_CommandPort").value=values.Command_CommandPort;
+								document.getElementById("Command_CommandIPVersion").value=values.Command_CommandIPVersion;
+								document.getElementById("Command_CommandPreferIPv4").value=values.Command_CommandPreferIPv4;
+								document.getElementById("Command_AmplitudeEnabled").value=values.Command_AmplitudeEnabled;
+								document.getElementById("Command_AmplitudePort").value=values.Command_AmplitudePort;
+							} else
+								document.getElementById(id).innerHTML=values.error;
+						}
+					}
+					gConfigs.open("GET","configs.json?"+Math.random(),true);
+					gConfigs.send();
+				}
+
+				function geStats(id) {
+					if (window.XMLHttpRequest)
+						gStats=new XMLHttpRequest();
+					else
+						gStats=new ActiveXObject("Microsoft.XMLHTTP");
+
+					gStats.onreadystatechange = function() {
+						if (gStats.readyState==4 && gStats.status==200) {
+							var result = gStats.responseText;
+							var values = JSON.parse(result);
+							if (!values.error) {
+								document.title='FRN Client Console - Dashboard ('+ values.callsign +')';
+								document.getElementById("statsCPUSpeed").innerHTML=values.cpuspeed;
+								document.getElementById("statsCPUTemp").innerHTML=values.cputemp;
+								document.getElementById("statsRAMFree").innerHTML=values.ramfree;
+								document.getElementById("statsRAMTotal").innerHTML=values.ramtotal;
+								document.getElementById("statsSYSLoad").innerHTML=values.load;
+								document.getElementById("statsSYSUptime").innerHTML=values.uptime;
+								document.getElementById("statsSYSHOST").innerHTML=values.host;
+								document.getElementById("statsSYSIP").innerHTML=values.ip;
+								document.getElementById("statsSYSPlatform").innerHTML="System: <b>"+ values.platform.toUpperCase() +"</b>";
+								document.getElementById("statsSYSTitle").innerHTML='FRN Client Console - Dashboard ('+ values.callsign +')';
+								document.getElementById("statsCFGHours").innerHTML=values.hours.toUpperCase();
+								document.getElementById("statsCFGInformer").innerHTML=values.informer.toUpperCase();
+								document.getElementById("statsCFGRecorder").innerHTML=values.recorder.toUpperCase();
+								document.getElementById("statsCFGCommand").innerHTML=values.command.toUpperCase();
+
+								var text = values.log;
+								var data = text.split(' | ').map(row => row.split('; ').map((cell, i) => "<td class='w3-border w3-border-black w3-theme-table w3-center'>"+ cell.replace(';', '') +"</td>").join('')).map(row => "<tr>"+ row +"</tr>").join('');
+								var html_out = "<table class='w3-table w3-striped w3-white'>";
+								html_out += "<tr>";
+								html_out += "<td class='w3-border w3-border-black w3-center w3-theme-light' style='width: 15%'><b>Date / Time</b></td>";
+								html_out += "<td class='w3-border w3-border-black w3-center w3-theme-light' style='width: 16%'><b>Callsign, Name</b></td>";
+								html_out += "<td class='w3-border w3-border-black w3-center w3-theme-light' style='width: 20%'><b>City</b></td>";
+								html_out += "<td class='w3-border w3-border-black w3-center w3-theme-light' style='width: 6%'><b>Mode</b></td>";
+								html_out += "<td class='w3-border w3-border-black w3-center w3-theme-light' style='width: 32%'><b>Description</b></td>";
+								html_out += "<td class='w3-border w3-border-black w3-center w3-theme-light' style='width: 11%'><b>Country</b></td>";
+								html_out += "</tr>";
+								html_out += data;
+								html_out += "<table>";
+
+								document.getElementById("statsLastLog").innerHTML=html_out;
+								document.getElementById("statsLastLog").deleteCell(1);
+							} else
+								document.getElementById(id).innerHTML=values.error;
+							setTimeout("geStats('output')",2000);
+						}
+					}
+
+					gStats.open("GET","stats.json?"+Math.random(),true);
+					gStats.send();
+				}
+
+				setTimeout("geConfigs('output')",1000);
+				setTimeout("geStats('output')",1000);
+			</script>
+		</body>
+	</html>
