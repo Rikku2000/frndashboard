@@ -19,7 +19,7 @@ import psutil
 from gpiozero import CPUTemperature
 import re
 
-config = configparser.ConfigParser()
+config = configparser.RawConfigParser()
 config.read(r'/home/pi/frnconsole.cfg')
 
 PASS = str(config['Auth']['Password'])
@@ -47,7 +47,7 @@ class MyHttpRequestHandler(http.server.SimpleHTTPRequestHandler):
                         'EMailAddress': str(fields.get('Auth_EMailAddress')).replace('[\'', '').replace('\']', ''), \
                         'City': str(fields.get('Auth_City')).replace('[\'', '').replace('\']', ''), \
                         'CityPart': str(fields.get('Auth_CityPart')).replace('[\'', '').replace('\']', ''), \
-                        'Password': str(fields.get('Auth_Password')).replace('[\'', '').replace('\']', ''), \
+#                        'Password': str(fields.get('Auth_Password')).replace('[\'', '').replace('\']', ''), \
                         'Country': str(fields.get('Auth_Country')).replace('[\'', '').replace('\']', ''), \
                         'Description': str(fields.get('Auth_Description')).replace('[\'', '').replace('\']', ''), \
                         'BandChannel': str(fields.get('Auth_BandChannel')).replace('[\'', '').replace('\']', ''), \
