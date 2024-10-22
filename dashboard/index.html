@@ -822,7 +822,15 @@
 					</div>
 
 					<div class="w3-col w3-padding m3">
-						<div class="w3-card w3-round w3-theme-dark w3-padding-large">
+						<div class="w3-card w3-round w3-theme-dark w3-padding">
+							<div class="w3-container">
+								<div class="w3-theme-light w3-border w3-border-black w3-padding">Master<b id="statsSYSMaster" class="w3-right">---</b></div>
+								<div class="w3-theme-light w3-border w3-border-black w3-padding">Target<b id="statsSYSTarget" class="w3-right">---</b></div>
+							</div>
+						</div>
+						</br>
+
+						<div class="w3-card w3-round w3-theme-dark w3-padding">
 							<div class="w3-container w3-center">
 								<h4 class="w3-center">System Security</h4>
 								<p>
@@ -832,8 +840,8 @@
 						</div>
 						</br>
 
-						<div class="w3-card w3-round w3-theme-dark w3-padding-large">
-							<div class="w3-container w3-center">
+						<div class="w3-card w3-round w3-theme-dark w3-padding">
+							<div class="w3-container">
 								<h4 id="statsSYSPlatform" class="w3-center">System: ---</h4>
 								<p>
 									<div class="w3-col w3-padding m6">
@@ -847,13 +855,15 @@
 						</div>
 						</br>
 
-						<div class="w3-card w3-round w3-theme-dark w3-padding-large">
+						<div class="w3-card w3-round w3-theme-dark w3-padding">
 							<div class="w3-container w3-center">
 								<h4 class="w3-center">FRN Client Console</h4>
 								<p>
-									<div onclick="getApi('output_info','/run/service/start/frnclientconsole','')" class="w3-button w3-block w3-theme-button w3-hover-theme-button">Start</div>
-									<div class="w3-col w3-padding m6">
+									<div class="w3-col w3-padding m12">
 										<div onclick="getApi('output','/run/service/restart/frnclientconsole','')" class="w3-button w3-block w3-theme-button w3-hover-theme-button">Restart</div>
+									</div>
+									<div class="w3-col w3-padding m6">
+										<div onclick="getApi('output_info','/run/service/start/frnclientconsole','')" class="w3-button w3-block w3-theme-button w3-hover-theme-button">Start</div>
 									</div>
 									<div class="w3-col w3-padding m6">
 										<div onclick="getApi('output','/run/service/stop/frnclientconsole','')" class="w3-button w3-block w3-theme-button w3-hover-theme-button">Stop</div>
@@ -1170,17 +1180,19 @@
 								document.getElementById("statsCFGInformer").innerHTML=values.informer.toUpperCase();
 								document.getElementById("statsCFGRecorder").innerHTML=values.recorder.toUpperCase();
 								document.getElementById("statsCFGCommand").innerHTML=values.command.toUpperCase();
+								document.getElementById("statsSYSMaster").innerHTML=values.master;
+								document.getElementById("statsSYSTarget").innerHTML=values.target;
 
 								var text = values.log;
 								var data = text.split(' | ').map(row => row.split('; ').map((cell, i) => (i == 0) ? "<td class='w3-border w3-border-black w3-theme-table w3-center'>"+ getDateTime(cell) +"</td>" : (i == 4) ? "<td class='w3-border w3-border-black w3-theme-table'>"+ cell.replace(';', '') +"</td>" : (i == 5) ? "<td class='w3-border w3-border-black w3-theme-table w3-center'>"+ getCountryCode(cell) +"</td>" : "<td class='w3-border w3-border-black w3-theme-table w3-center'>"+ cell.replace(';', '') +"</td>").join('')).map(row => "<tr>"+ row +"</tr>").join('');
 								var html_out = "<table class='w3-table w3-striped w3-white'>";
 								html_out += "<tr>";
-								html_out += "<td class='w3-border w3-border-black w3-center w3-theme-light' style='width: 15%'><b>Date / Time</b></td>";
+								html_out += "<td class='w3-border w3-border-black w3-center w3-theme-light' style='width: 13%'><b>Date / Time</b></td>";
 								html_out += "<td class='w3-border w3-border-black w3-center w3-theme-light' style='width: 16%'><b>Callsign, Name</b></td>";
 								html_out += "<td class='w3-border w3-border-black w3-center w3-theme-light' style='width: 20%'><b>City</b></td>";
-								html_out += "<td class='w3-border w3-border-black w3-center w3-theme-light' style='width: 6%'><b>Mode</b></td>";
-								html_out += "<td class='w3-border w3-border-black w3-center w3-theme-light' style='width: 36%'><b>Description</b></td>";
-								html_out += "<td class='w3-border w3-border-black w3-center w3-theme-light' style='width: 7%'><b>Country</b></td>";
+								html_out += "<td class='w3-border w3-border-black w3-center w3-theme-light' style='width: 7%'><b>Mode</b></td>";
+								html_out += "<td class='w3-border w3-border-black w3-center w3-theme-light' style='width: 38%'><b>Description</b></td>";
+								html_out += "<td class='w3-border w3-border-black w3-center w3-theme-light' style='width: 6%'><b>Country</b></td>";
 								html_out += "</tr>";
 								html_out += data;
 								html_out += "<table>";
