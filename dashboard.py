@@ -265,6 +265,8 @@ class MyHttpRequestHandler(http.server.SimpleHTTPRequestHandler):
             log_out = log_out.replace('\', \'', '')
             log_out = log_out.replace('\']', '')
             log_out = log_out.replace('RX; ', '')
+            log_out = log_out.replace('[gCLNT 5.03.0]', '')
+            log_out = log_out.replace('[gCLNT 4.09.0]', '')
             log_out = log_out[:-3]
             outputJson = {"platform":platform.system(),"ramfree":str(self.get_ramFree())+" MB","ramtotal":str(self.get_ramTotal())+" MB","cpuspeed":str(self.get_cpu_speed())+" MHz","cputemp":str(self.get_temperature())+" °C","cpuuse":str(self.get_cpu_use())+" %","load":str(self.get_load()),"host":str(self.get_host()),"ip":str(self.get_ipaddress()),"uptime":str(self.get_uptime()),"log":log_out,"callsign":str(config['Auth']['Callsign']),"hours":str(config['Hours']['Enabled']),"informer":str(config['Informer']['Enabled']),"recorder":str(config['Recorder']['Enabled']),"command":str(config['Command']['CommandEnabled'])}
             return self.wfile.write(bytes(json.dumps(outputJson), "utf-8"))
