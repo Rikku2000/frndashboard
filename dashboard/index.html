@@ -826,6 +826,7 @@
 							<div class="w3-container">
 								<div class="w3-theme-light w3-border w3-border-black w3-padding">Master<b id="statsSYSMaster" class="w3-right">---</b></div>
 								<div class="w3-theme-light w3-border w3-border-black w3-padding">Target<b id="statsSYSTarget" class="w3-right">---</b></div>
+								<div class="w3-theme-light w3-border w3-border-black w3-padding">Type<b id="statsSYSType" class="w3-right">---</b></div>
 							</div>
 						</div>
 						</br>
@@ -879,7 +880,7 @@
 				<p>
 					<small>
 						AlterFRN Client by Valery (<a class="w3-hover-text-theme" href="https://alterfrn.ucoz.ru/" target="_new">alterfrn.ucoz.ru</a>)</br>
-						- Dashboard © 13MAD86 / Martin | Version 0.2 (BETA) -</br>
+						- Dashboard © 13MAD86 / Martin | Version 0.3 (BETA) -</br>
 						powered by <a class="w3-hover-text-theme" href="http://www.sdr-mkk.de" target="_new">www.sdr-mkk.de</a>
 					</small>
 				</p>
@@ -1182,22 +1183,22 @@
 								document.getElementById("statsCFGCommand").innerHTML=values.command.toUpperCase();
 								document.getElementById("statsSYSMaster").innerHTML=values.master;
 								document.getElementById("statsSYSTarget").innerHTML=values.target;
+								document.getElementById("statsSYSType").innerHTML=values.type;
 
-								var text = values.log;
-								var data = text.split(' | ').map(row => row.split('; ').map((cell, i) => (i == 0) ? "<td class='w3-border w3-border-black w3-theme-table w3-center'>"+ getDateTime(cell) +"</td>" : (i == 4) ? "<td class='w3-border w3-border-black w3-theme-table'>"+ cell.replace(';', '') +"</td>" : (i == 5) ? "<td class='w3-border w3-border-black w3-theme-table w3-center'>"+ getCountryCode(cell) +"</td>" : "<td class='w3-border w3-border-black w3-theme-table w3-center'>"+ cell.replace(';', '') +"</td>").join('')).map(row => "<tr>"+ row +"</tr>").join('');
-								var html_out = "<table class='w3-table w3-striped w3-white'>";
-								html_out += "<tr>";
-								html_out += "<td class='w3-border w3-border-black w3-center w3-theme-light' style='width: 13%'><b>Date / Time</b></td>";
-								html_out += "<td class='w3-border w3-border-black w3-center w3-theme-light' style='width: 16%'><b>Callsign, Name</b></td>";
-								html_out += "<td class='w3-border w3-border-black w3-center w3-theme-light' style='width: 20%'><b>City</b></td>";
-								html_out += "<td class='w3-border w3-border-black w3-center w3-theme-light' style='width: 7%'><b>Mode</b></td>";
-								html_out += "<td class='w3-border w3-border-black w3-center w3-theme-light' style='width: 38%'><b>Description</b></td>";
-								html_out += "<td class='w3-border w3-border-black w3-center w3-theme-light' style='width: 6%'><b>Country</b></td>";
-								html_out += "</tr>";
-								html_out += data;
-								html_out += "<table>";
-
-								document.getElementById("statsLastLog").innerHTML=html_out;
+								var text_rx = values.log_rx;
+								var data = text_rx.split(' | ').map(row => row.split('; ').map((cell, i) => (i == 0) ? "<td class='w3-border w3-border-black w3-theme-table w3-center'>"+ getDateTime(cell) +"</td>" : (i == 4) ? "<td class='w3-border w3-border-black w3-theme-table'>"+ cell.replace(';', '') +"</td>" : (i == 5) ? "<td class='w3-border w3-border-black w3-theme-table w3-center'>"+ getCountryCode(cell) +"</td>" : "<td class='w3-border w3-border-black w3-theme-table w3-center'>"+ cell.replace(';', '') +"</td>").join('')).map(row => "<tr>"+ row +"</tr>").join('');
+								var html_out_rx = "<table class='w3-table w3-striped w3-white'>";
+								html_out_rx += "<tr>";
+								html_out_rx += "<td class='w3-border w3-border-black w3-center w3-theme-light' style='width: 13%'><b>Date / Time</b></td>";
+								html_out_rx += "<td class='w3-border w3-border-black w3-center w3-theme-light' style='width: 16%'><b>Callsign, Name</b></td>";
+								html_out_rx += "<td class='w3-border w3-border-black w3-center w3-theme-light' style='width: 20%'><b>City</b></td>";
+								html_out_rx += "<td class='w3-border w3-border-black w3-center w3-theme-light' style='width: 7%'><b>Mode</b></td>";
+								html_out_rx += "<td class='w3-border w3-border-black w3-center w3-theme-light' style='width: 38%'><b>Description</b></td>";
+								html_out_rx += "<td class='w3-border w3-border-black w3-center w3-theme-light' style='width: 6%'><b>Country</b></td>";
+								html_out_rx += "</tr>";
+								html_out_rx += data;
+								html_out_rx += "<table>";
+								document.getElementById("statsLastLog").innerHTML=html_out_rx;
 							} else
 								document.getElementById(id).innerHTML=values.error;
 							setTimeout("geStats('output')",2000);
