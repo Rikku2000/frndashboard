@@ -269,7 +269,27 @@ class MyHttpRequestHandler(http.server.SimpleHTTPRequestHandler):
             log_out_rx = log_out_rx.replace('[gCLNT 5.03.0]', '')
             log_out_rx = log_out_rx.replace('[gCLNT 4.09.0]', '')
             log_out_rx = log_out_rx[:-3]
-            outputJson = {"platform":platform.system(),"ramfree":str(self.get_ramFree())+" MB","ramtotal":str(self.get_ramTotal())+" MB","cpuspeed":str(self.get_cpu_speed())+" MHz","cputemp":str(self.get_temperature())+" °C","cpuuse":str(self.get_cpu_use())+" %","load":str(self.get_load()),"host":str(self.get_host()),"ip":str(self.get_ipaddress()),"uptime":str(self.get_uptime()),"log_rx":log_out_rx,"callsign":str(config['Auth']['Callsign']),"hours":str(config['Hours']['Enabled']),"informer":str(config['Informer']['Enabled']),"recorder":str(config['Recorder']['Enabled']),"command":str(config['Command']['CommandEnabled']),"master":str(config['Server']['ServerAddress']),"target":str(config['Auth']['BandChannel'])}
+            outputJson = { \
+                "platform":platform.system(), \
+                "ramfree":str(self.get_ramFree())+" MB", \
+                "ramtotal":str(self.get_ramTotal())+" MB", \
+                "cpuspeed":str(self.get_cpu_speed())+" MHz", \
+                "cputemp":str(self.get_temperature())+" °C", \
+                "cpuuse":str(self.get_cpu_use())+" %", \
+                "load":str(self.get_load()), \
+                "host":str(self.get_host()), \
+                "ip":str(self.get_ipaddress()), \
+                "uptime":str(self.get_uptime()), \
+                "log_rx":log_out_rx, \
+                "callsign":str(config['Auth']['Callsign']), \
+                "hours":str(config['Hours']['Enabled']), \
+                "informer":str(config['Informer']['Enabled']), \
+                "recorder":str(config['Recorder']['Enabled']), \
+                "command":str(config['Command']['CommandEnabled']), \
+                "master":str(config['Server']['ServerAddress']), \
+                "target":str(config['Auth']['BandChannel']), \
+                "type":str(config['Auth']['ClientType']) \
+                }
             return self.wfile.write(bytes(json.dumps(outputJson), "utf-8"))
         elif pathSection[1] == "configs.json":
             self.send_response(200)
