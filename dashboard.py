@@ -48,6 +48,7 @@ class MyHttpRequestHandler(http.server.SimpleHTTPRequestHandler):
                         'City': str(fields.get('Auth_City')).replace('[\'', '').replace('\']', ''), \
                         'CityPart': str(fields.get('Auth_CityPart')).replace('[\'', '').replace('\']', ''), \
 #                        'Password': str(fields.get('Auth_Password')).replace('[\'', '').replace('\']', ''), \
+                        'Password': str(config['Auth']['Password']), \
                         'Country': str(fields.get('Auth_Country')).replace('[\'', '').replace('\']', ''), \
                         'Description': str(fields.get('Auth_Description')).replace('[\'', '').replace('\']', ''), \
                         'BandChannel': str(fields.get('Auth_BandChannel')).replace('[\'', '').replace('\']', ''), \
@@ -260,15 +261,15 @@ class MyHttpRequestHandler(http.server.SimpleHTTPRequestHandler):
             self.send_response(200)
             self.send_header("Content-type", "application/json")
             self.end_headers()
-            log_out = str(self.get_log())
-            log_out = log_out.replace('[\'', '')
-            log_out = log_out.replace('\', \'', '')
-            log_out = log_out.replace('\']', '')
-            log_out = log_out.replace('RX; ', '')
-            log_out = log_out.replace('[gCLNT 5.03.0]', '')
-            log_out = log_out.replace('[gCLNT 4.09.0]', '')
-            log_out = log_out[:-3]
-            outputJson = {"platform":platform.system(),"ramfree":str(self.get_ramFree())+" MB","ramtotal":str(self.get_ramTotal())+" MB","cpuspeed":str(self.get_cpu_speed())+" MHz","cputemp":str(self.get_temperature())+" °C","cpuuse":str(self.get_cpu_use())+" %","load":str(self.get_load()),"host":str(self.get_host()),"ip":str(self.get_ipaddress()),"uptime":str(self.get_uptime()),"log":log_out,"callsign":str(config['Auth']['Callsign']),"hours":str(config['Hours']['Enabled']),"informer":str(config['Informer']['Enabled']),"recorder":str(config['Recorder']['Enabled']),"command":str(config['Command']['CommandEnabled']),"master":str(config['Server']['ServerAddress']),"target":str(config['Auth']['BandChannel'])}
+            log_out_rx = str(self.get_log_rx())
+            log_out_rx = log_out_rx.replace('[\'', '')
+            log_out_rx = log_out_rx.replace('\', \'', '')
+            log_out_rx = log_out_rx.replace('\']', '')
+            log_out_rx = log_out_rx.replace('RX; ', '')
+            log_out_rx = log_out_rx.replace('[gCLNT 5.03.0]', '')
+            log_out_rx = log_out_rx.replace('[gCLNT 4.09.0]', '')
+            log_out_rx = log_out_rx[:-3]
+            outputJson = {"platform":platform.system(),"ramfree":str(self.get_ramFree())+" MB","ramtotal":str(self.get_ramTotal())+" MB","cpuspeed":str(self.get_cpu_speed())+" MHz","cputemp":str(self.get_temperature())+" °C","cpuuse":str(self.get_cpu_use())+" %","load":str(self.get_load()),"host":str(self.get_host()),"ip":str(self.get_ipaddress()),"uptime":str(self.get_uptime()),"log_rx":log_out_rx,"callsign":str(config['Auth']['Callsign']),"hours":str(config['Hours']['Enabled']),"informer":str(config['Informer']['Enabled']),"recorder":str(config['Recorder']['Enabled']),"command":str(config['Command']['CommandEnabled']),"master":str(config['Server']['ServerAddress']),"target":str(config['Auth']['BandChannel'])}
             return self.wfile.write(bytes(json.dumps(outputJson), "utf-8"))
         elif pathSection[1] == "configs.json":
             self.send_response(200)
@@ -281,7 +282,6 @@ class MyHttpRequestHandler(http.server.SimpleHTTPRequestHandler):
                 "Auth_City":str(config['Auth']['City']), \
                 "Auth_CityPart":str(config['Auth']['CityPart']), \
 #                "Auth_Password":str(config['Auth']['Password']), \
-                "Auth_Password":"", \
                 "Auth_Country":str(config['Auth']['Country']), \
                 "Auth_Description":str(config['Auth']['Description']), \
                 "Auth_BandChannel":str(config['Auth']['BandChannel']), \
@@ -530,7 +530,7 @@ class MyHttpRequestHandler(http.server.SimpleHTTPRequestHandler):
         except:
             return "n/a"
 
-    def get_log(self):
+    def get_log_rx(self):
         log = []
 
         with open(r'/home/pi/frnclientconsole.log', 'r') as fp:
