@@ -18,6 +18,7 @@ import json
 import psutil
 from gpiozero import CPUTemperature
 import re
+import socket
 
 config = configparser.RawConfigParser()
 config.read(r'/home/pi/frnconsole.cfg')
@@ -226,7 +227,7 @@ class MyHttpRequestHandler(http.server.SimpleHTTPRequestHandler):
                     output += "<title>FRN Client Console</title>"
                     output += "<meta http-equiv='refresh' content='3; url=index.html'>"
                     output += "</head>"
-                    output += "<body bgcolor='#000000' text='#16C60C'>"
+                    output += "<body bgcolor='#000000' text='#88E22E'>"
                     output += "<b>FRN Client Console:</b><p style='color: #cccccc;'>Config saved successfully! You will redirect to home after a few seconds.</p>"
                     output += "</br></br>"
                     output += "</body>"
@@ -239,7 +240,7 @@ class MyHttpRequestHandler(http.server.SimpleHTTPRequestHandler):
                     output += "<title>FRN Client Console</title>"
                     output += "<meta http-equiv='refresh' content='3; url=index.html'>"
                     output += "</head>"
-                    output += "<body bgcolor='#000000' text='#16C60C'>"
+                    output += "<body bgcolor='#000000' text='#88E22E'>"
                     output += "<b>FRN Client Console:</b><p style='color: #cccccc;'>Wrong password! You will redirect to home after a few seconds.</p>"
                     output += "</body>"
                     output += "</html>"
@@ -261,6 +262,7 @@ class MyHttpRequestHandler(http.server.SimpleHTTPRequestHandler):
             self.send_response(200)
             self.send_header("Content-type", "application/json")
             self.end_headers()
+
             log_out_rx = str(self.get_log_rx())
             log_out_rx = log_out_rx.replace('[\'', '')
             log_out_rx = log_out_rx.replace('\', \'', '')
@@ -269,6 +271,7 @@ class MyHttpRequestHandler(http.server.SimpleHTTPRequestHandler):
             log_out_rx = log_out_rx.replace('[gCLNT 5.03.0]', '')
             log_out_rx = log_out_rx.replace('[gCLNT 4.09.0]', '')
             log_out_rx = log_out_rx[:-3]
+
             outputJson = { \
                 "platform":platform.system(), \
                 "ramfree":str(self.get_ramFree())+" MB", \
@@ -483,7 +486,7 @@ class MyHttpRequestHandler(http.server.SimpleHTTPRequestHandler):
             output += "<title>FRN Client Console</title>"
             output += "<meta http-equiv='refresh' content='3; url=index.html'>"
             output += "</head>"
-            output += "<body bgcolor='#000000' text='#16C60C'>"
+            output += "<body bgcolor='#000000' text='#88E22E'>"
             output += "<b>FRN Client Console:</b><p style='color: #cccccc;'>Document requested is not found! You will redirect to home after a few seconds.</p>"
             output += "</body>"
             output += "</html>"
