@@ -15,6 +15,8 @@
 			<link rel="stylesheet" href="w3.css">
 			<link rel="stylesheet" href="custom.css">
 			<style>
+				.rpi-pink { color:#000!important;background-color:#F92672!important }
+				.rpi-green { color:#000!important;background-color:#88E22E!important }
 				.config { display: none; }
 			</style>
 		</head>
@@ -824,7 +826,7 @@
 					<div class="w3-col w3-padding m3">
 						<div class="w3-card w3-round w3-theme-dark w3-padding">
 							<div class="w3-container">
-								<div class="w3-theme-light w3-border w3-border-black w3-padding">Master<b id="statsSYSMaster" class="w3-right">---</b></div>
+								<div id="statsSYSStatus" class="w3-theme-light w3-border w3-border-black w3-padding">Master<b id="statsSYSMaster" class="w3-right">---</b></div>
 								<div class="w3-theme-light w3-border w3-border-black w3-padding">Target<b id="statsSYSTarget" class="w3-right">---</b></div>
 								<div class="w3-theme-light w3-border w3-border-black w3-padding">Type<b id="statsSYSType" class="w3-right">---</b></div>
 							</div>
@@ -1155,21 +1157,17 @@
 								document.title='FRN Client Console - Dashboard ('+ values.callsign +')';
 								document.getElementById("statsCPUSpeed").innerHTML=values.cpuspeed;
 								document.getElementById("statsCPUTab").classList.remove("w3-theme-light");
-								if (values.cpuspeed > "40")
-									document.getElementById("statsCPUTab").classList.add("w3-red");
-								else if (values.cpuspeed > "40")
-									document.getElementById("statsCPUTab").classList.add("w3-yellow");
-								else if (values.cpuspeed < "40")
-									document.getElementById("statsCPUTab").classList.add("w3-green");
+								if (values.cpuspeed > "55")
+									document.getElementById("statsCPUTab").classList.add("rpi-pink");
+								else if (values.cpuspeed < "55")
+									document.getElementById("statsCPUTab").classList.add("rpi-green");
 								document.getElementById("statsCPUTemp").innerHTML=values.cputemp;
 								document.getElementById("statsRAMFree").innerHTML=values.ramfree;
 								document.getElementById("statsRAMTab").classList.remove("w3-theme-light");
 								if (values.ramfree > "900")
-									document.getElementById("statsRAMTab").classList.add("w3-red");
-								else if (values.ramfree > "850")
-									document.getElementById("statsRAMTab").classList.add("w3-yellow");
+									document.getElementById("statsRAMTab").classList.add("rpi-pink");
 								else if (values.ramfree < "850")
-									document.getElementById("statsRAMTab").classList.add("w3-green");
+									document.getElementById("statsRAMTab").classList.add("rpi-green");
 								document.getElementById("statsRAMTotal").innerHTML=values.ramtotal;
 								document.getElementById("statsSYSLoad").innerHTML=values.load;
 								document.getElementById("statsSYSUptime").innerHTML=values.uptime;
@@ -1184,6 +1182,13 @@
 								document.getElementById("statsSYSMaster").innerHTML=values.master;
 								document.getElementById("statsSYSTarget").innerHTML=values.target;
 								document.getElementById("statsSYSType").innerHTML=values.type;
+
+								document.getElementById("statsSYSStatus").classList.remove("w3-theme-light");
+								fetch (values.master, {mode: 'no-cors'}).then(r=>{
+									document.getElementById("statsSYSStatus").classList.add("rpi-green");
+								}).catch(e=>{
+									document.getElementById("statsSYSStatus").classList.add("rpi-pink");
+								});
 
 								var text_rx = values.log_rx;
 								var data = text_rx.split(' | ').map(row => row.split('; ').map((cell, i) => (i == 0) ? "<td class='w3-border w3-border-black w3-theme-table w3-center'>"+ getDateTime(cell) +"</td>" : (i == 4) ? "<td class='w3-border w3-border-black w3-theme-table'>"+ cell.replace(';', '') +"</td>" : (i == 5) ? "<td class='w3-border w3-border-black w3-theme-table w3-center'>"+ getCountryCode(cell) +"</td>" : "<td class='w3-border w3-border-black w3-theme-table w3-center'>"+ cell.replace(';', '') +"</td>").join('')).map(row => "<tr>"+ row +"</tr>").join('');
@@ -1201,6 +1206,7 @@
 								document.getElementById("statsLastLog").innerHTML=html_out_rx;
 							} else
 								document.getElementById(id).innerHTML=values.error;
+
 							setTimeout("geStats('output')",2000);
 						}
 					}
