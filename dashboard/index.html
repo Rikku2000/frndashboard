@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 	<html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" lang="en">
 		<head>
-			<title>FRN Client Console - Dashboard</title>
+			<title>FRN Client Console</title>
 			<meta charset="UTF-8">
 			<meta name="viewport" content="width=device-width, initial-scale=1">
 			<meta name="robots" content="index" />
@@ -17,39 +17,53 @@
 			<style>
 				.rpi-pink { color:#000!important;background-color:#F92672!important }
 				.rpi-green { color:#000!important;background-color:#88E22E!important }
-				.config { display: none; }
+				.rpi-text-pink { color:#F92672!important }
+				.rpi-text-green { color:#88E22E!important }
+				.menu { display:block; }
+				.menu .receiving, .menu .config, .menu .transmission { display:none; }
+				.menu .receiving:target, .menu .config:target, .menu .transmission:target { display:block; }
 			</style>
 		</head>
-		<body class="w3-theme-light">
+		<body class="w3-theme-light menu">
 			<div class="w3-top">
 				<div class="w3-bar w3-theme-dark w3-left-align w3-large">
-					<a href="index.html" class="w3-bar-item w3-button w3-padding-large w3-theme-dark w3-hover-theme-dark w3-hover-text-theme"><span id="statsSYSTitle">FRN Client Console - Dashboard</span></a>
-					<a class="w3-bar-item w3-button w3-padding-large w3-theme-dark w3-hover-theme-dark w3-hover-text-theme w3-right" href="javascript:void(0);" onclick="openConfig()">Config</a>
+					<a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-theme-dark w3-hover-text-theme" href="javascript:void(0);" onclick="openMenu()">Menu</a>
+					<a class="w3-bar-item w3-button w3-padding-large w3-theme-dark w3-hover-theme-dark w3-hover-text-theme thickbox" href="index.html"><span id="statsSYSTitle">FRN Client Console</span></a>
+					<div class="w3-dropdown-hover w3-right w3-hide-small">
+						<a class="w3-bar-item w3-button w3-padding-large w3-theme-dark w3-hover-theme-dark w3-hover-text-theme w3-right" href="#config"><span id="statsSYSTitle">Config</a>
+						<a class="w3-bar-item w3-button w3-padding-large w3-theme-dark w3-hover-theme-dark w3-hover-text-theme w3-right" href="#transmission"><span id="statsSYSTitle">Transmission</u></a>
+						<a class="w3-bar-item w3-button w3-padding-large w3-theme-dark w3-hover-theme-dark w3-hover-text-theme w3-right" href="#receiving"><span id="statsSYSTitle">Receiving</a>
+					</div>
+				</div>
+				<div id="w3-menu" class="w3-bar-block w3-theme-dark w3-hide w3-hide-large w3-hide-medium w3-large">
+					<a class="w3-bar-item w3-button w3-padding-large w3-hover-theme-dark w3-hover-text-theme" href="#receiving">Receiving</a>
+					<a class="w3-bar-item w3-button w3-padding-large w3-hover-theme-dark w3-hover-text-theme" href="#transmission">Transmission</a>
+					<a class="w3-bar-item w3-button w3-padding-large w3-hover-theme-dark w3-hover-text-theme" href="#config">Config</a>
 				</div>
 			</div>
 
 			<div class="w3-container w3-content w3-scrollbar" style="max-width: 100%; margin-top: 60px; margin-bottom: 80px">
 				<div class="w3-row">
 					<div class="w3-col w3-padding m12">
-						<div class="w3-card w3-round w3-theme-dark w3-padding-large">
+						<div class="w3-card w3-round-large w3-theme-dark w3-padding-large">
 							<table class="w3-table w3-striped w3-white">
 								<tr>
 									<td class="w3-border w3-border-black w3-center w3-theme-light" id="statsCPUTab" style="width: 20%">
 										CPU Speed: <b id="statsCPUSpeed">--- MHz</b> (<b id="statsCPUTemp">-- °C</b>)
 									</td>
-									<td class="w3-border w3-border-black w3-center w3-theme-light" style="width: 13%">
+									<td class="w3-border w3-border-black w3-center w3-theme-light w3-hide-small" style="width: 13%">
 										CPU Load: <b id="statsSYSLoad">x.xx, x.xx, x.xx</b>
 									</td>
 									<td class="w3-border w3-border-black w3-center w3-theme-light" id="statsRAMTab" style="width: 17%">
 										RAM Use: <b id="statsRAMFree">--- MB</b> / <b id="statsRAMTotal">--- MB</b>
 									</td>
-									<td class="w3-border w3-border-black w3-center w3-theme-light" style="width: 15%">
+									<td class="w3-border w3-border-black w3-center w3-theme-light w3-hide-small" style="width: 15%">
 										Host: <b id="statsSYSHOST">---</b>
 									</td>
-									<td class="w3-border w3-border-black w3-center w3-theme-light" style="width: 12%">
+									<td class="w3-border w3-border-black w3-center w3-theme-light w3-hide-small" style="width: 12%">
 										IP: <b id="statsSYSIP">xxx.xxx.xxx.xxx</b>
 									</td>
-									<td class="w3-border w3-border-black w3-center w3-theme-light" style="width: 18%">
+									<td class="w3-border w3-border-black w3-center w3-theme-light w3-hide-small" style="width: 18%">
 										Uptime: <b id="statsSYSUptime">Up xx Days, xx Hours</b>
 									</td>
 								</tr>
@@ -63,14 +77,14 @@
 						</div>
 						</br>
 
-						<div id="frn_dashboard" class="w3-show">
-							<div class="w3-card w3-round w3-theme-dark w3-padding-large">
-								<b>Activities</b>
-								<p><div id="statsLastLog">---</div></p>
+						<div class="receiving" id="receiving">
+							<div class="w3-card w3-round-large w3-theme-dark w3-padding-large">
+								<b>Receiving</b>
+								<p><div id="statsLastLogRX">---</div></p>
 							</div>
 							</br>
 
-							<div class="w3-container w3-card w3-round w3-theme-dark w3-padding-large">
+							<div class="w3-container w3-card w3-round-large w3-theme-dark w3-padding-large">
 								<b>Plugin</b>
 								<p><table class="w3-table w3-striped w3-white">
 									<tr>
@@ -91,732 +105,754 @@
 							</div>
 						</div>
 
-						<div id="frn_config" class="w3-hide">
+						<div class="transmission" id="transmission">
+								<div class="w3-card w3-round-large w3-theme-dark w3-padding-large">
+									<b>Transmission</b>
+									<p><div id="statsLastLogTX">---</div></p>
+								</div>
+						</div>
+
+						<div class="config" id="config">
 							<form method='POST' enctype='multipart/form-data' action='/config'>
-								<div class="w3-container w3-card w3-round w3-theme-dark w3-padding-large">
-									<b class="w3-hover-text-theme collapsible" style="cursor: pointer;">Auth</b>
-									<div class="config"><p>
-										<div class="w3-row-padding">
-											<div class="w3-col w3-padding m6">
-												<label>Callsign</label>
-												<input class="w3-input w3-border w3-grey w3-border-black" id="Auth_Callsign" name="Auth_Callsign" type="text" placeholder="">
-											</div>
-											<div class="w3-col w3-padding m6">
-												<label>Operator Name</label>
-												<input class="w3-input w3-border w3-grey w3-border-black" id="Auth_OperatorName" name="Auth_OperatorName" type="text" placeholder="">
-											</div>
-											<div class="w3-col w3-padding m6">
-												<label>EMail Address</label>
-												<input class="w3-input w3-border w3-grey w3-border-black" id="Auth_EMailAddress" name="Auth_EMailAddress" type="text" placeholder="">
-											</div>
-											<div class="w3-col w3-padding m6">
-												<label>City</label>
-												<input class="w3-input w3-border w3-grey w3-border-black" id="Auth_City" name="Auth_City" type="text" placeholder="">
-											</div>
-											<div class="w3-col w3-padding m6">
-												<label>City Part</label>
-												<input class="w3-input w3-border w3-grey w3-border-black" id="Auth_CityPart" name="Auth_CityPart" type="text" placeholder="">
-											</div>
-											<!-- <div class="w3-col w3-padding m6">
-												<label>Password</label>
-												<input class="w3-input w3-border w3-grey w3-border-black" id="Auth_Password" name="Auth_Password" type="text" placeholder="">
-											</div> -->
-											<div class="w3-col w3-padding m6">
-												<label>Country</label>
-												<input class="w3-input w3-border w3-grey w3-border-black" id="Auth_Country" name="Auth_Country" type="text" placeholder="">
-											</div>
-											<div class="w3-col w3-padding m6">
-												<label>Description</label>
-												<input class="w3-input w3-border w3-grey w3-border-black" id="Auth_Description" name="Auth_Description" type="text" placeholder="">
-											</div>
-											<div class="w3-col w3-padding m6">
-												<label>Band Channel</label>
-												<input class="w3-input w3-border w3-grey w3-border-black" id="Auth_BandChannel" name="Auth_BandChannel" type="text" placeholder="">
-											</div>
-											<div class="w3-col w3-padding m6">
-												<label>Client Type</label>
-												<input class="w3-input w3-border w3-grey w3-border-black" id="Auth_ClientType" name="Auth_ClientType" type="text" placeholder="">
-											</div>
-											<div class="w3-col w3-padding m6">
-												<label>Charset Name</label>
-												<input class="w3-input w3-border w3-grey w3-border-black" id="Auth_CharsetName" name="Auth_CharsetName" type="text" placeholder="">
-											</div>
-										</div>
-									</p></div>
-								</div>
-								</br>
-
-								<div class="w3-container w3-card w3-round w3-theme-dark w3-padding-large">
-									<b class="w3-hover-text-theme collapsible" style="cursor: pointer;">Audio</b>
-									<div class="config"><p>
-										<div class="w3-row-padding">
-											<div class="w3-col w3-padding m6">
-												<label>In Device</label>
-												<input class="w3-input w3-border w3-grey w3-border-black" id="Audio_InDevice" name="Audio_InDevice" type="text" placeholder="">
-											</div>
-											<div class="w3-col w3-padding m6">
-												<label>In Sample Rate</label>
-												<input class="w3-input w3-border w3-grey w3-border-black" id="Audio_InSampleRate" name="Audio_InSampleRate" type="text" placeholder="">
-											</div>
-											<div class="w3-col w3-padding m6">
-												<label>In Quality</label>
-												<input class="w3-input w3-border w3-grey w3-border-black" id="Audio_InQuality" name="Audio_InQuality" type="text" placeholder="">
-											</div>
-											<div class="w3-col w3-padding m6">
-												<label>In Factor</label>
-												<input class="w3-input w3-border w3-grey w3-border-black" id="Audio_InFactor" name="Audio_InFactor" type="text" placeholder="">
-											</div>
-											<div class="w3-col w3-padding m6">
-												<label>In Pre Captured Time</label>
-												<input class="w3-input w3-border w3-grey w3-border-black" id="Audio_InPreCapturedTime" name="Audio_InPreCapturedTime" type="text" placeholder="">
-											</div>
-											<div class="w3-col w3-padding m6">
-												<label>In Agc Enabled</label>
-												<input class="w3-input w3-border w3-grey w3-border-black" id="Audio_InAgcEnabled" name="Audio_InAgcEnabled" type="text" placeholder="">
-											</div>
-											<div class="w3-col w3-padding m6">
-												<label>In Agc Level</label>
-												<input class="w3-input w3-border w3-grey w3-border-black" id="Audio_InAgcLevel" name="Audio_InAgcLevel" type="text" placeholder="">
-											</div>
-											<div class="w3-col w3-padding m6">
-												<label>In Agc Max Gain</label>
-												<input class="w3-input w3-border w3-grey w3-border-black" id="Audio_InAgcMaxGain" name="Audio_InAgcMaxGain" type="text" placeholder="">
-											</div>
-											<div class="w3-col w3-padding m6">
-												<label>In Hpf Enabled</label>
-												<input class="w3-input w3-border w3-grey w3-border-black" id="Audio_InHpfEnabled" name="Audio_InHpfEnabled" type="text" placeholder="">
-											</div>
-											<div class="w3-col w3-padding m6">
-												<label>In Hpf Order</label>
-												<input class="w3-input w3-border w3-grey w3-border-black" id="Audio_InHpfOrder" name="Audio_InHpfOrder" type="text" placeholder="">
-											</div>
-											<div class="w3-col w3-padding m6">
-												<label>In Dtmf Enabled</label>
-												<input class="w3-input w3-border w3-grey w3-border-black" id="Audio_InDtmfEnabled" name="Audio_InDtmfEnabled" type="text" placeholder="">
-											</div>
-											<div class="w3-col w3-padding m6">
-												<label>Out Device</label>
-												<input class="w3-input w3-border w3-grey w3-border-black" id="Audio_OutDevice" name="Audio_OutDevice" type="text" placeholder="">
-											</div>
-											<div class="w3-col w3-padding m6">
-												<label>Out Sample Rate</label>
-												<input class="w3-input w3-border w3-grey w3-border-black" id="Audio_OutSampleRate" name="Audio_OutSampleRate" type="text" placeholder="">
-											</div>
-											<div class="w3-col w3-padding m6">
-												<label>Out Quality</label>
-												<input class="w3-input w3-border w3-grey w3-border-black" id="Audio_OutQuality" name="Audio_OutQuality" type="text" placeholder="">
-											</div>
-											<div class="w3-col w3-padding m6">
-												<label>Out Factor</label>
-												<input class="w3-input w3-border w3-grey w3-border-black" id="Audio_OutFactor" name="Audio_OutFactor" type="text" placeholder="">
-											</div>
-											<div class="w3-col w3-padding m6">
-												<label>Out Agc Enabled</label>
-												<input class="w3-input w3-border w3-grey w3-border-black" id="Audio_OutAgcEnabled" name="Audio_OutAgcEnabled" type="text" placeholder="">
-											</div>
-											<div class="w3-col w3-padding m6">
-												<label>Out Agc Level</label>
-												<input class="w3-input w3-border w3-grey w3-border-black" id="Audio_OutAgcLevel" name="Audio_OutAgcLevel" type="text" placeholder="">
-											</div>
-											<div class="w3-col w3-padding m6">
-												<label>Out Agc Max Gain</label>
-												<input class="w3-input w3-border w3-grey w3-border-black" id="Audio_OutAgcMaxGain" name="Audio_OutAgcMaxGain" type="text" placeholder="">
-											</div>
-											<div class="w3-col w3-padding m6">
-												<label>Out Hpf Enabled</label>
-												<input class="w3-input w3-border w3-grey w3-border-black" id="Audio_OutHpfEnabled" name="Audio_OutHpfEnabled" type="text" placeholder="">
-											</div>
-											<div class="w3-col w3-padding m6">
-												<label>Out Hpf Order</label>
-												<input class="w3-input w3-border w3-grey w3-border-black" id="Audio_OutHpfOrder" name="Audio_OutHpfOrder" type="text" placeholder="">
-											</div>
-											<div class="w3-col w3-padding m6">
-												<label>Out Delay Const</label>
-												<input class="w3-input w3-border w3-grey w3-border-black" id="Audio_OutDelayConst" name="Audio_OutDelayConst" type="text" placeholder="">
-											</div>
-											<div class="w3-col w3-padding m6">
-												<label>Re Init Audio Engine</label>
-												<input class="w3-input w3-border w3-grey w3-border-black" id="Audio_ReInitAudioEngine" name="Audio_ReInitAudioEngine" type="text" placeholder="">
-											</div>
-										</div>
-									</p></div>
-								</div>
-								</br>
-
-								<div class="w3-container w3-card w3-round w3-theme-dark w3-padding-large">
-									<b class="w3-hover-text-theme collapsible" style="cursor: pointer;">Radio</b>
-									<div class="config"><p>
-										<div class="w3-row-padding">
-											<div class="w3-col w3-padding m6">
-												<label>Ptt Enabled</label>
-												<input class="w3-input w3-border w3-grey w3-border-black" id="Radio_PttEnabled" name="Radio_PttEnabled" type="text" placeholder="">
-											</div>
-											<div class="w3-col w3-padding m6">
-												<label>Cos Enabled</label>
-												<input class="w3-input w3-border w3-grey w3-border-black" id="Radio_CosEnabled" name="Radio_CosEnabled" type="text" placeholder="">
-											</div>
-											<div class="w3-col w3-padding m6">
-												<label>PTT</label>
-												<input class="w3-input w3-border w3-grey w3-border-black" id="Radio_PTT" name="Radio_PTT" type="text" placeholder="">
-											</div>
-											<div class="w3-col w3-padding m6">
-												<label>COS</label>
-												<input class="w3-input w3-border w3-grey w3-border-black" id="Radio_COS" name="Radio_COS" type="text" placeholder="">
-											</div>
-											<div class="w3-col w3-padding m6">
-												<label>LIGHT</label>
-												<input class="w3-input w3-border w3-grey w3-border-black" id="Radio_LIGHT" name="Radio_LIGHT" type="text" placeholder="">
-											</div>
-											<div class="w3-col w3-padding m6">
-												<label>STATIC</label>
-												<input class="w3-input w3-border w3-grey w3-border-black" id="Radio_STATIC" name="Radio_STATIC" type="text" placeholder="">
-											</div>
-											<div class="w3-col w3-padding m6">
-												<label>CONNECT</label>
-												<input class="w3-input w3-border w3-grey w3-border-black" id="Radio_CONNECT" name="Radio_CONNECT" type="text" placeholder="">
-											</div>
-											<div class="w3-col w3-padding m6">
-												<label>CTCSS Wake Time</label>
-												<input class="w3-input w3-border w3-grey w3-border-black" id="Radio_CTCSSWakeTime" name="Radio_CTCSSWakeTime" type="text" placeholder="">
-											</div>
-											<div class="w3-col w3-padding m6">
-												<label>Carrier Catch Time</label>
-												<input class="w3-input w3-border w3-grey w3-border-black" id="Radio_CarrierCatchTime" name="Radio_CarrierCatchTime" type="text" placeholder="">
-											</div>
-											<div class="w3-col w3-padding m6">
-												<label>Carrier Lost Time</label>
-												<input class="w3-input w3-border w3-grey w3-border-black" id="Radio_CarrierLostTime" name="Radio_CarrierLostTime" type="text" placeholder="">
-											</div>
-											<div class="w3-col w3-padding m6">
-												<label>Squelch Settling Time</label>
-												<input class="w3-input w3-border w3-grey w3-border-black" id="Radio_SquelchSettlingTime" name="Radio_SquelchSettlingTime" type="text" placeholder="">
-											</div>
-											<div class="w3-col w3-padding m6">
-												<label>Dtmf Timeout</label>
-												<input class="w3-input w3-border w3-grey w3-border-black" id="Radio_DtmfTimeout" name="Radio_DtmfTimeout" type="text" placeholder="">
-											</div>
-											<div class="w3-col w3-padding m6">
-												<label>Dtmf Commands</label>
-												<input class="w3-input w3-border w3-grey w3-border-black" id="Radio_DtmfCommands" name="Radio_DtmfCommands" type="text" placeholder="">
-											</div>
-											<div class="w3-col w3-padding m6">
-												<label>Id No Sound List File Name</label>
-												<input class="w3-input w3-border w3-grey w3-border-black" id="Radio_IdNoSoundListFileName" name="Radio_IdNoSoundListFileName" type="text" placeholder="">
-											</div>
-										</div>
-									</p></div>
-								</div>
-								</br>
-
-								<div class="w3-container w3-card w3-round w3-theme-dark w3-padding-large">
-									<b class="w3-hover-text-theme collapsible" style="cursor: pointer;">Manager</b>
-									<div class="config"><p>
-										<div class="w3-row-padding">
-											<div class="w3-col w3-padding m6">
-												<label>Manager Address</label>
-												<input class="w3-input w3-border w3-grey w3-border-black" id="Manager_ManagerAddress" name="Manager_ManagerAddress" type="text" placeholder="">
-											</div>
-											<div class="w3-col w3-padding m6">
-												<label>Manager Port</label>
-												<input class="w3-input w3-border w3-grey w3-border-black" id="Manager_ManagerPort" name="Manager_ManagerPort" type="text" placeholder="">
-											</div>
-											<div class="w3-col w3-padding m6">
-												<label>Dynamic Password Mode</label>
-												<input class="w3-input w3-border w3-grey w3-border-black" id="Manager_DynamicPasswordMode" name="Manager_DynamicPasswordMode" type="text" placeholder="">
-											</div>
-										</div>
-									</p></div>
-								</div>
-								</br>
-
-								<div class="w3-container w3-card w3-round w3-theme-dark w3-padding-large">
-									<b class="w3-hover-text-theme collapsible" style="cursor: pointer;">Server</b>
-									<div class="config"><p>
-										<div class="w3-row-padding">
-											<div class="w3-col w3-padding m6">
-												<label>Server Reconnect Count</label>
-												<input class="w3-input w3-border w3-grey w3-border-black" id="Server_ServerReconnectCount" name="Server_ServerReconnectCount" type="text" placeholder="">
-											</div>
-											<div class="w3-col w3-padding m6">
-												<label>Server Reconnect Interval</label>
-												<input class="w3-input w3-border w3-grey w3-border-black" id="Server_ServerReconnectInterval" name="Server_ServerReconnectInterval" type="text" placeholder="">
-											</div>
-											<div class="w3-col w3-padding m6">
-												<label>Server Address</label>
-												<input class="w3-input w3-border w3-grey w3-border-black" id="Server_ServerAddress" name="Server_ServerAddress" type="text" placeholder="">
-											</div>
-											<div class="w3-col w3-padding m6">
-												<label>Server Port</label>
-												<input class="w3-input w3-border w3-grey w3-border-black" id="Server_ServerPort" name="Server_ServerPort" type="text" placeholder="">
-											</div>
-											<div class="w3-col w3-padding m6">
-												<label>Visible Status</label>
-												<input class="w3-input w3-border w3-grey w3-border-black" id="Server_VisibleStatus" name="Server_VisibleStatus" type="text" placeholder="">
-											</div>
-											<div class="w3-col w3-padding m6">
-												<label>Network</label>
-												<input class="w3-input w3-border w3-grey w3-border-black" id="Server_Network" name="Server_Network" type="text" placeholder="">
-											</div>
-											<div class="w3-col w3-padding m6">
-												<label>Backup Server Mode</label>
-												<input class="w3-input w3-border w3-grey w3-border-black" id="Server_BackupServerMode" name="Server_BackupServerMode" type="text" placeholder="">
-											</div>
-											<div class="w3-col w3-padding m6">
-												<label>Forced Backup Server Address</label>
-												<input class="w3-input w3-border w3-grey w3-border-black" id="Server_ForcedBackupServerAddress" name="Server_ForcedBackupServerAddress" type="text" placeholder="">
-											</div>
-											<div class="w3-col w3-padding m6">
-												<label>Forced Backup Server Port</label>
-												<input class="w3-input w3-border w3-grey w3-border-black" id="Server_ForcedBackupServerPort" name="Server_ForcedBackupServerPort" type="text" placeholder="">
-											</div>
-											<div class="w3-col w3-padding m6">
-												<label>Forced Backup Server Network</label>
-												<input class="w3-input w3-border w3-grey w3-border-black" id="Server_ForcedBackupServerNetwork" name="Server_ForcedBackupServerNetwork" type="text" placeholder="">
-											</div>
-											<div class="w3-col w3-padding m6">
-												<label>Rx Tx Hook Script</label>
-												<input class="w3-input w3-border w3-grey w3-border-black" id="Server_RxTxHookScript" name="Server_RxTxHookScript" type="text" placeholder="">
-											</div>
-											<div class="w3-col w3-padding m6">
-												<label>Invalid Static Password Script</label>
-												<input class="w3-input w3-border w3-grey w3-border-black" id="Server_InvalidStaticPasswordScript" name="Server_InvalidStaticPasswordScript" type="text" placeholder="">
-											</div>
-											<div class="w3-col w3-padding m6">
-												<label>Proto List Format</label>
-												<input class="w3-input w3-border w3-grey w3-border-black" id="Server_ProtoListFormat" name="Server_ProtoListFormat" type="text" placeholder="">
-											</div>
-											<div class="w3-col w3-padding m6">
-												<label>Proto Speaker Info</label>
-												<input class="w3-input w3-border w3-grey w3-border-black" id="Server_ProtoSpeakerInfo" name="Server_ProtoSpeakerInfo" type="text" placeholder="">
-											</div>
-											<div class="w3-col w3-padding m6">
-												<label>Proto Messages From Server</label>
-												<input class="w3-input w3-border w3-grey w3-border-black" id="Server_ProtoMessagesFromServer" name="Server_ProtoMessagesFromServer" type="text" placeholder="">
-											</div>
-											<div class="w3-col w3-padding m6">
-												<label>Proto Short Frames</label>
-												<input class="w3-input w3-border w3-grey w3-border-black" id="Server_ProtoShortFrames" name="Server_ProtoShortFrames" type="text" placeholder="">
-											</div>
-										</div>
-									</p></div>
-								</div>
-								</br>
-
-								<div class="w3-container w3-card w3-round w3-theme-dark w3-padding-large">
-									<b class="w3-hover-text-theme collapsible" style="cursor: pointer;">Internet</b>
-									<div class="config"><p>
-										<div class="w3-row-padding">
-											<div class="w3-col w3-padding m6">
-												<label>Prefer IPv4</label>
-												<input class="w3-input w3-border w3-grey w3-border-black" id="Internet_PreferIPv4" name="Internet_PreferIPv4" type="text" placeholder="">
-											</div>
-										</div>
-									</p></div>
-								</div>
-								</br>
-
-								<div class="w3-container w3-card w3-round w3-theme-dark w3-padding-large">
-									<b class="w3-hover-text-theme collapsible" style="cursor: pointer;">Message</b>
-									<div class="config"><p>
-										<div class="w3-row-padding">
-											<div class="w3-col w3-padding m6">
-												<label>Private Auto Response</label>
-												<input class="w3-input w3-border w3-grey w3-border-black" id="Message_PrivateAutoResponse" name="Message_PrivateAutoResponse" type="text" placeholder="">
-											</div>
-											<div class="w3-col w3-padding m6">
-												<label>Message Hook Script</label>
-												<input class="w3-input w3-border w3-grey w3-border-black" id="Message_MessageHookScript" name="Message_MessageHookScript" type="text" placeholder="">
-											</div>
-										</div>
-									</p></div>
-								</div>
-								</br>
-
-								<div class="w3-container w3-card w3-round w3-theme-dark w3-padding-large">
-									<b class="w3-hover-text-theme collapsible" style="cursor: pointer;">System</b>
-									<div class="config"><p>
-										<div class="w3-row-padding">
-											<div class="w3-col w3-padding m6">
-												<label>Write Dir</label>
-												<input class="w3-input w3-border w3-grey w3-border-black" id="System_WriteDir" name="System_WriteDir" type="text" placeholder="">
-											</div>
-											<div class="w3-col w3-padding m6">
-												<label>Charset Name</label>
-												<input class="w3-input w3-border w3-grey w3-border-black" id="System_CharsetName" name="System_CharsetName" type="text" placeholder="">
-											</div>
-											<div class="w3-col w3-padding m6">
-												<label>Pid File</label>
-												<input class="w3-input w3-border w3-grey w3-border-black" id="System_PidFile" name="System_PidFile" type="text" placeholder="">
-											</div>
-											<div class="w3-col w3-padding m6">
-												<label>Log File</label>
-												<input class="w3-input w3-border w3-grey w3-border-black" id="System_LogFile" name="System_LogFile" type="text" placeholder="">
-											</div>
-											<div class="w3-col w3-padding m6">
-												<label>Log Control Sound</label>
-												<input class="w3-input w3-border w3-grey w3-border-black" id="System_LogControlSound" name="System_LogControlSound" type="text" placeholder="">
-											</div>
-											<div class="w3-col w3-padding m6">
-												<label>Log External Sound</label>
-												<input class="w3-input w3-border w3-grey w3-border-black" id="System_LogExternalSound" name="System_LogExternalSound" type="text" placeholder="">
-											</div>
-											<div class="w3-col w3-padding m6">
-												<label>Log Client List</label>
-												<input class="w3-input w3-border w3-grey w3-border-black" id="System_LogClientList" name="System_LogClientList" type="text" placeholder="">
-											</div>
-											<div class="w3-col w3-padding m6">
-												<label>Log Carrier</label>
-												<input class="w3-input w3-border w3-grey w3-border-black" id="System_LogCarrier" name="System_LogCarrier" type="text" placeholder="">
-											</div>
-											<div class="w3-col w3-padding m6">
-												<label>Log Timing</label>
-												<input class="w3-input w3-border w3-grey w3-border-black" id="System_LogTiming" name="System_LogTiming" type="text" placeholder="">
-											</div>
-											<div class="w3-col w3-padding m6">
-												<label>Log Backup Server Mode</label>
-												<input class="w3-input w3-border w3-grey w3-border-black" id="System_LogBackupServerMode" name="System_LogBackupServerMode" type="text" placeholder="">
-											</div>
-											<div class="w3-col w3-padding m6">
-												<label>Log Check Server</label>
-												<input class="w3-input w3-border w3-grey w3-border-black" id="System_LogCheckServer" name="System_LogCheckServer" type="text" placeholder="">
-											</div>
-											<div class="w3-col w3-padding m6">
-												<label>Log Dtmf Tones</label>
-												<input class="w3-input w3-border w3-grey w3-border-black" id="System_LogDtmfTones" name="System_LogDtmfTones" type="text" placeholder="">
-											</div>
-											<div class="w3-col w3-padding m6">
-												<label>Log Dtmf Commands</label>
-												<input class="w3-input w3-border w3-grey w3-border-black" id="System_LogDtmfCommands" name="System_LogDtmfCommands" type="text" placeholder="">
-											</div>
-											<div class="w3-col w3-padding m6">
-												<label>Log Client List Delimiter</label>
-												<input class="w3-input w3-border w3-grey w3-border-black" id="System_LogClientListDelimiter" name="System_LogClientListDelimiter" type="text" placeholder="">
-											</div>
-											<div class="w3-col w3-padding m6">
-												<label>Log Cache</label>
-												<input class="w3-input w3-border w3-grey w3-border-black" id="System_LogCache" name="System_LogCache" type="text" placeholder="">
-											</div>
-											<div class="w3-col w3-padding m6">
-												<label>Log PTT</label>
-												<input class="w3-input w3-border w3-grey w3-border-black" id="System_LogPTT" name="System_LogPTT" type="text" placeholder="">
-											</div>
-											<div class="w3-col w3-padding m6">
-												<label>Log Exec</label>
-												<input class="w3-input w3-border w3-grey w3-border-black" id="System_LogExec" name="System_LogExec" type="text" placeholder="">
-											</div>
-											<div class="w3-col w3-padding m6">
-												<label>Log Recorder</label>
-												<input class="w3-input w3-border w3-grey w3-border-black" id="System_LogRecorder" name="System_LogRecorder" type="text" placeholder="">
-											</div>
-										</div>
-									</p></div>
-								</div>
-								</br>
-
-								<div class="w3-container w3-card w3-round w3-theme-dark w3-padding-large">
-									<b class="w3-hover-text-theme collapsible" style="cursor: pointer;">Sounds</b>
-									<div class="config"><p>
-										<div class="w3-row-padding">
-											<div class="w3-col w3-padding m6">
-												<label>Sounds Dir</label>
-												<input class="w3-input w3-border w3-grey w3-border-black" id="Sounds_SoundsDir" name="Sounds_SoundsDir" type="text" placeholder="">
-											</div>
-											<div class="w3-col w3-padding m6">
-												<label>Sound Courtesy</label>
-												<input class="w3-input w3-border w3-grey w3-border-black" id="Sounds_SoundCourtesy" name="Sounds_SoundCourtesy" type="text" placeholder="">
-											</div>
-											<div class="w3-col w3-padding m6">
-												<label>Enable Courtesy</label>
-												<input class="w3-input w3-border w3-grey w3-border-black" id="Sounds_EnableCourtesy" name="Sounds_EnableCourtesy" type="text" placeholder="">
-											</div>
-											<div class="w3-col w3-padding m6">
-												<label>Sound Courtesy Empty Net</label>
-												<input class="w3-input w3-border w3-grey w3-border-black" id="Sounds_SoundCourtesyEmptyNet" name="Sounds_SoundCourtesyEmptyNet" type="text" placeholder="">
-											</div>
-											<div class="w3-col w3-padding m6">
-												<label>Enable Courtesy Empty Net</label>
-												<input class="w3-input w3-border w3-grey w3-border-black" id="Sounds_EnableCourtesyEmptyNet" name="Sounds_EnableCourtesyEmptyNet" type="text" placeholder="">
-											</div>
-											<div class="w3-col w3-padding m6">
-												<label>Sound Roger</label>
-												<input class="w3-input w3-border w3-grey w3-border-black" id="Sounds_SoundRoger" name="Sounds_SoundRoger" type="text" placeholder="">
-											</div>
-											<div class="w3-col w3-padding m6">
-												<label>Enable Roger</label>
-												<input class="w3-input w3-border w3-grey w3-border-black" id="Sounds_EnableRoger" name="Sounds_EnableRoger" type="text" placeholder="">
-											</div>
-											<div class="w3-col w3-padding m6">
-												<label>Sound No Connection</label>
-												<input class="w3-input w3-border w3-grey w3-border-black" id="Sounds_SoundNoConnection" name="Sounds_SoundNoConnection" type="text" placeholder="">
-											</div>
-											<div class="w3-col w3-padding m6">
-												<label>Enable No Connection</label>
-												<input class="w3-input w3-border w3-grey w3-border-black" id="Sounds_EnableNoConnection" name="Sounds_EnableNoConnection" type="text" placeholder="">
-											</div>
-											<div class="w3-col w3-padding m6">
-												<label>Sound Reject</label>
-												<input class="w3-input w3-border w3-grey w3-border-black" id="Sounds_SoundReject" name="Sounds_SoundReject" type="text" placeholder="">
-											</div>
-											<div class="w3-col w3-padding m6">
-												<label>Enable Reject</label>
-												<input class="w3-input w3-border w3-grey w3-border-black" id="Sounds_EnableReject" name="Sounds_EnableReject" type="text" placeholder="">
-											</div>
-											<div class="w3-col w3-padding m6">
-												<label>Sound Error</label>
-												<input class="w3-input w3-border w3-grey w3-border-black" id="Sounds_SoundError" name="Sounds_SoundError" type="text" placeholder="">
-											</div>
-											<div class="w3-col w3-padding m6">
-												<label>Enable Error</label>
-												<input class="w3-input w3-border w3-grey w3-border-black" id="Sounds_EnableError" name="Sounds_EnableError" type="text" placeholder="">
-											</div>
-											<div class="w3-col w3-padding m6">
-												<label>Sound Radio BOT</label>
-												<input class="w3-input w3-border w3-grey w3-border-black" id="Sounds_SoundRadioBOT" name="Sounds_SoundRadioBOT" type="text" placeholder="">
-											</div>
-											<div class="w3-col w3-padding m6">
-												<label>Enable Radio BOT</label>
-												<input class="w3-input w3-border w3-grey w3-border-black" id="Sounds_EnableRadioBOT" name="Sounds_EnableRadioBOT" type="text" placeholder="">
-											</div>
-											<div class="w3-col w3-padding m6">
-												<label>Enable Connect</label>
-												<input class="w3-input w3-border w3-grey w3-border-black" id="Sounds_EnableConnect" name="Sounds_EnableConnect" type="text" placeholder="">
-											</div>
-											<div class="w3-col w3-padding m6">
-												<label>Sound Connect</label>
-												<input class="w3-input w3-border w3-grey w3-border-black" id="Sounds_SoundConnect" name="Sounds_SoundConnect" type="text" placeholder="">
-											</div>
-											<div class="w3-col w3-padding m6">
-												<label>Connect Sound Cfg Enabled</label>
-												<input class="w3-input w3-border w3-grey w3-border-black" id="Sounds_ConnectSoundCfgEnabled" name="Sounds_ConnectSoundCfgEnabled" type="text" placeholder="">
-											</div>
-											<div class="w3-col w3-padding m6">
-												<label>Connect Sound Cfg File Name</label>
-												<input class="w3-input w3-border w3-grey w3-border-black" id="Sounds_ConnectSoundCfgFileName" name="Sounds_ConnectSoundCfgFileName" type="text" placeholder="">
-											</div>
-											<div class="w3-col w3-padding m6">
-												<label>Connect Sound Ext Enabled</label>
-												<input class="w3-input w3-border w3-grey w3-border-black" id="Sounds_ConnectSoundExtEnabled" name="Sounds_ConnectSoundExtEnabled" type="text" placeholder="">
-											</div>
-											<div class="w3-col w3-padding m6">
-												<label>Connect Sound Ext Script</label>
-												<input class="w3-input w3-border w3-grey w3-border-black" id="Sounds_ConnectSoundExtScript" name="Sounds_ConnectSoundExtScript" type="text" placeholder="">
-											</div>
-											<div class="w3-col w3-padding m6">
-												<label>Connect Sound Ext Dir</label>
-												<input class="w3-input w3-border w3-grey w3-border-black" id="Sounds_ConnectSoundExtDir" name="Sounds_ConnectSoundExtDir" type="text" placeholder="">
-											</div>
-											<div class="w3-col w3-padding m6">
-												<label>Enable Server BOT</label>
-												<input class="w3-input w3-border w3-grey w3-border-black" id="Sounds_EnableServerBOT" name="Sounds_EnableServerBOT" type="text" placeholder="">
-											</div>
-											<div class="w3-col w3-padding m6">
-												<label>Sound Server BOT</label>
-												<input class="w3-input w3-border w3-grey w3-border-black" id="Sounds_SoundServerBOT" name="Sounds_SoundServerBOT" type="text" placeholder="">
-											</div>
-											<div class="w3-col w3-padding m6">
-												<label>Enable Server EOT</label>
-												<input class="w3-input w3-border w3-grey w3-border-black" id="Sounds_EnableServerEOT" name="Sounds_EnableServerEOT" type="text" placeholder="">
-											</div>
-											<div class="w3-col w3-padding m6">
-												<label>Sound Server EOT</label>
-												<input class="w3-input w3-border w3-grey w3-border-black" id="Sounds_SoundServerEOT" name="Sounds_SoundServerEOT" type="text" placeholder="">
-											</div>
-											<div class="w3-col w3-padding m6">
-												<label>Enable Disconnect</label>
-												<input class="w3-input w3-border w3-grey w3-border-black" id="Sounds_EnableDisconnect" name="Sounds_EnableDisconnect" type="text" placeholder="">
-											</div>
-											<div class="w3-col w3-padding m6">
-												<label>Sound Disconnect</label>
-												<input class="w3-input w3-border w3-grey w3-border-black" id="Sounds_SoundDisconnect" name="Sounds_SoundDisconnect" type="text" placeholder="">
-											</div>
-											<div class="w3-col w3-padding m6">
-												<label>Roger Sound Cfg Enabled</label>
-												<input class="w3-input w3-border w3-grey w3-border-black" id="Sounds_RogerSoundCfgEnabled" name="Sounds_RogerSoundCfgEnabled" type="text" placeholder="">
-											</div>
-											<div class="w3-col w3-padding m6">
-												<label>Roger Sound Cfg File Name</label>
-												<input class="w3-input w3-border w3-grey w3-border-black" id="Sounds_RogerSoundCfgFileName" name="Sounds_RogerSoundCfgFileName" type="text" placeholder="">
-											</div>
-										</div>
-									</p></div>
-								</div>
-								</br>
-
-								<div class="w3-container w3-card w3-round w3-theme-dark w3-padding-large">
-									<b class="w3-hover-text-theme collapsible" style="cursor: pointer;">Hours</b>
-									<div class="config"><p>
-										<div class="w3-row-padding">
-											<div class="w3-col w3-padding m6">
-												<label>Enabled</label>
-												<input class="w3-input w3-border w3-grey w3-border-black" id="Hours_Enabled" name="Hours_Enabled" type="text" placeholder="">
-											</div>
-											<div class="w3-col w3-padding m6">
-												<label>Dir</label>
-												<input class="w3-input w3-border w3-grey w3-border-black" id="Hours_Dir" name="Hours_Dir" type="text" placeholder="">
-											</div>
-											<div class="w3-col w3-padding m6">
-												<label>Interval</label>
-												<input class="w3-input w3-border w3-grey w3-border-black" id="Hours_Interval" name="Hours_Interval" type="text" placeholder="">
-											</div>
-											<div class="w3-col w3-padding m6">
-												<label>Correction</label>
-												<input class="w3-input w3-border w3-grey w3-border-black" id="Hours_Correction" name="Hours_Correction" type="text" placeholder="">
-											</div>
-											<div class="w3-col w3-padding m6">
-												<label>Ext Enabled</label>
-												<input class="w3-input w3-border w3-grey w3-border-black" id="Hours_ExtEnabled" name="Hours_ExtEnabled" type="text" placeholder="">
-											</div>
-											<div class="w3-col w3-padding m6">
-												<label>Ext Script</label>
-												<input class="w3-input w3-border w3-grey w3-border-black" id="Hours_ExtScript" name="Hours_ExtScript" type="text" placeholder="">
-											</div>
-											<div class="w3-col w3-padding m6">
-												<label>Ext Dir</label>
-												<input class="w3-input w3-border w3-grey w3-border-black" id="Hours_ExtDir" name="Hours_ExtDir" type="text" placeholder="">
-											</div>
-											<div class="w3-col w3-padding m6">
-												<label>Ext Temp Dir</label>
-												<input class="w3-input w3-border w3-grey w3-border-black" id="Hours_ExtTempDir" name="Hours_ExtTempDir" type="text" placeholder="">
-											</div>
-											<div class="w3-col w3-padding m6">
-												<label>Time Range</label>
-												<input class="w3-input w3-border w3-grey w3-border-black" id="Hours_TimeRange" name="Hours_TimeRange" type="text" placeholder="">
-											</div>
-										</div>
-									</p></div>
-								</div>
-								</br>
-
-								<div class="w3-container w3-card w3-round w3-theme-dark w3-padding-large">
-									<b class="w3-hover-text-theme collapsible" style="cursor: pointer;">Informer</b>
-									<div class="config"><p>
-										<div class="w3-row-padding">
-											<div class="w3-col w3-padding m6">
-												<label>Enabled</label>
-												<input class="w3-input w3-border w3-grey w3-border-black" id="Informer_Enabled" name="Informer_Enabled" type="text" placeholder="">
-											</div>
-											<div class="w3-col w3-padding m6">
-												<label>Dir</label>
-												<input class="w3-input w3-border w3-grey w3-border-black" id="Informer_Dir" name="Informer_Dir" type="text" placeholder="">
-											</div>
-											<div class="w3-col w3-padding m6">
-												<label>Interval</label>
-												<input class="w3-input w3-border w3-grey w3-border-black" id="Informer_Interval" name="Informer_Interval" type="text" placeholder="">
-											</div>
-											<div class="w3-col w3-padding m6">
-												<label>Mode</label>
-												<input class="w3-input w3-border w3-grey w3-border-black" id="Informer_Mode" name="Informer_Mode" type="text" placeholder="">
-											</div>
-											<div class="w3-col w3-padding m6">
-												<label>Silence Enabled</label>
-												<input class="w3-input w3-border w3-grey w3-border-black" id="Informer_SilenceEnabled" name="Informer_SilenceEnabled" type="text" placeholder="">
-											</div>
-											<div class="w3-col w3-padding m6">
-												<label>Silence Interval</label>
-												<input class="w3-input w3-border w3-grey w3-border-black" id="Informer_SilenceInterval" name="Informer_SilenceInterval" type="text" placeholder="">
-											</div>
-											<div class="w3-col w3-padding m6">
-												<label>Silence Time</label>
-												<input class="w3-input w3-border w3-grey w3-border-black" id="Informer_SilenceTime" name="Informer_SilenceTime" type="text" placeholder="">
-											</div>
-											<div class="w3-col w3-padding m6">
-												<label>Ext Enabled</label>
-												<input class="w3-input w3-border w3-grey w3-border-black" id="Informer_ExtEnabled" name="Informer_ExtEnabled" type="text" placeholder="">
-											</div>
-											<div class="w3-col w3-padding m6">
-												<label>Ext Script</label>
-												<input class="w3-input w3-border w3-grey w3-border-black" id="Informer_ExtScript" name="Informer_ExtScript" type="text" placeholder="">
-											</div>
-											<div class="w3-col w3-padding m6">
-												<label>Ext Dir</label>
-												<input class="w3-input w3-border w3-grey w3-border-black" id="Informer_ExtDir" name="Informer_ExtDir" type="text" placeholder="">
-											</div>
-											<div class="w3-col w3-padding m6">
-												<label>Ext Temp Dir</label>
-												<input class="w3-input w3-border w3-grey w3-border-black" id="Informer_ExtTempDir" name="Informer_ExtTempDir" type="text" placeholder="">
-											</div>
-										</div>
-									</p></div>
-								</div>
-								</br>
-
-								<div class="w3-container w3-card w3-round w3-theme-dark w3-padding-large">
-									<b class="w3-hover-text-theme collapsible" style="cursor: pointer;">Recorder</b>
-									<div class="config"><p>
-										<div class="w3-row-padding">
-											<div class="w3-col w3-padding m6">
-												<label>Enabled</label>
-												<input class="w3-input w3-border w3-grey w3-border-black" id="Recorder_Enabled" name="Recorder_Enabled" type="text" placeholder="">
-											</div>
-											<div class="w3-col w3-padding m6">
-												<label>Dir</label>
-												<input class="w3-input w3-border w3-grey w3-border-black" id="Recorder_Dir" name="Recorder_Dir" type="text" placeholder="">
-											</div>
-											<div class="w3-col w3-padding m6">
-												<label>Direction</label>
-												<input class="w3-input w3-border w3-grey w3-border-black" id="Recorder_Direction" name="Recorder_Direction" type="text" placeholder="">
-											</div>
-											<div class="w3-col w3-padding m6">
-												<label>File Name Format</label>
-												<input class="w3-input w3-border w3-grey w3-border-black" id="Recorder_FileNameFormat" name="Recorder_FileNameFormat" type="text" placeholder="">
-											</div>
-											<div class="w3-col w3-padding m6">
-												<label>Subdir Mode</label>
-												<input class="w3-input w3-border w3-grey w3-border-black" id="Recorder_SubdirMode" name="Recorder_SubdirMode" type="text" placeholder="">
-											</div>
-											<div class="w3-col w3-padding m6">
-												<label>Script</label>
-												<input class="w3-input w3-border w3-grey w3-border-black" id="Recorder_Script" name="Recorder_Script" type="text" placeholder="">
-											</div>
-										</div>
-									</p></div>
-								</div>
-								</br>
-
-								<div class="w3-container w3-card w3-round w3-theme-dark w3-padding-large">
-									<b class="w3-hover-text-theme collapsible" style="cursor: pointer;">Command</b>
-									<div class="config"><p>
-										<div class="w3-row-padding">
-											<div class="w3-col w3-padding m6">
-												<label>Enabled</label>
-												<input class="w3-input w3-border w3-grey w3-border-black" id="Command_CommandEnabled" name="Command_CommandEnabled" type="text" placeholder="">
-											</div>
-											<div class="w3-col w3-padding m6">
-												<label>Port</label>
-												<input class="w3-input w3-border w3-grey w3-border-black" id="Command_CommandPort" name="Command_CommandPort" type="text" placeholder="">
-											</div>
-											<div class="w3-col w3-padding m6">
-												<label>IP Version</label>
-												<input class="w3-input w3-border w3-grey w3-border-black" id="Command_CommandIPVersion" name="Command_CommandIPVersion" type="text" placeholder="">
-											</div>
-											<div class="w3-col w3-padding m6">
-												<label>Prefer IPv4</label>
-												<input class="w3-input w3-border w3-grey w3-border-black" id="Command_CommandPreferIPv4" name="Command_CommandPreferIPv4" type="text" placeholder="">
-											</div>
-											<div class="w3-col w3-padding m6">
-												<label>Amplitude Enabled</label>
-												<input class="w3-input w3-border w3-grey w3-border-black" id="Command_AmplitudeEnabled" name="Command_AmplitudeEnabled" type="text" placeholder="">
-											</div>
-											<div class="w3-col w3-padding m6">
-												<label>Amplitude Port</label>
-												<input class="w3-input w3-border w3-grey w3-border-black" id="Command_AmplitudePort" name="Command_AmplitudePort" type="text" placeholder="">
-											</div>
-										</div>
-									</p></div>
-								</div>
-								</br>
-
-								<div class="w3-container w3-card w3-round w3-theme-dark w3-padding-large">
-									<div class="w3-col w3-padding w3-center m12">
-										Reboot the device after submit config!
+								<div class="w3-col w3-padding m6">
+									<div class="w3-container w3-card w3-round-large w3-theme-dark w3-padding-large">
+										<b class="w3-hover-text-theme collapsible" style="cursor: pointer;">Auth</b>
+										<div class="config"><p>
+											<div class="w3-row-padding">
+												<div class="w3-col w3-padding m6">
+													<label>Callsign</label>
+													<input class="w3-input w3-border w3-grey w3-border-black" id="Auth_Callsign" name="Auth_Callsign" type="text" placeholder="">
+												</div>
+												<div class="w3-col w3-padding m6">
+													<label>Operator Name</label>
+													<input class="w3-input w3-border w3-grey w3-border-black" id="Auth_OperatorName" name="Auth_OperatorName" type="text" placeholder="">
+												</div>
+												<div class="w3-col w3-padding m6">
+													<label>EMail Address</label>
+													<input class="w3-input w3-border w3-grey w3-border-black" id="Auth_EMailAddress" name="Auth_EMailAddress" type="text" placeholder="">
+												</div>
+												<div class="w3-col w3-padding m6">
+													<label>City</label>
+													<input class="w3-input w3-border w3-grey w3-border-black" id="Auth_City" name="Auth_City" type="text" placeholder="">
+												</div>
+												<div class="w3-col w3-padding m6">
+													<label>City Part</label>
+													<input class="w3-input w3-border w3-grey w3-border-black" id="Auth_CityPart" name="Auth_CityPart" type="text" placeholder="">
+												</div>
+												<!-- <div class="w3-col w3-padding m6">
+													<label>Password</label>
+													<input class="w3-input w3-border w3-grey w3-border-black" id="Auth_Password" name="Auth_Password" type="text" placeholder="">
+												</div> -->
+												<div class="w3-col w3-padding m6">
+													<label>Country</label>
+													<input class="w3-input w3-border w3-grey w3-border-black" id="Auth_Country" name="Auth_Country" type="text" placeholder="">
+												</div>
+												<div class="w3-col w3-padding m6">
+													<label>Description</label>
+													<input class="w3-input w3-border w3-grey w3-border-black" id="Auth_Description" name="Auth_Description" type="text" placeholder="">
+												</div>
+												<div class="w3-col w3-padding m6">
+													<label>Band Channel</label>
+													<input class="w3-input w3-border w3-grey w3-border-black" id="Auth_BandChannel" name="Auth_BandChannel" type="text" placeholder="">
+												</div>
+												<div class="w3-col w3-padding m6">
+													<label>Client Type</label>
+													<input class="w3-input w3-border w3-grey w3-border-black" id="Auth_ClientType" name="Auth_ClientType" type="text" placeholder="">
+												</div>
+												<div class="w3-col w3-padding m6">
+													<label>Charset Name</label>
+													<input class="w3-input w3-border w3-grey w3-border-black" id="Auth_CharsetName" name="Auth_CharsetName" type="text" placeholder="">
+												</div>
+											</div>
+										</p></div>
 									</div>
-									<div class="w3-col w3-padding w3-center m6">
-										<label>Current Password</label>
-										<input class="w3-input w3-border w3-grey w3-border-black" id="config_password" name="config_password" type="password" placeholder="">
+								</div>
+
+								<div class="w3-col w3-padding m6">
+									<div class="w3-container w3-card w3-round-large w3-theme-dark w3-padding-large">
+										<b class="w3-hover-text-theme collapsible" style="cursor: pointer;">Audio</b>
+										<div class="config"><p>
+											<div class="w3-row-padding">
+												<div class="w3-col w3-padding m6">
+													<label>In Device</label>
+													<input class="w3-input w3-border w3-grey w3-border-black" id="Audio_InDevice" name="Audio_InDevice" type="text" placeholder="">
+												</div>
+												<div class="w3-col w3-padding m6">
+													<label>In Sample Rate</label>
+													<input class="w3-input w3-border w3-grey w3-border-black" id="Audio_InSampleRate" name="Audio_InSampleRate" type="text" placeholder="">
+												</div>
+												<div class="w3-col w3-padding m6">
+													<label>In Quality</label>
+													<input class="w3-input w3-border w3-grey w3-border-black" id="Audio_InQuality" name="Audio_InQuality" type="text" placeholder="">
+												</div>
+												<div class="w3-col w3-padding m6">
+													<label>In Factor</label>
+													<input class="w3-input w3-border w3-grey w3-border-black" id="Audio_InFactor" name="Audio_InFactor" type="text" placeholder="">
+												</div>
+												<div class="w3-col w3-padding m6">
+													<label>In Pre Captured Time</label>
+													<input class="w3-input w3-border w3-grey w3-border-black" id="Audio_InPreCapturedTime" name="Audio_InPreCapturedTime" type="text" placeholder="">
+												</div>
+												<div class="w3-col w3-padding m6">
+													<label>In Agc Enabled</label>
+													<input class="w3-input w3-border w3-grey w3-border-black" id="Audio_InAgcEnabled" name="Audio_InAgcEnabled" type="text" placeholder="">
+												</div>
+												<div class="w3-col w3-padding m6">
+													<label>In Agc Level</label>
+													<input class="w3-input w3-border w3-grey w3-border-black" id="Audio_InAgcLevel" name="Audio_InAgcLevel" type="text" placeholder="">
+												</div>
+												<div class="w3-col w3-padding m6">
+													<label>In Agc Max Gain</label>
+													<input class="w3-input w3-border w3-grey w3-border-black" id="Audio_InAgcMaxGain" name="Audio_InAgcMaxGain" type="text" placeholder="">
+												</div>
+												<div class="w3-col w3-padding m6">
+													<label>In Hpf Enabled</label>
+													<input class="w3-input w3-border w3-grey w3-border-black" id="Audio_InHpfEnabled" name="Audio_InHpfEnabled" type="text" placeholder="">
+												</div>
+												<div class="w3-col w3-padding m6">
+													<label>In Hpf Order</label>
+													<input class="w3-input w3-border w3-grey w3-border-black" id="Audio_InHpfOrder" name="Audio_InHpfOrder" type="text" placeholder="">
+												</div>
+												<div class="w3-col w3-padding m6">
+													<label>In Dtmf Enabled</label>
+													<input class="w3-input w3-border w3-grey w3-border-black" id="Audio_InDtmfEnabled" name="Audio_InDtmfEnabled" type="text" placeholder="">
+												</div>
+												<div class="w3-col w3-padding m6">
+													<label>Out Device</label>
+													<input class="w3-input w3-border w3-grey w3-border-black" id="Audio_OutDevice" name="Audio_OutDevice" type="text" placeholder="">
+												</div>
+												<div class="w3-col w3-padding m6">
+													<label>Out Sample Rate</label>
+													<input class="w3-input w3-border w3-grey w3-border-black" id="Audio_OutSampleRate" name="Audio_OutSampleRate" type="text" placeholder="">
+												</div>
+												<div class="w3-col w3-padding m6">
+													<label>Out Quality</label>
+													<input class="w3-input w3-border w3-grey w3-border-black" id="Audio_OutQuality" name="Audio_OutQuality" type="text" placeholder="">
+												</div>
+												<div class="w3-col w3-padding m6">
+													<label>Out Factor</label>
+													<input class="w3-input w3-border w3-grey w3-border-black" id="Audio_OutFactor" name="Audio_OutFactor" type="text" placeholder="">
+												</div>
+												<div class="w3-col w3-padding m6">
+													<label>Out Agc Enabled</label>
+													<input class="w3-input w3-border w3-grey w3-border-black" id="Audio_OutAgcEnabled" name="Audio_OutAgcEnabled" type="text" placeholder="">
+												</div>
+												<div class="w3-col w3-padding m6">
+													<label>Out Agc Level</label>
+													<input class="w3-input w3-border w3-grey w3-border-black" id="Audio_OutAgcLevel" name="Audio_OutAgcLevel" type="text" placeholder="">
+												</div>
+												<div class="w3-col w3-padding m6">
+													<label>Out Agc Max Gain</label>
+													<input class="w3-input w3-border w3-grey w3-border-black" id="Audio_OutAgcMaxGain" name="Audio_OutAgcMaxGain" type="text" placeholder="">
+												</div>
+												<div class="w3-col w3-padding m6">
+													<label>Out Hpf Enabled</label>
+													<input class="w3-input w3-border w3-grey w3-border-black" id="Audio_OutHpfEnabled" name="Audio_OutHpfEnabled" type="text" placeholder="">
+												</div>
+												<div class="w3-col w3-padding m6">
+													<label>Out Hpf Order</label>
+													<input class="w3-input w3-border w3-grey w3-border-black" id="Audio_OutHpfOrder" name="Audio_OutHpfOrder" type="text" placeholder="">
+												</div>
+												<div class="w3-col w3-padding m6">
+													<label>Out Delay Const</label>
+													<input class="w3-input w3-border w3-grey w3-border-black" id="Audio_OutDelayConst" name="Audio_OutDelayConst" type="text" placeholder="">
+												</div>
+												<div class="w3-col w3-padding m6">
+													<label>Re Init Audio Engine</label>
+													<input class="w3-input w3-border w3-grey w3-border-black" id="Audio_ReInitAudioEngine" name="Audio_ReInitAudioEngine" type="text" placeholder="">
+												</div>
+											</div>
+										</p></div>
 									</div>
-									<div class="w3-col w3-padding w3-center m6">
-										<label >Submit Config</label>
-										<input class="w3-button w3-block w3-theme-button w3-hover-theme-button" id="config_submit" name="config_submit" type="submit" value="Submit">  
+								</div>
+
+								<div class="w3-col w3-padding m6">
+									<div class="w3-container w3-card w3-round-large w3-theme-dark w3-padding-large">
+										<b class="w3-hover-text-theme collapsible" style="cursor: pointer;">Radio</b>
+										<div class="config"><p>
+											<div class="w3-row-padding">
+												<div class="w3-col w3-padding m6">
+													<label>Ptt Enabled</label>
+													<input class="w3-input w3-border w3-grey w3-border-black" id="Radio_PttEnabled" name="Radio_PttEnabled" type="text" placeholder="">
+												</div>
+												<div class="w3-col w3-padding m6">
+													<label>Cos Enabled</label>
+													<input class="w3-input w3-border w3-grey w3-border-black" id="Radio_CosEnabled" name="Radio_CosEnabled" type="text" placeholder="">
+												</div>
+												<div class="w3-col w3-padding m6">
+													<label>PTT</label>
+													<input class="w3-input w3-border w3-grey w3-border-black" id="Radio_PTT" name="Radio_PTT" type="text" placeholder="">
+												</div>
+												<div class="w3-col w3-padding m6">
+													<label>COS</label>
+													<input class="w3-input w3-border w3-grey w3-border-black" id="Radio_COS" name="Radio_COS" type="text" placeholder="">
+												</div>
+												<div class="w3-col w3-padding m6">
+													<label>LIGHT</label>
+													<input class="w3-input w3-border w3-grey w3-border-black" id="Radio_LIGHT" name="Radio_LIGHT" type="text" placeholder="">
+												</div>
+												<div class="w3-col w3-padding m6">
+													<label>STATIC</label>
+													<input class="w3-input w3-border w3-grey w3-border-black" id="Radio_STATIC" name="Radio_STATIC" type="text" placeholder="">
+												</div>
+												<div class="w3-col w3-padding m6">
+													<label>CONNECT</label>
+													<input class="w3-input w3-border w3-grey w3-border-black" id="Radio_CONNECT" name="Radio_CONNECT" type="text" placeholder="">
+												</div>
+												<div class="w3-col w3-padding m6">
+													<label>CTCSS Wake Time</label>
+													<input class="w3-input w3-border w3-grey w3-border-black" id="Radio_CTCSSWakeTime" name="Radio_CTCSSWakeTime" type="text" placeholder="">
+												</div>
+												<div class="w3-col w3-padding m6">
+													<label>Carrier Catch Time</label>
+													<input class="w3-input w3-border w3-grey w3-border-black" id="Radio_CarrierCatchTime" name="Radio_CarrierCatchTime" type="text" placeholder="">
+												</div>
+												<div class="w3-col w3-padding m6">
+													<label>Carrier Lost Time</label>
+													<input class="w3-input w3-border w3-grey w3-border-black" id="Radio_CarrierLostTime" name="Radio_CarrierLostTime" type="text" placeholder="">
+												</div>
+												<div class="w3-col w3-padding m6">
+													<label>Squelch Settling Time</label>
+													<input class="w3-input w3-border w3-grey w3-border-black" id="Radio_SquelchSettlingTime" name="Radio_SquelchSettlingTime" type="text" placeholder="">
+												</div>
+												<div class="w3-col w3-padding m6">
+													<label>Dtmf Timeout</label>
+													<input class="w3-input w3-border w3-grey w3-border-black" id="Radio_DtmfTimeout" name="Radio_DtmfTimeout" type="text" placeholder="">
+												</div>
+												<div class="w3-col w3-padding m6">
+													<label>Dtmf Commands</label>
+													<input class="w3-input w3-border w3-grey w3-border-black" id="Radio_DtmfCommands" name="Radio_DtmfCommands" type="text" placeholder="">
+												</div>
+												<div class="w3-col w3-padding m6">
+													<label>Id No Sound List File Name</label>
+													<input class="w3-input w3-border w3-grey w3-border-black" id="Radio_IdNoSoundListFileName" name="Radio_IdNoSoundListFileName" type="text" placeholder="">
+												</div>
+											</div>
+										</p></div>
+									</div>
+								</div>
+
+								<div class="w3-col w3-padding m6">
+									<div class="w3-container w3-card w3-round-large w3-theme-dark w3-padding-large">
+										<b class="w3-hover-text-theme collapsible" style="cursor: pointer;">Manager</b>
+										<div class="config"><p>
+											<div class="w3-row-padding">
+												<div class="w3-col w3-padding m6">
+													<label>Manager Address</label>
+													<input class="w3-input w3-border w3-grey w3-border-black" id="Manager_ManagerAddress" name="Manager_ManagerAddress" type="text" placeholder="">
+												</div>
+												<div class="w3-col w3-padding m6">
+													<label>Manager Port</label>
+													<input class="w3-input w3-border w3-grey w3-border-black" id="Manager_ManagerPort" name="Manager_ManagerPort" type="text" placeholder="">
+												</div>
+												<div class="w3-col w3-padding m6">
+													<label>Dynamic Password Mode</label>
+													<input class="w3-input w3-border w3-grey w3-border-black" id="Manager_DynamicPasswordMode" name="Manager_DynamicPasswordMode" type="text" placeholder="">
+												</div>
+											</div>
+										</p></div>
+									</div>
+								</div>
+
+								<div class="w3-col w3-padding m6">
+									<div class="w3-container w3-card w3-round-large w3-theme-dark w3-padding-large">
+										<b class="w3-hover-text-theme collapsible" style="cursor: pointer;">Server</b>
+										<div class="config"><p>
+											<div class="w3-row-padding">
+												<div class="w3-col w3-padding m6">
+													<label>Server Reconnect Count</label>
+													<input class="w3-input w3-border w3-grey w3-border-black" id="Server_ServerReconnectCount" name="Server_ServerReconnectCount" type="text" placeholder="">
+												</div>
+												<div class="w3-col w3-padding m6">
+													<label>Server Reconnect Interval</label>
+													<input class="w3-input w3-border w3-grey w3-border-black" id="Server_ServerReconnectInterval" name="Server_ServerReconnectInterval" type="text" placeholder="">
+												</div>
+												<div class="w3-col w3-padding m6">
+													<label>Server Address</label>
+													<input class="w3-input w3-border w3-grey w3-border-black" id="Server_ServerAddress" name="Server_ServerAddress" type="text" placeholder="">
+												</div>
+												<div class="w3-col w3-padding m6">
+													<label>Server Port</label>
+													<input class="w3-input w3-border w3-grey w3-border-black" id="Server_ServerPort" name="Server_ServerPort" type="text" placeholder="">
+												</div>
+												<div class="w3-col w3-padding m6">
+													<label>Visible Status</label>
+													<input class="w3-input w3-border w3-grey w3-border-black" id="Server_VisibleStatus" name="Server_VisibleStatus" type="text" placeholder="">
+												</div>
+												<div class="w3-col w3-padding m6">
+													<label>Network</label>
+													<input class="w3-input w3-border w3-grey w3-border-black" id="Server_Network" name="Server_Network" type="text" placeholder="">
+												</div>
+												<div class="w3-col w3-padding m6">
+													<label>Backup Server Mode</label>
+													<input class="w3-input w3-border w3-grey w3-border-black" id="Server_BackupServerMode" name="Server_BackupServerMode" type="text" placeholder="">
+												</div>
+												<div class="w3-col w3-padding m6">
+													<label>Forced Backup Server Address</label>
+													<input class="w3-input w3-border w3-grey w3-border-black" id="Server_ForcedBackupServerAddress" name="Server_ForcedBackupServerAddress" type="text" placeholder="">
+												</div>
+												<div class="w3-col w3-padding m6">
+													<label>Forced Backup Server Port</label>
+													<input class="w3-input w3-border w3-grey w3-border-black" id="Server_ForcedBackupServerPort" name="Server_ForcedBackupServerPort" type="text" placeholder="">
+												</div>
+												<div class="w3-col w3-padding m6">
+													<label>Forced Backup Server Network</label>
+													<input class="w3-input w3-border w3-grey w3-border-black" id="Server_ForcedBackupServerNetwork" name="Server_ForcedBackupServerNetwork" type="text" placeholder="">
+												</div>
+												<div class="w3-col w3-padding m6">
+													<label>Rx Tx Hook Script</label>
+													<input class="w3-input w3-border w3-grey w3-border-black" id="Server_RxTxHookScript" name="Server_RxTxHookScript" type="text" placeholder="">
+												</div>
+												<div class="w3-col w3-padding m6">
+													<label>Invalid Static Password Script</label>
+													<input class="w3-input w3-border w3-grey w3-border-black" id="Server_InvalidStaticPasswordScript" name="Server_InvalidStaticPasswordScript" type="text" placeholder="">
+												</div>
+												<div class="w3-col w3-padding m6">
+													<label>Proto List Format</label>
+													<input class="w3-input w3-border w3-grey w3-border-black" id="Server_ProtoListFormat" name="Server_ProtoListFormat" type="text" placeholder="">
+												</div>
+												<div class="w3-col w3-padding m6">
+													<label>Proto Speaker Info</label>
+													<input class="w3-input w3-border w3-grey w3-border-black" id="Server_ProtoSpeakerInfo" name="Server_ProtoSpeakerInfo" type="text" placeholder="">
+												</div>
+												<div class="w3-col w3-padding m6">
+													<label>Proto Messages From Server</label>
+													<input class="w3-input w3-border w3-grey w3-border-black" id="Server_ProtoMessagesFromServer" name="Server_ProtoMessagesFromServer" type="text" placeholder="">
+												</div>
+												<div class="w3-col w3-padding m6">
+													<label>Proto Short Frames</label>
+													<input class="w3-input w3-border w3-grey w3-border-black" id="Server_ProtoShortFrames" name="Server_ProtoShortFrames" type="text" placeholder="">
+												</div>
+											</div>
+										</p></div>
+									</div>
+								</div>
+
+								<div class="w3-col w3-padding m6">
+									<div class="w3-container w3-card w3-round-large w3-theme-dark w3-padding-large">
+										<b class="w3-hover-text-theme collapsible" style="cursor: pointer;">Internet</b>
+										<div class="config"><p>
+											<div class="w3-row-padding">
+												<div class="w3-col w3-padding m6">
+													<label>Prefer IPv4</label>
+													<input class="w3-input w3-border w3-grey w3-border-black" id="Internet_PreferIPv4" name="Internet_PreferIPv4" type="text" placeholder="">
+												</div>
+											</div>
+										</p></div>
+									</div>
+								</div>
+
+								<div class="w3-col w3-padding m6">
+									<div class="w3-container w3-card w3-round-large w3-theme-dark w3-padding-large">
+										<b class="w3-hover-text-theme collapsible" style="cursor: pointer;">Message</b>
+										<div class="config"><p>
+											<div class="w3-row-padding">
+												<div class="w3-col w3-padding m6">
+													<label>Private Auto Response</label>
+													<input class="w3-input w3-border w3-grey w3-border-black" id="Message_PrivateAutoResponse" name="Message_PrivateAutoResponse" type="text" placeholder="">
+												</div>
+												<div class="w3-col w3-padding m6">
+													<label>Message Hook Script</label>
+													<input class="w3-input w3-border w3-grey w3-border-black" id="Message_MessageHookScript" name="Message_MessageHookScript" type="text" placeholder="">
+												</div>
+											</div>
+										</p></div>
+									</div>
+								</div>
+
+								<div class="w3-col w3-padding m6">
+									<div class="w3-container w3-card w3-round-large w3-theme-dark w3-padding-large">
+										<b class="w3-hover-text-theme collapsible" style="cursor: pointer;">System</b>
+										<div class="config"><p>
+											<div class="w3-row-padding">
+												<div class="w3-col w3-padding m6">
+													<label>Write Dir</label>
+													<input class="w3-input w3-border w3-grey w3-border-black" id="System_WriteDir" name="System_WriteDir" type="text" placeholder="">
+												</div>
+												<div class="w3-col w3-padding m6">
+													<label>Charset Name</label>
+													<input class="w3-input w3-border w3-grey w3-border-black" id="System_CharsetName" name="System_CharsetName" type="text" placeholder="">
+												</div>
+												<div class="w3-col w3-padding m6">
+													<label>Pid File</label>
+													<input class="w3-input w3-border w3-grey w3-border-black" id="System_PidFile" name="System_PidFile" type="text" placeholder="">
+												</div>
+												<div class="w3-col w3-padding m6">
+													<label>Log File</label>
+													<input class="w3-input w3-border w3-grey w3-border-black" id="System_LogFile" name="System_LogFile" type="text" placeholder="">
+												</div>
+												<div class="w3-col w3-padding m6">
+													<label>Log Control Sound</label>
+													<input class="w3-input w3-border w3-grey w3-border-black" id="System_LogControlSound" name="System_LogControlSound" type="text" placeholder="">
+												</div>
+												<div class="w3-col w3-padding m6">
+													<label>Log External Sound</label>
+													<input class="w3-input w3-border w3-grey w3-border-black" id="System_LogExternalSound" name="System_LogExternalSound" type="text" placeholder="">
+												</div>
+												<div class="w3-col w3-padding m6">
+													<label>Log Client List</label>
+													<input class="w3-input w3-border w3-grey w3-border-black" id="System_LogClientList" name="System_LogClientList" type="text" placeholder="">
+												</div>
+												<div class="w3-col w3-padding m6">
+													<label>Log Carrier</label>
+													<input class="w3-input w3-border w3-grey w3-border-black" id="System_LogCarrier" name="System_LogCarrier" type="text" placeholder="">
+												</div>
+												<div class="w3-col w3-padding m6">
+													<label>Log Timing</label>
+													<input class="w3-input w3-border w3-grey w3-border-black" id="System_LogTiming" name="System_LogTiming" type="text" placeholder="">
+												</div>
+												<div class="w3-col w3-padding m6">
+													<label>Log Backup Server Mode</label>
+													<input class="w3-input w3-border w3-grey w3-border-black" id="System_LogBackupServerMode" name="System_LogBackupServerMode" type="text" placeholder="">
+												</div>
+												<div class="w3-col w3-padding m6">
+													<label>Log Check Server</label>
+													<input class="w3-input w3-border w3-grey w3-border-black" id="System_LogCheckServer" name="System_LogCheckServer" type="text" placeholder="">
+												</div>
+												<div class="w3-col w3-padding m6">
+													<label>Log Dtmf Tones</label>
+													<input class="w3-input w3-border w3-grey w3-border-black" id="System_LogDtmfTones" name="System_LogDtmfTones" type="text" placeholder="">
+												</div>
+												<div class="w3-col w3-padding m6">
+													<label>Log Dtmf Commands</label>
+													<input class="w3-input w3-border w3-grey w3-border-black" id="System_LogDtmfCommands" name="System_LogDtmfCommands" type="text" placeholder="">
+												</div>
+												<div class="w3-col w3-padding m6">
+													<label>Log Client List Delimiter</label>
+													<input class="w3-input w3-border w3-grey w3-border-black" id="System_LogClientListDelimiter" name="System_LogClientListDelimiter" type="text" placeholder="">
+												</div>
+												<div class="w3-col w3-padding m6">
+													<label>Log Cache</label>
+													<input class="w3-input w3-border w3-grey w3-border-black" id="System_LogCache" name="System_LogCache" type="text" placeholder="">
+												</div>
+												<div class="w3-col w3-padding m6">
+													<label>Log PTT</label>
+													<input class="w3-input w3-border w3-grey w3-border-black" id="System_LogPTT" name="System_LogPTT" type="text" placeholder="">
+												</div>
+												<div class="w3-col w3-padding m6">
+													<label>Log Exec</label>
+													<input class="w3-input w3-border w3-grey w3-border-black" id="System_LogExec" name="System_LogExec" type="text" placeholder="">
+												</div>
+												<div class="w3-col w3-padding m6">
+													<label>Log Recorder</label>
+													<input class="w3-input w3-border w3-grey w3-border-black" id="System_LogRecorder" name="System_LogRecorder" type="text" placeholder="">
+												</div>
+											</div>
+										</p></div>
+									</div>
+								</div>
+
+								<div class="w3-col w3-padding m6">
+									<div class="w3-container w3-card w3-round-large w3-theme-dark w3-padding-large">
+										<b class="w3-hover-text-theme collapsible" style="cursor: pointer;">Sounds</b>
+										<div class="config"><p>
+											<div class="w3-row-padding">
+												<div class="w3-col w3-padding m6">
+													<label>Sounds Dir</label>
+													<input class="w3-input w3-border w3-grey w3-border-black" id="Sounds_SoundsDir" name="Sounds_SoundsDir" type="text" placeholder="">
+												</div>
+												<div class="w3-col w3-padding m6">
+													<label>Sound Courtesy</label>
+													<input class="w3-input w3-border w3-grey w3-border-black" id="Sounds_SoundCourtesy" name="Sounds_SoundCourtesy" type="text" placeholder="">
+												</div>
+												<div class="w3-col w3-padding m6">
+													<label>Enable Courtesy</label>
+													<input class="w3-input w3-border w3-grey w3-border-black" id="Sounds_EnableCourtesy" name="Sounds_EnableCourtesy" type="text" placeholder="">
+												</div>
+												<div class="w3-col w3-padding m6">
+													<label>Sound Courtesy Empty Net</label>
+													<input class="w3-input w3-border w3-grey w3-border-black" id="Sounds_SoundCourtesyEmptyNet" name="Sounds_SoundCourtesyEmptyNet" type="text" placeholder="">
+												</div>
+												<div class="w3-col w3-padding m6">
+													<label>Enable Courtesy Empty Net</label>
+													<input class="w3-input w3-border w3-grey w3-border-black" id="Sounds_EnableCourtesyEmptyNet" name="Sounds_EnableCourtesyEmptyNet" type="text" placeholder="">
+												</div>
+												<div class="w3-col w3-padding m6">
+													<label>Sound Roger</label>
+													<input class="w3-input w3-border w3-grey w3-border-black" id="Sounds_SoundRoger" name="Sounds_SoundRoger" type="text" placeholder="">
+												</div>
+												<div class="w3-col w3-padding m6">
+													<label>Enable Roger</label>
+													<input class="w3-input w3-border w3-grey w3-border-black" id="Sounds_EnableRoger" name="Sounds_EnableRoger" type="text" placeholder="">
+												</div>
+												<div class="w3-col w3-padding m6">
+													<label>Sound No Connection</label>
+													<input class="w3-input w3-border w3-grey w3-border-black" id="Sounds_SoundNoConnection" name="Sounds_SoundNoConnection" type="text" placeholder="">
+												</div>
+												<div class="w3-col w3-padding m6">
+													<label>Enable No Connection</label>
+													<input class="w3-input w3-border w3-grey w3-border-black" id="Sounds_EnableNoConnection" name="Sounds_EnableNoConnection" type="text" placeholder="">
+												</div>
+												<div class="w3-col w3-padding m6">
+													<label>Sound Reject</label>
+													<input class="w3-input w3-border w3-grey w3-border-black" id="Sounds_SoundReject" name="Sounds_SoundReject" type="text" placeholder="">
+												</div>
+												<div class="w3-col w3-padding m6">
+													<label>Enable Reject</label>
+													<input class="w3-input w3-border w3-grey w3-border-black" id="Sounds_EnableReject" name="Sounds_EnableReject" type="text" placeholder="">
+												</div>
+												<div class="w3-col w3-padding m6">
+													<label>Sound Error</label>
+													<input class="w3-input w3-border w3-grey w3-border-black" id="Sounds_SoundError" name="Sounds_SoundError" type="text" placeholder="">
+												</div>
+												<div class="w3-col w3-padding m6">
+													<label>Enable Error</label>
+													<input class="w3-input w3-border w3-grey w3-border-black" id="Sounds_EnableError" name="Sounds_EnableError" type="text" placeholder="">
+												</div>
+												<div class="w3-col w3-padding m6">
+													<label>Sound Radio BOT</label>
+													<input class="w3-input w3-border w3-grey w3-border-black" id="Sounds_SoundRadioBOT" name="Sounds_SoundRadioBOT" type="text" placeholder="">
+												</div>
+												<div class="w3-col w3-padding m6">
+													<label>Enable Radio BOT</label>
+													<input class="w3-input w3-border w3-grey w3-border-black" id="Sounds_EnableRadioBOT" name="Sounds_EnableRadioBOT" type="text" placeholder="">
+												</div>
+												<div class="w3-col w3-padding m6">
+													<label>Enable Connect</label>
+													<input class="w3-input w3-border w3-grey w3-border-black" id="Sounds_EnableConnect" name="Sounds_EnableConnect" type="text" placeholder="">
+												</div>
+												<div class="w3-col w3-padding m6">
+													<label>Sound Connect</label>
+													<input class="w3-input w3-border w3-grey w3-border-black" id="Sounds_SoundConnect" name="Sounds_SoundConnect" type="text" placeholder="">
+												</div>
+												<div class="w3-col w3-padding m6">
+													<label>Connect Sound Cfg Enabled</label>
+													<input class="w3-input w3-border w3-grey w3-border-black" id="Sounds_ConnectSoundCfgEnabled" name="Sounds_ConnectSoundCfgEnabled" type="text" placeholder="">
+												</div>
+												<div class="w3-col w3-padding m6">
+													<label>Connect Sound Cfg File Name</label>
+													<input class="w3-input w3-border w3-grey w3-border-black" id="Sounds_ConnectSoundCfgFileName" name="Sounds_ConnectSoundCfgFileName" type="text" placeholder="">
+												</div>
+												<div class="w3-col w3-padding m6">
+													<label>Connect Sound Ext Enabled</label>
+													<input class="w3-input w3-border w3-grey w3-border-black" id="Sounds_ConnectSoundExtEnabled" name="Sounds_ConnectSoundExtEnabled" type="text" placeholder="">
+												</div>
+												<div class="w3-col w3-padding m6">
+													<label>Connect Sound Ext Script</label>
+													<input class="w3-input w3-border w3-grey w3-border-black" id="Sounds_ConnectSoundExtScript" name="Sounds_ConnectSoundExtScript" type="text" placeholder="">
+												</div>
+												<div class="w3-col w3-padding m6">
+													<label>Connect Sound Ext Dir</label>
+													<input class="w3-input w3-border w3-grey w3-border-black" id="Sounds_ConnectSoundExtDir" name="Sounds_ConnectSoundExtDir" type="text" placeholder="">
+												</div>
+												<div class="w3-col w3-padding m6">
+													<label>Enable Server BOT</label>
+													<input class="w3-input w3-border w3-grey w3-border-black" id="Sounds_EnableServerBOT" name="Sounds_EnableServerBOT" type="text" placeholder="">
+												</div>
+												<div class="w3-col w3-padding m6">
+													<label>Sound Server BOT</label>
+													<input class="w3-input w3-border w3-grey w3-border-black" id="Sounds_SoundServerBOT" name="Sounds_SoundServerBOT" type="text" placeholder="">
+												</div>
+												<div class="w3-col w3-padding m6">
+													<label>Enable Server EOT</label>
+													<input class="w3-input w3-border w3-grey w3-border-black" id="Sounds_EnableServerEOT" name="Sounds_EnableServerEOT" type="text" placeholder="">
+												</div>
+												<div class="w3-col w3-padding m6">
+													<label>Sound Server EOT</label>
+													<input class="w3-input w3-border w3-grey w3-border-black" id="Sounds_SoundServerEOT" name="Sounds_SoundServerEOT" type="text" placeholder="">
+												</div>
+												<div class="w3-col w3-padding m6">
+													<label>Enable Disconnect</label>
+													<input class="w3-input w3-border w3-grey w3-border-black" id="Sounds_EnableDisconnect" name="Sounds_EnableDisconnect" type="text" placeholder="">
+												</div>
+												<div class="w3-col w3-padding m6">
+													<label>Sound Disconnect</label>
+													<input class="w3-input w3-border w3-grey w3-border-black" id="Sounds_SoundDisconnect" name="Sounds_SoundDisconnect" type="text" placeholder="">
+												</div>
+												<div class="w3-col w3-padding m6">
+													<label>Roger Sound Cfg Enabled</label>
+													<input class="w3-input w3-border w3-grey w3-border-black" id="Sounds_RogerSoundCfgEnabled" name="Sounds_RogerSoundCfgEnabled" type="text" placeholder="">
+												</div>
+												<div class="w3-col w3-padding m6">
+													<label>Roger Sound Cfg File Name</label>
+													<input class="w3-input w3-border w3-grey w3-border-black" id="Sounds_RogerSoundCfgFileName" name="Sounds_RogerSoundCfgFileName" type="text" placeholder="">
+												</div>
+											</div>
+										</p></div>
+									</div>
+								</div>
+
+								<div class="w3-col w3-padding m6">
+									<div class="w3-container w3-card w3-round-large w3-theme-dark w3-padding-large">
+										<b class="w3-hover-text-theme collapsible" style="cursor: pointer;">Hours</b>
+										<div class="config"><p>
+											<div class="w3-row-padding">
+												<div class="w3-col w3-padding m6">
+													<label>Enabled</label>
+													<input class="w3-input w3-border w3-grey w3-border-black" id="Hours_Enabled" name="Hours_Enabled" type="text" placeholder="">
+												</div>
+												<div class="w3-col w3-padding m6">
+													<label>Dir</label>
+													<input class="w3-input w3-border w3-grey w3-border-black" id="Hours_Dir" name="Hours_Dir" type="text" placeholder="">
+												</div>
+												<div class="w3-col w3-padding m6">
+													<label>Interval</label>
+													<input class="w3-input w3-border w3-grey w3-border-black" id="Hours_Interval" name="Hours_Interval" type="text" placeholder="">
+												</div>
+												<div class="w3-col w3-padding m6">
+													<label>Correction</label>
+													<input class="w3-input w3-border w3-grey w3-border-black" id="Hours_Correction" name="Hours_Correction" type="text" placeholder="">
+												</div>
+												<div class="w3-col w3-padding m6">
+													<label>Ext Enabled</label>
+													<input class="w3-input w3-border w3-grey w3-border-black" id="Hours_ExtEnabled" name="Hours_ExtEnabled" type="text" placeholder="">
+												</div>
+												<div class="w3-col w3-padding m6">
+													<label>Ext Script</label>
+													<input class="w3-input w3-border w3-grey w3-border-black" id="Hours_ExtScript" name="Hours_ExtScript" type="text" placeholder="">
+												</div>
+												<div class="w3-col w3-padding m6">
+													<label>Ext Dir</label>
+													<input class="w3-input w3-border w3-grey w3-border-black" id="Hours_ExtDir" name="Hours_ExtDir" type="text" placeholder="">
+												</div>
+												<div class="w3-col w3-padding m6">
+													<label>Ext Temp Dir</label>
+													<input class="w3-input w3-border w3-grey w3-border-black" id="Hours_ExtTempDir" name="Hours_ExtTempDir" type="text" placeholder="">
+												</div>
+												<div class="w3-col w3-padding m6">
+													<label>Time Range</label>
+													<input class="w3-input w3-border w3-grey w3-border-black" id="Hours_TimeRange" name="Hours_TimeRange" type="text" placeholder="">
+												</div>
+											</div>
+										</p></div>
+									</div>
+								</div>
+
+								<div class="w3-col w3-padding m6">
+									<div class="w3-container w3-card w3-round-large w3-theme-dark w3-padding-large">
+										<b class="w3-hover-text-theme collapsible" style="cursor: pointer;">Informer</b>
+										<div class="config"><p>
+											<div class="w3-row-padding">
+												<div class="w3-col w3-padding m6">
+													<label>Enabled</label>
+													<input class="w3-input w3-border w3-grey w3-border-black" id="Informer_Enabled" name="Informer_Enabled" type="text" placeholder="">
+												</div>
+												<div class="w3-col w3-padding m6">
+													<label>Dir</label>
+													<input class="w3-input w3-border w3-grey w3-border-black" id="Informer_Dir" name="Informer_Dir" type="text" placeholder="">
+												</div>
+												<div class="w3-col w3-padding m6">
+													<label>Interval</label>
+													<input class="w3-input w3-border w3-grey w3-border-black" id="Informer_Interval" name="Informer_Interval" type="text" placeholder="">
+												</div>
+												<div class="w3-col w3-padding m6">
+													<label>Mode</label>
+													<input class="w3-input w3-border w3-grey w3-border-black" id="Informer_Mode" name="Informer_Mode" type="text" placeholder="">
+												</div>
+												<div class="w3-col w3-padding m6">
+													<label>Silence Enabled</label>
+													<input class="w3-input w3-border w3-grey w3-border-black" id="Informer_SilenceEnabled" name="Informer_SilenceEnabled" type="text" placeholder="">
+												</div>
+												<div class="w3-col w3-padding m6">
+													<label>Silence Interval</label>
+													<input class="w3-input w3-border w3-grey w3-border-black" id="Informer_SilenceInterval" name="Informer_SilenceInterval" type="text" placeholder="">
+												</div>
+												<div class="w3-col w3-padding m6">
+													<label>Silence Time</label>
+													<input class="w3-input w3-border w3-grey w3-border-black" id="Informer_SilenceTime" name="Informer_SilenceTime" type="text" placeholder="">
+												</div>
+												<div class="w3-col w3-padding m6">
+													<label>Ext Enabled</label>
+													<input class="w3-input w3-border w3-grey w3-border-black" id="Informer_ExtEnabled" name="Informer_ExtEnabled" type="text" placeholder="">
+												</div>
+												<div class="w3-col w3-padding m6">
+													<label>Ext Script</label>
+													<input class="w3-input w3-border w3-grey w3-border-black" id="Informer_ExtScript" name="Informer_ExtScript" type="text" placeholder="">
+												</div>
+												<div class="w3-col w3-padding m6">
+													<label>Ext Dir</label>
+													<input class="w3-input w3-border w3-grey w3-border-black" id="Informer_ExtDir" name="Informer_ExtDir" type="text" placeholder="">
+												</div>
+												<div class="w3-col w3-padding m6">
+													<label>Ext Temp Dir</label>
+													<input class="w3-input w3-border w3-grey w3-border-black" id="Informer_ExtTempDir" name="Informer_ExtTempDir" type="text" placeholder="">
+												</div>
+											</div>
+										</p></div>
+									</div>
+								</div>
+
+								<div class="w3-col w3-padding m6">
+									<div class="w3-container w3-card w3-round-large w3-theme-dark w3-padding-large">
+										<b class="w3-hover-text-theme collapsible" style="cursor: pointer;">Recorder</b>
+										<div class="config"><p>
+											<div class="w3-row-padding">
+												<div class="w3-col w3-padding m6">
+													<label>Enabled</label>
+													<input class="w3-input w3-border w3-grey w3-border-black" id="Recorder_Enabled" name="Recorder_Enabled" type="text" placeholder="">
+												</div>
+												<div class="w3-col w3-padding m6">
+													<label>Dir</label>
+													<input class="w3-input w3-border w3-grey w3-border-black" id="Recorder_Dir" name="Recorder_Dir" type="text" placeholder="">
+												</div>
+												<div class="w3-col w3-padding m6">
+													<label>Direction</label>
+													<input class="w3-input w3-border w3-grey w3-border-black" id="Recorder_Direction" name="Recorder_Direction" type="text" placeholder="">
+												</div>
+												<div class="w3-col w3-padding m6">
+													<label>File Name Format</label>
+													<input class="w3-input w3-border w3-grey w3-border-black" id="Recorder_FileNameFormat" name="Recorder_FileNameFormat" type="text" placeholder="">
+												</div>
+												<div class="w3-col w3-padding m6">
+													<label>Subdir Mode</label>
+													<input class="w3-input w3-border w3-grey w3-border-black" id="Recorder_SubdirMode" name="Recorder_SubdirMode" type="text" placeholder="">
+												</div>
+												<div class="w3-col w3-padding m6">
+													<label>Script</label>
+													<input class="w3-input w3-border w3-grey w3-border-black" id="Recorder_Script" name="Recorder_Script" type="text" placeholder="">
+												</div>
+											</div>
+										</p></div>
+									</div>
+								</div>
+
+								<div class="w3-col w3-padding m6">
+									<div class="w3-container w3-card w3-round-large-large w3-theme-dark w3-padding-large">
+										<b class="w3-hover-text-theme collapsible" style="cursor: pointer;">Command</b>
+										<div class="config"><p>
+											<div class="w3-row-padding">
+												<div class="w3-col w3-padding m6">
+													<label>Enabled</label>
+													<input class="w3-input w3-border w3-grey w3-border-black" id="Command_CommandEnabled" name="Command_CommandEnabled" type="text" placeholder="">
+												</div>
+												<div class="w3-col w3-padding m6">
+													<label>Port</label>
+													<input class="w3-input w3-border w3-grey w3-border-black" id="Command_CommandPort" name="Command_CommandPort" type="text" placeholder="">
+												</div>
+												<div class="w3-col w3-padding m6">
+													<label>IP Version</label>
+													<input class="w3-input w3-border w3-grey w3-border-black" id="Command_CommandIPVersion" name="Command_CommandIPVersion" type="text" placeholder="">
+												</div>
+												<div class="w3-col w3-padding m6">
+													<label>Prefer IPv4</label>
+													<input class="w3-input w3-border w3-grey w3-border-black" id="Command_CommandPreferIPv4" name="Command_CommandPreferIPv4" type="text" placeholder="">
+												</div>
+												<div class="w3-col w3-padding m6">
+													<label>Amplitude Enabled</label>
+													<input class="w3-input w3-border w3-grey w3-border-black" id="Command_AmplitudeEnabled" name="Command_AmplitudeEnabled" type="text" placeholder="">
+												</div>
+												<div class="w3-col w3-padding m6">
+													<label>Amplitude Port</label>
+													<input class="w3-input w3-border w3-grey w3-border-black" id="Command_AmplitudePort" name="Command_AmplitudePort" type="text" placeholder="">
+												</div>
+											</div>
+										</p></div>
+									</div>
+								</div>
+
+								<div class="w3-col w3-padding m12">
+									<div class="w3-container w3-card w3-round-large-large w3-theme-dark w3-padding-large">
+										<div class="w3-col w3-padding w3-center m12">
+											Reboot the device after submit config!
+										</div>
+										<div class="w3-col w3-padding w3-center m6">
+											<label>Current Password</label>
+											<input class="w3-input w3-border w3-grey w3-border-black" id="config_password" name="config_password" type="password" placeholder="">
+										</div>
+										<div class="w3-col w3-padding w3-center m6">
+											<label >Submit Config</label>
+											<input class="w3-button w3-block w3-theme-button w3-hover-theme-button" id="config_submit" name="config_submit" type="submit" value="Submit">  
+										</div>
 									</div>
 								</div>
 							</form>
@@ -824,16 +860,18 @@
 					</div>
 
 					<div class="w3-col w3-padding m3">
-						<div class="w3-card w3-round w3-theme-dark w3-padding">
+						<div class="w3-card w3-round-large w3-theme-dark w3-padding">
 							<div class="w3-container">
-								<div id="statsSYSStatus" class="w3-theme-light w3-border w3-border-black w3-padding">Master<b id="statsSYSMaster" class="w3-right">---</b></div>
-								<div class="w3-theme-light w3-border w3-border-black w3-padding">Target<b id="statsSYSTarget" class="w3-right">---</b></div>
-								<div class="w3-theme-light w3-border w3-border-black w3-padding">Type<b id="statsSYSType" class="w3-right">---</b></div>
+								<p>
+									<div id="statsSYSStatus" class="w3-theme-light w3-border w3-border-black w3-padding">Master<b id="statsSYSMaster" class="w3-right">---</b></div>
+									<div class="w3-theme-light w3-border w3-border-black w3-padding">Target<b id="statsSYSTarget" class="w3-right">---</b></div>
+									<div class="w3-theme-light w3-border w3-border-black w3-padding">Type<b id="statsSYSType" class="w3-right">---</b></div>
+								</p>
 							</div>
 						</div>
 						</br>
 
-						<div class="w3-card w3-round w3-theme-dark w3-padding">
+						<div class="w3-card w3-round-large w3-theme-dark w3-padding">
 							<div class="w3-container w3-center">
 								<h4 class="w3-center">System Security</h4>
 								<p>
@@ -843,7 +881,7 @@
 						</div>
 						</br>
 
-						<div class="w3-card w3-round w3-theme-dark w3-padding">
+						<div class="w3-card w3-round-large w3-theme-dark w3-padding">
 							<div class="w3-container">
 								<h4 id="statsSYSPlatform" class="w3-center">System: ---</h4>
 								<p>
@@ -858,7 +896,7 @@
 						</div>
 						</br>
 
-						<div class="w3-card w3-round w3-theme-dark w3-padding">
+						<div class="w3-card w3-round-large w3-theme-dark w3-padding">
 							<div class="w3-container w3-center">
 								<h4 class="w3-center">FRN Client Console</h4>
 								<p>
@@ -882,7 +920,7 @@
 				<p>
 					<small>
 						AlterFRN Client by Valery (<a class="w3-hover-text-theme" href="https://alterfrn.ucoz.ru/" target="_new">alterfrn.ucoz.ru</a>)</br>
-						- Dashboard © 13MAD86 / Martin | Version 0.3 (BETA) -</br>
+						- Dashboard © 13MAD86 / Martin | Version 0.4 (BETA) -</br>
 						powered by <a class="w3-hover-text-theme" href="http://www.sdr-mkk.de" target="_new">www.sdr-mkk.de</a>
 					</small>
 				</p>
@@ -894,6 +932,14 @@
 				ga = [];
 				var i;
 
+				function openMenu() {
+					var r = document.getElementById("w3-menu");
+					if (r.className.indexOf("w3-show") == -1)
+						r.className += " w3-show";
+					else
+						r.className = r.className.replace(" w3-show", "");
+				}
+
 				for (i = 0; i < coll.length; i++) {
 					coll[i].addEventListener("click", function() {
 						this.classList.toggle("active");
@@ -903,18 +949,6 @@
 						else
 							content.style.display = "block";
 					});
-				}
-
-				function openConfig() {
-					var d = document.getElementById("frn_dashboard");
-					var c = document.getElementById("frn_config");
-					if (d.className.indexOf("w3-show") == -1) {
-						d.className = d.className.replace("w3-hide", "w3-show");
-						c.className = c.className.replace("w3-show", "w3-hide");
-					} else {
-						d.className = d.className.replace("w3-show", "w3-hide");
-						c.className = c.className.replace("w3-hide", "w3-show");
-					}
 				}
 
 				function getApi(id,action,values) { 
@@ -938,7 +972,7 @@
 								var values=JSON.parse(result);	
 								if(!values.error) {
 									if(values.html)
-										document.getElementById(id).innerHTML=values.html;
+										document.getElementById(id).innerHTML="<span class='rpi-text-green'>"+ values.html +"</span>";
 
 									if(values.cmd){
 										for(var c=0;c<values.cmd.length;c++){
@@ -948,14 +982,14 @@
 									}
 									
 								} else
-									document.getElementById(id).innerHTML=values.error;
+									document.getElementById(id).innerHTML="<span class='rpi-text-pink'>"+ values.error +"</span>";
 							}
 						}
 
 						ga[id].open("GET",action+values,true);
 						ga[id].send();
 					} else
-						document.getElementById(id).innerHTML="Password can't be empty."	
+						document.getElementById(id).innerHTML="<span class='rpi-text-pink'>Password can't be empty.<span>"	
 				}
 
 				function geConfigs(id) {
@@ -1139,8 +1173,10 @@
 					var hh = newDate.getHours() < 10 ? '0' + newDate.getHours() : newDate.getHours();
 					var mi = newDate.getMinutes() < 10 ? '0' + newDate.getMinutes() : newDate.getMinutes();
 					var ss = newDate.getSeconds() < 10 ? '0' + newDate.getSeconds() : newDate.getSeconds();
-					var datestring = newDate.getDate()  + "." + (newDate.getMonth()+1) + "." + newDate.getFullYear() + " / " + hh + ":" + mi + ":" + ss;
-					return datestring;
+					if (window.innerWidth > 600)
+						return newDate.getDate()  + "." + (newDate.getMonth()+1) + "." + newDate.getFullYear() + " / " + hh + ":" + mi + ":" + ss;
+					else
+						return hh + ":" + mi + ":" + ss;
 				}
 
 				function geStats(id) {
@@ -1154,7 +1190,7 @@
 							var result = gStats.responseText;
 							var values = JSON.parse(result);
 							if (!values.error) {
-								document.title='FRN Client Console - Dashboard ('+ values.callsign +')';
+								document.title='FRN Client Console ('+ values.callsign +')';
 								document.getElementById("statsCPUSpeed").innerHTML=values.cpuspeed;
 								document.getElementById("statsCPUTab").classList.remove("w3-theme-light");
 								if (values.cpuspeed > "55")
@@ -1174,7 +1210,7 @@
 								document.getElementById("statsSYSHOST").innerHTML=values.host;
 								document.getElementById("statsSYSIP").innerHTML=values.ip;
 								document.getElementById("statsSYSPlatform").innerHTML="System: <b>"+ values.platform.toUpperCase() +"</b>";
-								document.getElementById("statsSYSTitle").innerHTML='FRN Client Console - Dashboard ('+ values.callsign +')';
+								document.getElementById("statsSYSTitle").innerHTML='FRN Client Console ('+ values.callsign +')';
 								document.getElementById("statsCFGHours").innerHTML=values.hours.toUpperCase();
 								document.getElementById("statsCFGInformer").innerHTML=values.informer.toUpperCase();
 								document.getElementById("statsCFGRecorder").innerHTML=values.recorder.toUpperCase();
@@ -1182,28 +1218,50 @@
 								document.getElementById("statsSYSMaster").innerHTML=values.master;
 								document.getElementById("statsSYSTarget").innerHTML=values.target;
 								document.getElementById("statsSYSType").innerHTML=values.type;
-
 								document.getElementById("statsSYSStatus").classList.remove("w3-theme-light");
 								fetch (values.master, {mode: 'no-cors'}).then(r=>{
 									document.getElementById("statsSYSStatus").classList.add("rpi-green");
 								}).catch(e=>{
 									document.getElementById("statsSYSStatus").classList.add("rpi-pink");
 								});
-
 								var text_rx = values.log_rx;
-								var data = text_rx.split(' | ').map(row => row.split('; ').map((cell, i) => (i == 0) ? "<td class='w3-border w3-border-black w3-theme-table w3-center'>"+ getDateTime(cell) +"</td>" : (i == 4) ? "<td class='w3-border w3-border-black w3-theme-table'>"+ cell.replace(';', '') +"</td>" : (i == 5) ? "<td class='w3-border w3-border-black w3-theme-table w3-center'>"+ getCountryCode(cell) +"</td>" : "<td class='w3-border w3-border-black w3-theme-table w3-center'>"+ cell.replace(';', '') +"</td>").join('')).map(row => "<tr>"+ row +"</tr>").join('');
+								var data_rx = text_rx.split(' | ').map(row => row.split('; ').map(
+									(cell, i) =>
+									(i == 0) ? "<td class='w3-border w3-border-black w3-theme-table w3-center'>"+ getDateTime(cell) +"</td>" :
+									(i == 1) ? "<td class='w3-border w3-border-black w3-theme-table w3-center'><b>"+ cell.replace(';', '') +"</b></td>" :
+									(i == 2) ? "<td class='w3-border w3-border-black w3-theme-table w3-center w3-hide-small'><b>"+ cell.replace(';', '') +"</b></td>" :
+									(i == 3) ? "<td class='w3-border w3-border-black w3-theme-table w3-center w3-hide-small'><b>"+ cell.replace(';', '') +"</b></td>" :
+									(i == 4) ? "<td class='w3-border w3-border-black w3-theme-table w3-hide-small'>"+ cell.replace(';', '') +"</td>" :
+									(i == 5) ? "<td class='w3-border w3-border-black w3-theme-table w3-center w3-hide-small'>"+ getCountryCode(cell) +"</td>" :
+									"<td class='w3-border w3-border-black w3-theme-table w3-center'>"+ cell.replace(';', '') +"</td>").join('')).map(row => "<tr>"+ row +"</tr>").join('');
 								var html_out_rx = "<table class='w3-table w3-striped w3-white'>";
 								html_out_rx += "<tr>";
-								html_out_rx += "<td class='w3-border w3-border-black w3-center w3-theme-light' style='width: 13%'><b>Date / Time</b></td>";
-								html_out_rx += "<td class='w3-border w3-border-black w3-center w3-theme-light' style='width: 16%'><b>Callsign, Name</b></td>";
-								html_out_rx += "<td class='w3-border w3-border-black w3-center w3-theme-light' style='width: 20%'><b>City</b></td>";
-								html_out_rx += "<td class='w3-border w3-border-black w3-center w3-theme-light' style='width: 7%'><b>Mode</b></td>";
-								html_out_rx += "<td class='w3-border w3-border-black w3-center w3-theme-light' style='width: 38%'><b>Description</b></td>";
-								html_out_rx += "<td class='w3-border w3-border-black w3-center w3-theme-light' style='width: 6%'><b>Country</b></td>";
+								html_out_rx += "<td class='w3-border w3-border-black w3-center w3-theme-light' style='width: 14%'><b>Date / Time</b></td>";
+								html_out_rx += "<td class='w3-border w3-border-black w3-center w3-theme-light' style='width: 17%'><b>Callsign, Name</b></td>";
+								html_out_rx += "<td class='w3-border w3-border-black w3-center w3-theme-light w3-hide-small' style='width: 20%'><b>City</b></td>";
+								html_out_rx += "<td class='w3-border w3-border-black w3-center w3-theme-light w3-hide-small' style='width: 9%'><b>Mode</b></td>";
+								html_out_rx += "<td class='w3-border w3-border-black w3-center w3-theme-light w3-hide-small' style='width: 35%'><b>Description</b></td>";
+								html_out_rx += "<td class='w3-border w3-border-black w3-center w3-theme-light w3-hide-small' style='width: 5%'><b>Country</b></td>";
 								html_out_rx += "</tr>";
-								html_out_rx += data;
+								html_out_rx += data_rx;
 								html_out_rx += "<table>";
-								document.getElementById("statsLastLog").innerHTML=html_out_rx;
+								document.getElementById("statsLastLogRX").innerHTML=html_out_rx;
+								var text_tx = values.log_tx;
+								var data_tx = text_tx.split(' | ').map(row => row.split('; ').map(
+									(cell, i) =>
+									(i == 0) ? "<td class='w3-border w3-border-black w3-theme-table w3-center'>"+ getDateTime(cell) +"</td>" :
+									"<td class='w3-border w3-border-black w3-theme-table w3-center'>"+ cell.replace(';', '') +"</td>").join('')).map(row => "<tr>"+ row +"</tr>").join('');
+								var html_out_tx = "<table class='w3-table w3-striped w3-white'>";
+								html_out_tx += "<tr>";
+								html_out_tx += "<td class='w3-border w3-border-black w3-center w3-theme-light' style='width: 14%'><b>Date / Time</b></td>";
+								html_out_tx += "<td class='w3-border w3-border-black w3-center w3-theme-light' style='width: 21%'><b>LP</b></td>";
+								html_out_tx += "<td class='w3-border w3-border-black w3-center w3-theme-light' style='width: 22%'><b>WT</b></td>";
+								html_out_tx += "<td class='w3-border w3-border-black w3-center w3-theme-light' style='width: 21%'><b>PT</b></td>";
+								html_out_tx += "<td class='w3-border w3-border-black w3-center w3-theme-light' style='width: 22%'><b>ST</b></td>";
+								html_out_tx += "</tr>";
+								html_out_tx += data_tx;
+								html_out_tx += "<table>";
+								document.getElementById("statsLastLogTX").innerHTML=html_out_tx;
 							} else
 								document.getElementById(id).innerHTML=values.error;
 
