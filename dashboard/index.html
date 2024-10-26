@@ -917,6 +917,8 @@
 				ga = [];
 				var i;
 
+				function setPage () { location.href = "#receiving"; }
+
 				function openMenu() {
 					var r = document.getElementById("w3-menu");
 					if (r.className.indexOf("w3-show") == -1)
@@ -1281,6 +1283,8 @@
 					gStats.open("GET","stats.json?"+Math.random(),true);
 					gStats.send();
 				}
+
+				setPage();
 
 				setTimeout("geConfigs('output')",1000);
 				setTimeout("geStats('output')",1000);
