@@ -1250,14 +1250,16 @@
 								var data_tx = text_tx.split(' | ').map(row => row.split('; ').map(
 									(cell, i) =>
 									(i == 0) ? "<td class='w3-border w3-border-black w3-theme-table w3-center'>"+ getDateTime(cell) +"</td>" :
+									(i == 1) ? "" :
+									(i == 2) ? "" :
+									(i == 3) ? "<td class='w3-border w3-border-black w3-theme-table w3-center'>"+ cell.replace(';', '') +" Sec.</td>" :
+									(i == 4) ? "<td class='w3-border w3-border-black w3-theme-table w3-center'>"+ cell.replace(';', '') +" Sec.</td>" :
 									"<td class='w3-border w3-border-black w3-theme-table w3-center'>"+ cell.replace(';', '') +"</td>").join('')).map(row => "<tr>"+ row +"</tr>").join('');
 								var html_out_tx = "<table class='w3-table w3-striped w3-white'>";
 								html_out_tx += "<tr>";
 								html_out_tx += "<td class='w3-border w3-border-black w3-center w3-theme-light' style='width: 14%'><b>Date / Time</b></td>";
-								html_out_tx += "<td class='w3-border w3-border-black w3-center w3-theme-light' style='width: 21%'><b>LP</b></td>";
-								html_out_tx += "<td class='w3-border w3-border-black w3-center w3-theme-light' style='width: 22%'><b>WT</b></td>";
-								html_out_tx += "<td class='w3-border w3-border-black w3-center w3-theme-light' style='width: 21%'><b>PT</b></td>";
-								html_out_tx += "<td class='w3-border w3-border-black w3-center w3-theme-light' style='width: 22%'><b>ST</b></td>";
+								html_out_tx += "<td class='w3-border w3-border-black w3-center w3-theme-light' style='width: 43%'><b>Transmitted</b></td>";
+								html_out_tx += "<td class='w3-border w3-border-black w3-center w3-theme-light' style='width: 43%'><b>Stopped</b></td>";
 								html_out_tx += "</tr>";
 								html_out_tx += data_tx;
 								html_out_tx += "<table>";
