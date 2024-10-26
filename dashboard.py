@@ -272,6 +272,18 @@ class MyHttpRequestHandler(http.server.SimpleHTTPRequestHandler):
             log_out_rx = log_out_rx.replace('[gCLNT 4.09.0]', '')
             log_out_rx = log_out_rx[:-3]
 
+            log_out_tx = str(self.get_log_tx())
+            log_out_tx = log_out_tx.replace('[\'', '')
+            log_out_tx = log_out_tx.replace('\', \'', '')
+            log_out_tx = log_out_tx.replace('\']', '')
+            log_out_tx = log_out_tx.replace('TX; ', '')
+            log_out_tx = log_out_tx.replace('LP=', '')
+            log_out_tx = log_out_tx.replace('WT=', '')
+            log_out_tx = log_out_tx.replace('PT=', '')
+            log_out_tx = log_out_tx.replace('ST=', '')
+            log_out_tx = log_out_tx.replace('\\n', ' ')
+            log_out_tx = log_out_tx[:-3]
+
             outputJson = { \
                 "platform":platform.system(), \
                 "ramfree":str(self.get_ramFree())+" MB", \
@@ -284,6 +296,7 @@ class MyHttpRequestHandler(http.server.SimpleHTTPRequestHandler):
                 "ip":str(self.get_ipaddress()), \
                 "uptime":str(self.get_uptime()), \
                 "log_rx":log_out_rx, \
+                "log_tx":log_out_tx, \
                 "callsign":str(config['Auth']['Callsign']), \
                 "hours":str(config['Hours']['Enabled']), \
                 "informer":str(config['Informer']['Enabled']), \
@@ -472,11 +485,11 @@ class MyHttpRequestHandler(http.server.SimpleHTTPRequestHandler):
                         self.wfile.write(bytes('{"html":"Restarting the ' + pathSection[4] + ' service.","cmd":null}', "utf-8"))
                         os.system("sudo systemctl restart " + pathSection[4])
                     else:
-                        self.wfile.write(bytes('{"html":"Unknown service command!","cmd":null}', "utf-8"))
+                        self.wfile.write(bytes('{"error":"Unknown service command!","cmd":null}', "utf-8"))
                 else:
-                    self.wfile.write(bytes('{"html":"Wrong command!","cmd":null}', "utf-8"))
+                    self.wfile.write(bytes('{"error":"Wrong command!","cmd":null}', "utf-8"))
             else:
-                self.wfile.write(bytes('{"html":"Wrong password!","cmd":null}', "utf-8"))
+                self.wfile.write(bytes('{"error":"Wrong password!","cmd":null}', "utf-8"))
         else:
             self.send_response(404)
             self.send_header("Content-type", "text/html")
@@ -565,6 +578,22 @@ class MyHttpRequestHandler(http.server.SimpleHTTPRequestHandler):
                     line = line[:-25]
                     line = line.replace(': ', '; ')
                     line = line.replace('RX is started', 'RX')
+                    line += '| '
+                    log.append(line)
+
+        output = log[-10:]
+        output.reverse()
+        return output
+
+    def get_log_tx(self):
+        log = []
+
+        with open(r'/home/pi/frnclientconsole.log', 'r') as fp:
+            lines = fp.readlines()
+            for line in lines:
+                if line.find('TX is stopped:') != -1:
+                    line = line.replace(': ', '; ')
+                    line = line.replace('TX is stopped', 'TX')
                     line += '| '
                     log.append(line)
 
