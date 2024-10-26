@@ -86,22 +86,7 @@
 
 							<div class="w3-container w3-card w3-round-large w3-theme-dark w3-padding-large">
 								<b>Plugin</b>
-								<p><table class="w3-table w3-striped w3-white">
-									<tr>
-										<td class="w3-border w3-border-black w3-center w3-theme-light" style="width: 25%">
-											Hours: <b><span id="statsCFGHours">---</span></b>
-										</td>
-										<td class="w3-border w3-border-black w3-center w3-theme-light" style="width: 25%">
-											Informer: <b><span id="statsCFGInformer">---</span></b>
-										</td>
-										<td class="w3-border w3-border-black w3-center w3-theme-light" style="width: 25%">
-											Recorder: <b><span id="statsCFGRecorder">---</span></b>
-										</td>
-										<td class="w3-border w3-border-black w3-center w3-theme-light" style="width: 25%">
-											Command: <b><span id="statsCFGCommand">---</span></b>
-										</td>
-									</tr>
-								</table></p>
+								<p id="plugin"></p>
 							</div>
 						</div>
 
@@ -1210,11 +1195,31 @@
 								document.getElementById("statsSYSHOST").innerHTML=values.host;
 								document.getElementById("statsSYSIP").innerHTML=values.ip;
 								document.getElementById("statsSYSPlatform").innerHTML="System: <b>"+ values.platform.toUpperCase() +"</b>";
-								document.getElementById("statsSYSTitle").innerHTML='FRN Client Console ('+ values.callsign +')';
-								document.getElementById("statsCFGHours").innerHTML=values.hours.toUpperCase();
-								document.getElementById("statsCFGInformer").innerHTML=values.informer.toUpperCase();
-								document.getElementById("statsCFGRecorder").innerHTML=values.recorder.toUpperCase();
-								document.getElementById("statsCFGCommand").innerHTML=values.command.toUpperCase();
+								if (window.innerWidth > 600)
+									document.getElementById("statsSYSTitle").innerHTML='FRN Client Console ('+ values.callsign +')';
+								else
+									document.getElementById("statsSYSTitle").innerHTML='FRN Client Console';
+								var html_plugin = "";
+								if (window.innerWidth < 600) html_plugin += "<small>";
+								html_plugin += "<table class='w3-table w3-striped w3-white'>";
+								html_plugin += "<tr>";
+								html_plugin += "<td class='w3-border w3-border-black w3-center w3-theme-light' style='width: 25%'>";
+								html_plugin += "Hours: <b>"+ values.hours.toUpperCase() +"</b>";
+								html_plugin += "</td>";
+								html_plugin += "<td class='w3-border w3-border-black w3-center w3-theme-light' style='width: 25%'>";
+								html_plugin += "Informer: <b>"+ values.informer.toUpperCase() +"</b>";
+								html_plugin += "</td>";
+								if (window.innerWidth < 600) html_plugin += "</tr><tr>";
+								html_plugin += "<td class='w3-border w3-border-black w3-center w3-theme-light' style='width: 25%'>";
+								html_plugin += "Recorder: <b>"+ values.recorder.toUpperCase() +"</b>";
+								html_plugin += "</td>";
+								html_plugin += "<td class='w3-border w3-border-black w3-center w3-theme-light' style='width: 25%'>";
+								html_plugin += "Command: <b>"+ values.command.toUpperCase() +"</b>";
+								html_plugin += "</td>";
+								html_plugin += "</tr>";
+								html_plugin += "</table>";
+								if (window.innerWidth < 600) html_plugin += "</small>";
+								document.getElementById("plugin").innerHTML=html_plugin;
 								document.getElementById("statsSYSMaster").innerHTML=values.master;
 								document.getElementById("statsSYSTarget").innerHTML=values.target;
 								document.getElementById("statsSYSType").innerHTML=values.type;
@@ -1229,8 +1234,8 @@
 									(cell, i) =>
 									(i == 0) ? "<td class='w3-border w3-border-black w3-theme-table w3-center'>"+ getDateTime(cell) +"</td>" :
 									(i == 1) ? "<td class='w3-border w3-border-black w3-theme-table w3-center'><b>"+ cell.replace(';', '') +"</b></td>" :
-									(i == 2) ? "<td class='w3-border w3-border-black w3-theme-table w3-center w3-hide-small'><b>"+ cell.replace(';', '') +"</b></td>" :
-									(i == 3) ? "<td class='w3-border w3-border-black w3-theme-table w3-center w3-hide-small'><b>"+ cell.replace(';', '') +"</b></td>" :
+									(i == 2) ? "<td class='w3-border w3-border-black w3-theme-table w3-center w3-hide-small'>"+ cell.replace(';', '') +"</td>" :
+									(i == 3) ? "<td class='w3-border w3-border-black w3-theme-table w3-center w3-hide-small'>"+ cell.replace(';', '') +"</td>" :
 									(i == 4) ? "<td class='w3-border w3-border-black w3-theme-table w3-hide-small'>"+ cell.replace(';', '') +"</td>" :
 									(i == 5) ? "<td class='w3-border w3-border-black w3-theme-table w3-center w3-hide-small'>"+ getCountryCode(cell) +"</td>" :
 									"<td class='w3-border w3-border-black w3-theme-table w3-center'>"+ cell.replace(';', '') +"</td>").join('')).map(row => "<tr>"+ row +"</tr>").join('');
@@ -1270,6 +1275,8 @@
 							setTimeout("geStats('output')",2000);
 						}
 					}
+
+					setTimeout("setPlugin()",60000);
 
 					gStats.open("GET","stats.json?"+Math.random(),true);
 					gStats.send();
