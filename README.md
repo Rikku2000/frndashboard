@@ -46,6 +46,7 @@ And finaly you need to define where the log file is located (at line 533):
 ChangeLog:
 
 - Version 0.5:</br>
+Added Live Caller</br>
 Mobile Optimization</br>
 Several minor bug fixes
 
