@@ -30,12 +30,14 @@
 					<a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-theme-dark rpi-hover-text-pink" href="javascript:void(0);" onclick="openMenu()">Menu</a>
 					<a class="w3-bar-item w3-button w3-padding-large w3-theme-dark w3-hover-theme-dark rpi-hover-text-pink thickbox" href="index.html"><span id="statsSYSTitle">FRN Client Console</span></a>
 					<div class="w3-dropdown-hover w3-right w3-hide-small">
-						<a class="w3-bar-item w3-button w3-padding-large w3-theme-dark w3-hover-theme-dark rpi-hover-text-pink w3-right" href="#config"><span id="statsSYSTitle">Config</a>
-						<a class="w3-bar-item w3-button w3-padding-large w3-theme-dark w3-hover-theme-dark rpi-hover-text-pink w3-right" href="#transmission"><span id="statsSYSTitle">Transmission</u></a>
-						<a class="w3-bar-item w3-button w3-padding-large w3-theme-dark w3-hover-theme-dark rpi-hover-text-pink w3-right" href="#receiving"><span id="statsSYSTitle">Receiving</a>
+						<a class="w3-bar-item w3-button w3-padding-large w3-theme-dark w3-hover-theme-dark rpi-hover-text-pink w3-right" href="#config">Config</a>
+						<a class="w3-bar-item w3-button w3-padding-large w3-theme-dark w3-hover-theme-dark rpi-hover-text-pink w3-right" href="#transmission">Transmission</a>
+						<a class="w3-bar-item w3-button w3-padding-large w3-theme-dark w3-hover-theme-dark rpi-hover-text-pink w3-right" href="#receiving">Receiving</a>
+						<a class="w3-bar-item w3-button w3-padding-large w3-theme-dark w3-hover-theme-dark rpi-hover-text-pink w3-right" href="live.html">Live</a>
 					</div>
 				</div>
 				<div id="w3-menu" class="w3-bar-block w3-theme-dark w3-hide w3-hide-large w3-hide-medium w3-large">
+					<a class="w3-bar-item w3-button w3-padding-large w3-hover-theme-dark rpi-hover-text-pink" href="live.html">Live</a>
 					<a class="w3-bar-item w3-button w3-padding-large w3-hover-theme-dark rpi-hover-text-pink" href="#receiving" onclick="openMenu()">Receiving</a>
 					<a class="w3-bar-item w3-button w3-padding-large w3-hover-theme-dark rpi-hover-text-pink" href="#transmission" onclick="openMenu()">Transmission</a>
 					<a class="w3-bar-item w3-button w3-padding-large w3-hover-theme-dark rpi-hover-text-pink" href="#config" onclick="openMenu()">Config</a>
@@ -79,20 +81,20 @@
 
 						<div class="receiving" id="receiving">
 							<div class="w3-card w3-round-large w3-theme-dark w3-padding-large">
-								<b>Receiving</b>
+								<b>Receiving</b> - List all calls to client.
 								<p><div id="statsLastLogRX">---</div></p>
 							</div>
 							</br>
 
 							<div class="w3-container w3-card w3-round-large w3-theme-dark w3-padding-large">
-								<b>Plugin</b>
+								<b>Plugin</b> - Activated plugins on client.
 								<p id="plugin"></p>
 							</div>
 						</div>
 
 						<div class="transmission" id="transmission">
 								<div class="w3-card w3-round-large w3-theme-dark w3-padding-large">
-									<b>Transmission</b>
+									<b>Transmission</b> - List all calls from radio.
 									<p><div id="statsLastLogTX">---</div></p>
 								</div>
 						</div>
@@ -1277,8 +1279,6 @@
 							setTimeout("geStats('output')",2000);
 						}
 					}
-
-					setTimeout("setPlugin()",60000);
 
 					gStats.open("GET","stats.json?"+Math.random(),true);
 					gStats.send();
