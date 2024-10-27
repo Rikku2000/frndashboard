@@ -86,9 +86,15 @@
 									document.getElementById("statsSYSTitle").innerHTML='FRN Client Console';
 								var text_rx = values.log_rx.split('; ');
 								var name_rx = text_rx[1].split(', ');
-								var data_rx = "<p>- "+ getDateTime(text_rx[0]) +" -<h1 class='rpi-text-green'>"+ name_rx[0] +"</h1>";
-								data_rx += "<h3 class='rpi-text-pink'>"+ getCountryCode(text_rx[5]) +" "+ name_rx[1] +"</h3></p>";
-								data_rx += "<p><h6><small>"+ text_rx[2] +"</small></br>"+ text_rx[5] +"</h6></p>";
+								if (window.innerWidth < 600) {
+									var data_rx = "<p>- "+ getDateTime(text_rx[0]) +" -<h1 class='rpi-text-green'>"+ name_rx[0] +"</h1>";
+									data_rx += "<h3 class='rpi-text-pink'>"+ getCountryCode(text_rx[5]) +" "+ name_rx[1] +"</h3></p>";
+									data_rx += "<p><h6><small>"+ text_rx[2] +"</small></br>"+ text_rx[5] +"</h6></p>";
+								} else {
+									var data_rx = "<p><h1>- "+ getDateTime(text_rx[0]) +" -</h1><span class='rpi-text-green' style='font-size: 80px;'>"+ name_rx[0] +"</span></br>";
+									data_rx += "<span class='rpi-text-pink' style='font-size: 64px;'>"+ getCountryCode(text_rx[5]) +" "+ name_rx[1] +"</span></p>";
+									data_rx += "<p><h1>"+ text_rx[2] +"</br>"+ text_rx[5] +"</h1></p>";
+								}
 								document.getElementById("statsLive").innerHTML=data_rx;
 							}
 
