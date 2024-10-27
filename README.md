@@ -29,24 +29,26 @@ Enable and start the service with:
 
 The following lines need also to be edited on the dashboard.py to work on your system:
 
-Here you need to define where your config file are locatated (at line 23):
+Here you need to define where your config file are locatated:
 - config.read(r'/home/pi/frnconsole.cfg')
 
-Here you need to define where the web script files are located (at line 27):
+Here you need to define where the web script files are located:
 - WEBPATH = "/home/pi/dashboard"
 
-Same as in config.read, you need to define the config file location (at line 219):
+Same as in config.read, you need to define the config file location:
 - with open(r'/home/pi/frnconsole.cfg', 'w') as configfile:
 
-And finaly you need to define where the log file is located (at line 533):
+And finaly you need to define where the log file is located:
 - with open(r'/home/pi/frnclientconsole.log', 'r') as fp:
 
 -----
 
 ChangeLog:
 
-- Version 0.5:</br>
+- Version 0.6:</br>
 Added Live Caller</br>
+
+- Version 0.5:</br>
 Mobile Optimization</br>
 Several minor bug fixes
 
