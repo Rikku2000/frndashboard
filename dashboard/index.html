@@ -81,20 +81,20 @@
 
 						<div class="receiving" id="receiving">
 							<div class="w3-card w3-round-large w3-theme-dark w3-padding-large">
-								<b>Receiving</b> - List all calls to client.
+								<b>Receiving</b><span class="w3-hide-small"> - List all calls to client.</span>
 								<p><div id="statsLastLogRX">---</div></p>
 							</div>
 							</br>
 
 							<div class="w3-container w3-card w3-round-large w3-theme-dark w3-padding-large">
-								<b>Plugin</b> - Activated plugins on client.
+								<b>Plugin</b><span class="w3-hide-small"> - Activated plugins on client.</span>
 								<p id="plugin"></p>
 							</div>
 						</div>
 
 						<div class="transmission" id="transmission">
 								<div class="w3-card w3-round-large w3-theme-dark w3-padding-large">
-									<b>Transmission</b> - List all calls from radio.
+									<b>Transmission</b><span class="w3-hide-small"> - List all calls from radio.</span>
 									<p><div id="statsLastLogTX">---</div></p>
 								</div>
 						</div>
@@ -851,7 +851,7 @@
 							<div class="w3-container">
 								<p>
 									<div id="statsSYSStatus" class="w3-theme-light w3-border w3-border-black w3-padding">Master<b id="statsSYSMaster" class="w3-right">---</b></div>
-									<div class="w3-theme-light w3-border w3-border-black w3-padding">Target<b id="statsSYSTarget" class="w3-right">---</b></div>
+									<div id="statsSYSTargetActive" class="w3-theme-light w3-border w3-border-black w3-padding">Target<b id="statsSYSTarget" class="w3-right">---</b></div>
 									<div class="w3-theme-light w3-border w3-border-black w3-padding">Type<b id="statsSYSType" class="w3-right">---</b></div>
 								</p>
 							</div>
@@ -907,7 +907,7 @@
 				<p>
 					<small>
 						AlterFRN Client by Valery (<a class="rpi-hover-text-green" href="https://alterfrn.ucoz.ru/" target="_new">alterfrn.ucoz.ru</a>)</br>
-						- Dashboard © 13MAD86 / Martin | Version 0.6 (BETA) -</br>
+						- Dashboard © 13MAD86 / Martin | Version 0.5 (BETA) -</br>
 						powered by <a class="rpi-hover-text-green" href="http://www.sdr-mkk.de" target="_new">www.sdr-mkk.de</a>
 					</small>
 				</p>
@@ -1225,7 +1225,18 @@
 								if (window.innerWidth < 600) html_plugin += "</small>";
 								document.getElementById("plugin").innerHTML=html_plugin;
 								document.getElementById("statsSYSMaster").innerHTML=values.master;
-								document.getElementById("statsSYSTarget").innerHTML=values.target;
+								if (values.rx_active == "1" || values.tx_active == "1") {
+									if (values.rx_active == "1")
+										document.getElementById("statsSYSTarget").innerHTML="(RX) "+ values.target;
+									else
+										document.getElementById("statsSYSTarget").innerHTML="(TX) "+ values.target;
+									document.getElementById("statsSYSTargetActive").classList.remove("w3-theme-light");
+									document.getElementById("statsSYSTargetActive").classList.add("rpi-pink");
+								} else if (values.rx_active == "0" || values.tx_active == "0") {
+									document.getElementById("statsSYSTarget").innerHTML=values.target;
+									document.getElementById("statsSYSTargetActive").classList.remove("rpi-pink");
+									document.getElementById("statsSYSTargetActive").classList.add("w3-theme-light");
+								}
 								document.getElementById("statsSYSType").innerHTML=values.type;
 								document.getElementById("statsSYSStatus").classList.remove("w3-theme-light");
 								fetch (values.master, {mode: 'no-cors'}).then(r=>{
