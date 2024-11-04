@@ -308,7 +308,7 @@ class MyHttpRequestHandler(http.server.SimpleHTTPRequestHandler):
                 "recorder":str(config['Recorder']['Enabled']), \
                 "command":str(config['Command']['CommandEnabled']), \
                 "master":str(config['Server']['ServerAddress']), \
-                "target":str(config['Auth']['BandChannel']), \
+                "target":str(config['Server']['Network']), \
                 "type":str(config['Auth']['ClientType']) \
                 }
             return self.wfile.write(bytes(json.dumps(outputJson), "utf-8"))
@@ -589,7 +589,7 @@ class MyHttpRequestHandler(http.server.SimpleHTTPRequestHandler):
                 elif line.find('RX is stopped') != -1:
                     self.rx_active = 0;
 
-        output = log[-10:]
+        output = log[-9:]
         output.reverse()
         return output
 
@@ -608,7 +608,7 @@ class MyHttpRequestHandler(http.server.SimpleHTTPRequestHandler):
                     line += '| '
                     log.append(line)
 
-        output = log[-10:]
+        output = log[-13:]
         output.reverse()
         return output
 
