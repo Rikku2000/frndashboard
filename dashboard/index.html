@@ -50,22 +50,22 @@
 						<div class="w3-card w3-round-large w3-theme-dark w3-padding-large">
 							<table class="w3-table w3-striped w3-white">
 								<tr>
-									<td class="w3-border w3-border-black w3-center w3-theme-light" id="statsCPUTab" style="width: 20%">
+									<td class="w3-border w3-border-black w3-center w3-theme-light" id="statsCPUTab" style="width: 20%; vertical-align: middle;">
 										CPU Speed: <b id="statsCPUSpeed">--- MHz</b> (<b id="statsCPUTemp">-- °C</b>)
 									</td>
-									<td class="w3-border w3-border-black w3-center w3-theme-light w3-hide-small" style="width: 13%">
+									<td class="w3-border w3-border-black w3-center w3-theme-light w3-hide-small" style="width: 13%; vertical-align: middle;">
 										CPU Load: <b id="statsSYSLoad">x.xx, x.xx, x.xx</b>
 									</td>
-									<td class="w3-border w3-border-black w3-center w3-theme-light" id="statsRAMTab" style="width: 17%">
+									<td class="w3-border w3-border-black w3-center w3-theme-light" id="statsRAMTab" style="width: 17%; vertical-align: middle;">
 										RAM Use: <b id="statsRAMFree">--- MB</b> / <b id="statsRAMTotal">--- MB</b>
 									</td>
-									<td class="w3-border w3-border-black w3-center w3-theme-light w3-hide-small" style="width: 15%">
+									<td class="w3-border w3-border-black w3-center w3-theme-light w3-hide-small" style="width: 15%; vertical-align: middle;">
 										Host: <b id="statsSYSHOST">---</b>
 									</td>
-									<td class="w3-border w3-border-black w3-center w3-theme-light w3-hide-small" style="width: 12%">
+									<td class="w3-border w3-border-black w3-center w3-theme-light w3-hide-small" style="width: 12%; vertical-align: middle;">
 										IP: <b id="statsSYSIP">xxx.xxx.xxx.xxx</b>
 									</td>
-									<td class="w3-border w3-border-black w3-center w3-theme-light w3-hide-small" style="width: 18%">
+									<td class="w3-border w3-border-black w3-center w3-theme-light w3-hide-small" style="width: 18%; vertical-align: middle;">
 										Uptime: <b id="statsSYSUptime">Up xx Days, xx Hours</b>
 									</td>
 								</tr>
@@ -144,7 +144,11 @@
 												</div>
 												<div class="w3-col w3-padding m6">
 													<label>Client Type</label>
-													<input class="w3-input w3-border w3-grey w3-border-black" id="Auth_ClientType" name="Auth_ClientType" type="text" placeholder="">
+													<select class="w3-input w3-border w3-grey w3-border-black" id="Auth_ClientType" name="Auth_ClientType">
+														<option value="PCONLY">PC Only</option>
+														<option value="CROSSLINK">Crosslink</option>
+														<option value="GATEWAY">Gateway</option>
+													</select>
 												</div>
 												<div class="w3-col w3-padding m6">
 													<label>Charset Name</label>
@@ -170,7 +174,13 @@
 												</div>
 												<div class="w3-col w3-padding m6">
 													<label>In Quality</label>
-													<input class="w3-input w3-border w3-grey w3-border-black" id="Audio_InQuality" name="Audio_InQuality" type="text" placeholder="">
+													<select class="w3-input w3-border w3-grey w3-border-black" id="Audio_InQuality" name="Audio_InQuality">
+														<option value="N">None</option>
+														<option value="L">Low</option>
+														<option value="M">Medium</option>
+														<option value="H">High</option>
+														<option value="S">Super</option>
+													</select>
 												</div>
 												<div class="w3-col w3-padding m6">
 													<label>In Factor</label>
@@ -182,7 +192,10 @@
 												</div>
 												<div class="w3-col w3-padding m6">
 													<label>In Agc Enabled</label>
-													<input class="w3-input w3-border w3-grey w3-border-black" id="Audio_InAgcEnabled" name="Audio_InAgcEnabled" type="text" placeholder="">
+													<select class="w3-input w3-border w3-grey w3-border-black" id="Audio_InAgcEnabled" name="Audio_InAgcEnabled">
+														<option value="Yes">Yes</option>
+														<option value="No">No</option>
+													</select>
 												</div>
 												<div class="w3-col w3-padding m6">
 													<label>In Agc Level</label>
@@ -194,7 +207,10 @@
 												</div>
 												<div class="w3-col w3-padding m6">
 													<label>In Hpf Enabled</label>
-													<input class="w3-input w3-border w3-grey w3-border-black" id="Audio_InHpfEnabled" name="Audio_InHpfEnabled" type="text" placeholder="">
+													<select class="w3-input w3-border w3-grey w3-border-black" id="Audio_InHpfEnabled" name="Audio_InHpfEnabled">
+														<option value="Yes">Yes</option>
+														<option value="No">No</option>
+													</select>
 												</div>
 												<div class="w3-col w3-padding m6">
 													<label>In Hpf Order</label>
@@ -202,7 +218,10 @@
 												</div>
 												<div class="w3-col w3-padding m6">
 													<label>In Dtmf Enabled</label>
-													<input class="w3-input w3-border w3-grey w3-border-black" id="Audio_InDtmfEnabled" name="Audio_InDtmfEnabled" type="text" placeholder="">
+													<select class="w3-input w3-border w3-grey w3-border-black" id="Audio_InDtmfEnabled" name="Audio_InDtmfEnabled">
+														<option value="Yes">Yes</option>
+														<option value="No">No</option>
+													</select>
 												</div>
 												<div class="w3-col w3-padding m6">
 													<label>Out Device</label>
@@ -214,7 +233,13 @@
 												</div>
 												<div class="w3-col w3-padding m6">
 													<label>Out Quality</label>
-													<input class="w3-input w3-border w3-grey w3-border-black" id="Audio_OutQuality" name="Audio_OutQuality" type="text" placeholder="">
+													<select class="w3-input w3-border w3-grey w3-border-black" id="Audio_OutQuality" name="Audio_OutQuality">
+														<option value="N">None</option>
+														<option value="L">Low</option>
+														<option value="M">Medium</option>
+														<option value="H">High</option>
+														<option value="S">Super</option>
+													</select>
 												</div>
 												<div class="w3-col w3-padding m6">
 													<label>Out Factor</label>
@@ -222,7 +247,10 @@
 												</div>
 												<div class="w3-col w3-padding m6">
 													<label>Out Agc Enabled</label>
-													<input class="w3-input w3-border w3-grey w3-border-black" id="Audio_OutAgcEnabled" name="Audio_OutAgcEnabled" type="text" placeholder="">
+													<select class="w3-input w3-border w3-grey w3-border-black" id="Audio_OutAgcEnabled" name="Audio_OutAgcEnabled">
+														<option value="Yes">Yes</option>
+														<option value="No">No</option>
+													</select>
 												</div>
 												<div class="w3-col w3-padding m6">
 													<label>Out Agc Level</label>
@@ -234,7 +262,10 @@
 												</div>
 												<div class="w3-col w3-padding m6">
 													<label>Out Hpf Enabled</label>
-													<input class="w3-input w3-border w3-grey w3-border-black" id="Audio_OutHpfEnabled" name="Audio_OutHpfEnabled" type="text" placeholder="">
+													<select class="w3-input w3-border w3-grey w3-border-black" id="Audio_OutHpfEnabled" name="Audio_OutHpfEnabled">
+														<option value="Yes">Yes</option>
+														<option value="No">No</option>
+													</select>
 												</div>
 												<div class="w3-col w3-padding m6">
 													<label>Out Hpf Order</label>
@@ -246,7 +277,10 @@
 												</div>
 												<div class="w3-col w3-padding m6">
 													<label>Re Init Audio Engine</label>
-													<input class="w3-input w3-border w3-grey w3-border-black" id="Audio_ReInitAudioEngine" name="Audio_ReInitAudioEngine" type="text" placeholder="">
+													<select class="w3-input w3-border w3-grey w3-border-black" id="Audio_ReInitAudioEngine" name="Audio_ReInitAudioEngine">
+														<option value="Yes">Yes</option>
+														<option value="No">No</option>
+													</select>
 												</div>
 											</div>
 										</p></div>
@@ -260,11 +294,17 @@
 											<div class="w3-row-padding">
 												<div class="w3-col w3-padding m6">
 													<label>Ptt Enabled</label>
-													<input class="w3-input w3-border w3-grey w3-border-black" id="Radio_PttEnabled" name="Radio_PttEnabled" type="text" placeholder="">
+													<select class="w3-input w3-border w3-grey w3-border-black" id="Radio_PttEnabled" name="Radio_PttEnabled">
+														<option value="Yes">Yes</option>
+														<option value="No">No</option>
+													</select>
 												</div>
 												<div class="w3-col w3-padding m6">
 													<label>Cos Enabled</label>
-													<input class="w3-input w3-border w3-grey w3-border-black" id="Radio_CosEnabled" name="Radio_CosEnabled" type="text" placeholder="">
+													<select class="w3-input w3-border w3-grey w3-border-black" id="Radio_CosEnabled" name="Radio_CosEnabled">
+														<option value="Yes">Yes</option>
+														<option value="No">No</option>
+													</select>
 												</div>
 												<div class="w3-col w3-padding m6">
 													<label>PTT</label>
@@ -334,7 +374,11 @@
 												</div>
 												<div class="w3-col w3-padding m6">
 													<label>Dynamic Password Mode</label>
-													<input class="w3-input w3-border w3-grey w3-border-black" id="Manager_DynamicPasswordMode" name="Manager_DynamicPasswordMode" type="text" placeholder="">
+													<select class="w3-input w3-border w3-grey w3-border-black" id="Manager_DynamicPasswordMode" name="Manager_DynamicPasswordMode">
+														<option value="Yes">Yes</option>
+														<option value="Soft">Soft</option>
+														<option value="No">No</option>
+													</select>
 												</div>
 											</div>
 										</p></div>
@@ -364,7 +408,11 @@
 												</div>
 												<div class="w3-col w3-padding m6">
 													<label>Visible Status</label>
-													<input class="w3-input w3-border w3-grey w3-border-black" id="Server_VisibleStatus" name="Server_VisibleStatus" type="text" placeholder="">
+													<select class="w3-input w3-border w3-grey w3-border-black" id="Server_VisibleStatus" name="Server_VisibleStatus">
+														<option value="AV">Available</option>
+														<option value="NA">Not Available</option>
+														<option value="AB">Absent</option>
+													</select>
 												</div>
 												<div class="w3-col w3-padding m6">
 													<label>Network</label>
@@ -372,7 +420,11 @@
 												</div>
 												<div class="w3-col w3-padding m6">
 													<label>Backup Server Mode</label>
-													<input class="w3-input w3-border w3-grey w3-border-black" id="Server_BackupServerMode" name="Server_BackupServerMode" type="text" placeholder="">
+													<select class="w3-input w3-border w3-grey w3-border-black" id="Server_BackupServerMode" name="Server_BackupServerMode">
+														<option value="Y">Yes</option>
+														<option value="N">No</option>
+														<option value="F">Forced</option>
+													</select>
 												</div>
 												<div class="w3-col w3-padding m6">
 													<label>Forced Backup Server Address</label>
@@ -396,7 +448,11 @@
 												</div>
 												<div class="w3-col w3-padding m6">
 													<label>Proto List Format</label>
-													<input class="w3-input w3-border w3-grey w3-border-black" id="Server_ProtoListFormat" name="Server_ProtoListFormat" type="text" placeholder="">
+													<select class="w3-input w3-border w3-grey w3-border-black" id="Server_ProtoListFormat" name="Server_ProtoListFormat">
+														<option value="NONE">None</option>
+														<option value="COUNT">Count</option>
+														<option value="DIFF">Diff</option>
+													</select>
 												</div>
 												<div class="w3-col w3-padding m6">
 													<label>Proto Speaker Info</label>
@@ -404,11 +460,17 @@
 												</div>
 												<div class="w3-col w3-padding m6">
 													<label>Proto Messages From Server</label>
-													<input class="w3-input w3-border w3-grey w3-border-black" id="Server_ProtoMessagesFromServer" name="Server_ProtoMessagesFromServer" type="text" placeholder="">
+													<select class="w3-input w3-border w3-grey w3-border-black" id="Server_ProtoMessagesFromServer" name="Server_ProtoMessagesFromServer">
+														<option value="Yes">Yes</option>
+														<option value="No">No</option>
+													</select>
 												</div>
 												<div class="w3-col w3-padding m6">
 													<label>Proto Short Frames</label>
-													<input class="w3-input w3-border w3-grey w3-border-black" id="Server_ProtoShortFrames" name="Server_ProtoShortFrames" type="text" placeholder="">
+													<select class="w3-input w3-border w3-grey w3-border-black" id="Server_ProtoShortFrames" name="Server_ProtoShortFrames">
+														<option value="Yes">Yes</option>
+														<option value="No">No</option>
+													</select>
 												</div>
 											</div>
 										</p></div>
@@ -422,7 +484,10 @@
 											<div class="w3-row-padding">
 												<div class="w3-col w3-padding m6">
 													<label>Prefer IPv4</label>
-													<input class="w3-input w3-border w3-grey w3-border-black" id="Internet_PreferIPv4" name="Internet_PreferIPv4" type="text" placeholder="">
+													<select class="w3-input w3-border w3-grey w3-border-black" id="Internet_PreferIPv4" name="Internet_PreferIPv4">
+														<option value="Yes">Yes</option>
+														<option value="No">No</option>
+													</select>
 												</div>
 											</div>
 										</p></div>
@@ -470,39 +535,68 @@
 												</div>
 												<div class="w3-col w3-padding m6">
 													<label>Log Control Sound</label>
-													<input class="w3-input w3-border w3-grey w3-border-black" id="System_LogControlSound" name="System_LogControlSound" type="text" placeholder="">
+													<select class="w3-input w3-border w3-grey w3-border-black" id="System_LogControlSound" name="System_LogControlSound">
+														<option value="Yes">Yes</option>
+														<option value="No">No</option>
+													</select>
 												</div>
 												<div class="w3-col w3-padding m6">
 													<label>Log External Sound</label>
-													<input class="w3-input w3-border w3-grey w3-border-black" id="System_LogExternalSound" name="System_LogExternalSound" type="text" placeholder="">
+													<select class="w3-input w3-border w3-grey w3-border-black" id="System_LogExternalSound" name="System_LogExternalSound">
+														<option value="Yes">Yes</option>
+														<option value="No">No</option>
+													</select>
 												</div>
 												<div class="w3-col w3-padding m6">
 													<label>Log Client List</label>
-													<input class="w3-input w3-border w3-grey w3-border-black" id="System_LogClientList" name="System_LogClientList" type="text" placeholder="">
+													<select class="w3-input w3-border w3-grey w3-border-black" id="System_LogClientList" name="System_LogClientList">
+														<option value="Yes">Yes</option>
+														<option value="Full">Full</option>
+														<option value="ID">ID</option>
+														<option value="No">No</option>
+													</select>
 												</div>
 												<div class="w3-col w3-padding m6">
 													<label>Log Carrier</label>
-													<input class="w3-input w3-border w3-grey w3-border-black" id="System_LogCarrier" name="System_LogCarrier" type="text" placeholder="">
+													<select class="w3-input w3-border w3-grey w3-border-black" id="System_LogCarrier" name="System_LogCarrier">
+														<option value="Yes">Yes</option>
+														<option value="No">No</option>
+													</select>
 												</div>
 												<div class="w3-col w3-padding m6">
 													<label>Log Timing</label>
-													<input class="w3-input w3-border w3-grey w3-border-black" id="System_LogTiming" name="System_LogTiming" type="text" placeholder="">
+													<select class="w3-input w3-border w3-grey w3-border-black" id="System_LogTiming" name="System_LogTiming">
+														<option value="Yes">Yes</option>
+														<option value="No">No</option>
+													</select>
 												</div>
 												<div class="w3-col w3-padding m6">
 													<label>Log Backup Server Mode</label>
-													<input class="w3-input w3-border w3-grey w3-border-black" id="System_LogBackupServerMode" name="System_LogBackupServerMode" type="text" placeholder="">
+													<select class="w3-input w3-border w3-grey w3-border-black" id="System_LogBackupServerMode" name="System_LogBackupServerMode">
+														<option value="Yes">Yes</option>
+														<option value="No">No</option>
+													</select>
 												</div>
 												<div class="w3-col w3-padding m6">
 													<label>Log Check Server</label>
-													<input class="w3-input w3-border w3-grey w3-border-black" id="System_LogCheckServer" name="System_LogCheckServer" type="text" placeholder="">
+													<select class="w3-input w3-border w3-grey w3-border-black" id="System_LogCheckServer" name="System_LogCheckServer">
+														<option value="Yes">Yes</option>
+														<option value="No">No</option>
+													</select>
 												</div>
 												<div class="w3-col w3-padding m6">
 													<label>Log Dtmf Tones</label>
-													<input class="w3-input w3-border w3-grey w3-border-black" id="System_LogDtmfTones" name="System_LogDtmfTones" type="text" placeholder="">
+													<select class="w3-input w3-border w3-grey w3-border-black" id="System_LogDtmfTones" name="System_LogDtmfTones">
+														<option value="Yes">Yes</option>
+														<option value="No">No</option>
+													</select>
 												</div>
 												<div class="w3-col w3-padding m6">
 													<label>Log Dtmf Commands</label>
-													<input class="w3-input w3-border w3-grey w3-border-black" id="System_LogDtmfCommands" name="System_LogDtmfCommands" type="text" placeholder="">
+													<select class="w3-input w3-border w3-grey w3-border-black" id="System_LogDtmfCommands" name="System_LogDtmfCommands">
+														<option value="Yes">Yes</option>
+														<option value="No">No</option>
+													</select>
 												</div>
 												<div class="w3-col w3-padding m6">
 													<label>Log Client List Delimiter</label>
@@ -510,19 +604,31 @@
 												</div>
 												<div class="w3-col w3-padding m6">
 													<label>Log Cache</label>
-													<input class="w3-input w3-border w3-grey w3-border-black" id="System_LogCache" name="System_LogCache" type="text" placeholder="">
+													<select class="w3-input w3-border w3-grey w3-border-black" id="System_LogCache" name="System_LogCache">
+														<option value="Yes">Yes</option>
+														<option value="No">No</option>
+													</select>
 												</div>
 												<div class="w3-col w3-padding m6">
 													<label>Log PTT</label>
-													<input class="w3-input w3-border w3-grey w3-border-black" id="System_LogPTT" name="System_LogPTT" type="text" placeholder="">
+													<select class="w3-input w3-border w3-grey w3-border-black" id="System_LogPTT" name="System_LogPTT">
+														<option value="Yes">Yes</option>
+														<option value="No">No</option>
+													</select>
 												</div>
 												<div class="w3-col w3-padding m6">
 													<label>Log Exec</label>
-													<input class="w3-input w3-border w3-grey w3-border-black" id="System_LogExec" name="System_LogExec" type="text" placeholder="">
+													<select class="w3-input w3-border w3-grey w3-border-black" id="System_LogExec" name="System_LogExec">
+														<option value="Yes">Yes</option>
+														<option value="No">No</option>
+													</select>
 												</div>
 												<div class="w3-col w3-padding m6">
 													<label>Log Recorder</label>
-													<input class="w3-input w3-border w3-grey w3-border-black" id="System_LogRecorder" name="System_LogRecorder" type="text" placeholder="">
+													<select class="w3-input w3-border w3-grey w3-border-black" id="System_LogRecorder" name="System_LogRecorder">
+														<option value="Yes">Yes</option>
+														<option value="No">No</option>
+													</select>
 												</div>
 											</div>
 										</p></div>
@@ -544,7 +650,10 @@
 												</div>
 												<div class="w3-col w3-padding m6">
 													<label>Enable Courtesy</label>
-													<input class="w3-input w3-border w3-grey w3-border-black" id="Sounds_EnableCourtesy" name="Sounds_EnableCourtesy" type="text" placeholder="">
+													<select class="w3-input w3-border w3-grey w3-border-black" id="Sounds_EnableCourtesy" name="Sounds_EnableCourtesy">
+														<option value="Yes">Yes</option>
+														<option value="No">No</option>
+													</select>
 												</div>
 												<div class="w3-col w3-padding m6">
 													<label>Sound Courtesy Empty Net</label>
@@ -552,7 +661,10 @@
 												</div>
 												<div class="w3-col w3-padding m6">
 													<label>Enable Courtesy Empty Net</label>
-													<input class="w3-input w3-border w3-grey w3-border-black" id="Sounds_EnableCourtesyEmptyNet" name="Sounds_EnableCourtesyEmptyNet" type="text" placeholder="">
+													<select class="w3-input w3-border w3-grey w3-border-black" id="Sounds_EnableCourtesyEmptyNet" name="Sounds_EnableCourtesyEmptyNet">
+														<option value="Yes">Yes</option>
+														<option value="No">No</option>
+													</select>
 												</div>
 												<div class="w3-col w3-padding m6">
 													<label>Sound Roger</label>
@@ -560,7 +672,10 @@
 												</div>
 												<div class="w3-col w3-padding m6">
 													<label>Enable Roger</label>
-													<input class="w3-input w3-border w3-grey w3-border-black" id="Sounds_EnableRoger" name="Sounds_EnableRoger" type="text" placeholder="">
+													<select class="w3-input w3-border w3-grey w3-border-black" id="Sounds_EnableRoger" name="Sounds_EnableRoger">
+														<option value="Yes">Yes</option>
+														<option value="No">No</option>
+													</select>
 												</div>
 												<div class="w3-col w3-padding m6">
 													<label>Sound No Connection</label>
@@ -568,7 +683,10 @@
 												</div>
 												<div class="w3-col w3-padding m6">
 													<label>Enable No Connection</label>
-													<input class="w3-input w3-border w3-grey w3-border-black" id="Sounds_EnableNoConnection" name="Sounds_EnableNoConnection" type="text" placeholder="">
+													<select class="w3-input w3-border w3-grey w3-border-black" id="Sounds_EnableNoConnection" name="Sounds_EnableNoConnection">
+														<option value="Yes">Yes</option>
+														<option value="No">No</option>
+													</select>
 												</div>
 												<div class="w3-col w3-padding m6">
 													<label>Sound Reject</label>
@@ -576,7 +694,10 @@
 												</div>
 												<div class="w3-col w3-padding m6">
 													<label>Enable Reject</label>
-													<input class="w3-input w3-border w3-grey w3-border-black" id="Sounds_EnableReject" name="Sounds_EnableReject" type="text" placeholder="">
+													<select class="w3-input w3-border w3-grey w3-border-black" id="Sounds_EnableReject" name="Sounds_EnableReject">
+														<option value="Yes">Yes</option>
+														<option value="No">No</option>
+													</select>
 												</div>
 												<div class="w3-col w3-padding m6">
 													<label>Sound Error</label>
@@ -584,7 +705,10 @@
 												</div>
 												<div class="w3-col w3-padding m6">
 													<label>Enable Error</label>
-													<input class="w3-input w3-border w3-grey w3-border-black" id="Sounds_EnableError" name="Sounds_EnableError" type="text" placeholder="">
+													<select class="w3-input w3-border w3-grey w3-border-black" id="Sounds_EnableError" name="Sounds_EnableError">
+														<option value="Yes">Yes</option>
+														<option value="No">No</option>
+													</select>
 												</div>
 												<div class="w3-col w3-padding m6">
 													<label>Sound Radio BOT</label>
@@ -592,11 +716,17 @@
 												</div>
 												<div class="w3-col w3-padding m6">
 													<label>Enable Radio BOT</label>
-													<input class="w3-input w3-border w3-grey w3-border-black" id="Sounds_EnableRadioBOT" name="Sounds_EnableRadioBOT" type="text" placeholder="">
+													<select class="w3-input w3-border w3-grey w3-border-black" id="Sounds_EnableRadioBOT" name="Sounds_EnableRadioBOT">
+														<option value="Yes">Yes</option>
+														<option value="No">No</option>
+													</select>
 												</div>
 												<div class="w3-col w3-padding m6">
 													<label>Enable Connect</label>
-													<input class="w3-input w3-border w3-grey w3-border-black" id="Sounds_EnableConnect" name="Sounds_EnableConnect" type="text" placeholder="">
+													<select class="w3-input w3-border w3-grey w3-border-black" id="Sounds_EnableConnect" name="Sounds_EnableConnect">
+														<option value="Yes">Yes</option>
+														<option value="No">No</option>
+													</select>
 												</div>
 												<div class="w3-col w3-padding m6">
 													<label>Sound Connect</label>
@@ -604,7 +734,10 @@
 												</div>
 												<div class="w3-col w3-padding m6">
 													<label>Connect Sound Cfg Enabled</label>
-													<input class="w3-input w3-border w3-grey w3-border-black" id="Sounds_ConnectSoundCfgEnabled" name="Sounds_ConnectSoundCfgEnabled" type="text" placeholder="">
+													<select class="w3-input w3-border w3-grey w3-border-black" id="Sounds_ConnectSoundCfgEnabled" name="Sounds_ConnectSoundCfgEnabled">
+														<option value="Yes">Yes</option>
+														<option value="No">No</option>
+													</select>
 												</div>
 												<div class="w3-col w3-padding m6">
 													<label>Connect Sound Cfg File Name</label>
@@ -612,7 +745,10 @@
 												</div>
 												<div class="w3-col w3-padding m6">
 													<label>Connect Sound Ext Enabled</label>
-													<input class="w3-input w3-border w3-grey w3-border-black" id="Sounds_ConnectSoundExtEnabled" name="Sounds_ConnectSoundExtEnabled" type="text" placeholder="">
+													<select class="w3-input w3-border w3-grey w3-border-black" id="Sounds_ConnectSoundExtEnabled" name="Sounds_ConnectSoundExtEnabled">
+														<option value="Yes">Yes</option>
+														<option value="No">No</option>
+													</select>
 												</div>
 												<div class="w3-col w3-padding m6">
 													<label>Connect Sound Ext Script</label>
@@ -640,7 +776,10 @@
 												</div>
 												<div class="w3-col w3-padding m6">
 													<label>Enable Disconnect</label>
-													<input class="w3-input w3-border w3-grey w3-border-black" id="Sounds_EnableDisconnect" name="Sounds_EnableDisconnect" type="text" placeholder="">
+													<select class="w3-input w3-border w3-grey w3-border-black" id="Sounds_EnableDisconnect" name="Sounds_EnableDisconnect">
+														<option value="Yes">Yes</option>
+														<option value="No">No</option>
+													</select>
 												</div>
 												<div class="w3-col w3-padding m6">
 													<label>Sound Disconnect</label>
@@ -648,7 +787,10 @@
 												</div>
 												<div class="w3-col w3-padding m6">
 													<label>Roger Sound Cfg Enabled</label>
-													<input class="w3-input w3-border w3-grey w3-border-black" id="Sounds_RogerSoundCfgEnabled" name="Sounds_RogerSoundCfgEnabled" type="text" placeholder="">
+													<select class="w3-input w3-border w3-grey w3-border-black" id="Sounds_RogerSoundCfgEnabled" name="Sounds_RogerSoundCfgEnabled">
+														<option value="Yes">Yes</option>
+														<option value="No">No</option>
+													</select>
 												</div>
 												<div class="w3-col w3-padding m6">
 													<label>Roger Sound Cfg File Name</label>
@@ -666,7 +808,10 @@
 											<div class="w3-row-padding">
 												<div class="w3-col w3-padding m6">
 													<label>Enabled</label>
-													<input class="w3-input w3-border w3-grey w3-border-black" id="Hours_Enabled" name="Hours_Enabled" type="text" placeholder="">
+													<select class="w3-input w3-border w3-grey w3-border-black" id="Hours_Enabled" name="Hours_Enabled">
+														<option value="Yes">Yes</option>
+														<option value="No">No</option>
+													</select> 
 												</div>
 												<div class="w3-col w3-padding m6">
 													<label>Dir</label>
@@ -682,7 +827,10 @@
 												</div>
 												<div class="w3-col w3-padding m6">
 													<label>Ext Enabled</label>
-													<input class="w3-input w3-border w3-grey w3-border-black" id="Hours_ExtEnabled" name="Hours_ExtEnabled" type="text" placeholder="">
+													<select class="w3-input w3-border w3-grey w3-border-black" id="Hours_ExtEnabled" name="Hours_ExtEnabled">
+														<option value="Yes">Yes</option>
+														<option value="No">No</option>
+													</select>
 												</div>
 												<div class="w3-col w3-padding m6">
 													<label>Ext Script</label>
@@ -712,7 +860,10 @@
 											<div class="w3-row-padding">
 												<div class="w3-col w3-padding m6">
 													<label>Enabled</label>
-													<input class="w3-input w3-border w3-grey w3-border-black" id="Informer_Enabled" name="Informer_Enabled" type="text" placeholder="">
+													<select class="w3-input w3-border w3-grey w3-border-black" id="Informer_Enabled" name="Informer_Enabled">
+														<option value="Yes">Yes</option>
+														<option value="No">No</option>
+													</select> 
 												</div>
 												<div class="w3-col w3-padding m6">
 													<label>Dir</label>
@@ -728,7 +879,10 @@
 												</div>
 												<div class="w3-col w3-padding m6">
 													<label>Silence Enabled</label>
-													<input class="w3-input w3-border w3-grey w3-border-black" id="Informer_SilenceEnabled" name="Informer_SilenceEnabled" type="text" placeholder="">
+													<select class="w3-input w3-border w3-grey w3-border-black" id="Informer_SilenceEnabled" name="Informer_SilenceEnabled">
+														<option value="Yes">Yes</option>
+														<option value="No">No</option>
+													</select>
 												</div>
 												<div class="w3-col w3-padding m6">
 													<label>Silence Interval</label>
@@ -740,7 +894,10 @@
 												</div>
 												<div class="w3-col w3-padding m6">
 													<label>Ext Enabled</label>
-													<input class="w3-input w3-border w3-grey w3-border-black" id="Informer_ExtEnabled" name="Informer_ExtEnabled" type="text" placeholder="">
+													<select class="w3-input w3-border w3-grey w3-border-black" id="Informer_ExtEnabled" name="Informer_ExtEnabled">
+														<option value="Yes">Yes</option>
+														<option value="No">No</option>
+													</select>
 												</div>
 												<div class="w3-col w3-padding m6">
 													<label>Ext Script</label>
@@ -766,7 +923,10 @@
 											<div class="w3-row-padding">
 												<div class="w3-col w3-padding m6">
 													<label>Enabled</label>
-													<input class="w3-input w3-border w3-grey w3-border-black" id="Recorder_Enabled" name="Recorder_Enabled" type="text" placeholder="">
+													<select class="w3-input w3-border w3-grey w3-border-black" id="Recorder_Enabled" name="Recorder_Enabled">
+														<option value="Yes">Yes</option>
+														<option value="No">No</option>
+													</select> 
 												</div>
 												<div class="w3-col w3-padding m6">
 													<label>Dir</label>
@@ -800,7 +960,10 @@
 											<div class="w3-row-padding">
 												<div class="w3-col w3-padding m6">
 													<label>Enabled</label>
-													<input class="w3-input w3-border w3-grey w3-border-black" id="Command_CommandEnabled" name="Command_CommandEnabled" type="text" placeholder="">
+													<select class="w3-input w3-border w3-grey w3-border-black" id="Command_CommandEnabled" name="Command_CommandEnabled">
+														<option value="Yes">Yes</option>
+														<option value="No">No</option>
+													</select>
 												</div>
 												<div class="w3-col w3-padding m6">
 													<label>Port</label>
@@ -812,11 +975,17 @@
 												</div>
 												<div class="w3-col w3-padding m6">
 													<label>Prefer IPv4</label>
-													<input class="w3-input w3-border w3-grey w3-border-black" id="Command_CommandPreferIPv4" name="Command_CommandPreferIPv4" type="text" placeholder="">
+													<select class="w3-input w3-border w3-grey w3-border-black" id="Command_CommandPreferIPv4" name="Command_CommandPreferIPv4">
+														<option value="Yes">Yes</option>
+														<option value="No">No</option>
+													</select> 
 												</div>
 												<div class="w3-col w3-padding m6">
 													<label>Amplitude Enabled</label>
-													<input class="w3-input w3-border w3-grey w3-border-black" id="Command_AmplitudeEnabled" name="Command_AmplitudeEnabled" type="text" placeholder="">
+													<select class="w3-input w3-border w3-grey w3-border-black" id="Command_AmplitudeEnabled" name="Command_AmplitudeEnabled">
+														<option value="Yes">Yes</option>
+														<option value="No">No</option>
+													</select> 
 												</div>
 												<div class="w3-col w3-padding m6">
 													<label>Amplitude Port</label>
@@ -907,7 +1076,7 @@
 				<p>
 					<small>
 						AlterFRN Client by Valery (<a class="rpi-hover-text-green" href="https://alterfrn.ucoz.ru/" target="_new">alterfrn.ucoz.ru</a>)</br>
-						- Dashboard © 13MAD86 / Martin | Version 0.5 (BETA) -</br>
+						- Dashboard © 13MAD86 / Martin | Version 0.6 (BETA) -</br>
 						powered by <a class="rpi-hover-text-green" href="http://www.sdr-mkk.de" target="_new">www.sdr-mkk.de</a>
 					</small>
 				</p>
@@ -1168,6 +1337,16 @@
 						return hh + ":" + mi + ":" + ss;
 				}
 
+				function getRXString (value) {
+					value = value.toString();
+					value = value.slice(0, (value.indexOf(".")) + 3);
+					value = "<b>"+ value.replace('.', '</b> Seconds, <b>');
+					if (window.innerWidth > 600)
+						return value +"</b> Milliseconds";
+					else
+						return value.replace(' Seconds, ', '.');
+				}
+
 				function geStats(id) {
 					if (window.XMLHttpRequest)
 						gStats=new XMLHttpRequest();
@@ -1247,21 +1426,22 @@
 								var text_rx = values.log_rx;
 								var data_rx = text_rx.split(' | ').map(row => row.split('; ').map(
 									(cell, i) =>
-									(i == 0) ? "<td class='w3-border w3-border-black w3-theme-table w3-center'>"+ getDateTime(cell) +"</td>" :
-									(i == 1) ? "<td class='w3-border w3-border-black w3-theme-table w3-center'><b>"+ cell.replace(';', '') +"</b></td>" :
-									(i == 2) ? "<td class='w3-border w3-border-black w3-theme-table w3-center w3-hide-small'>"+ cell.replace(';', '') +"</td>" :
-									(i == 3) ? "<td class='w3-border w3-border-black w3-theme-table w3-center w3-hide-small'>"+ cell.replace(';', '') +"</td>" :
-									(i == 4) ? "<td class='w3-border w3-border-black w3-theme-table w3-hide-small'>"+ cell.replace(';', '') +"</td>" :
-									(i == 5) ? "<td class='w3-border w3-border-black w3-theme-table w3-center w3-hide-small'>"+ getCountryCode(cell) +"</td>" :
-									"<td class='w3-border w3-border-black w3-theme-table w3-center'>"+ cell.replace(';', '') +"</td>").join('')).map(row => "<tr>"+ row +"</tr>").join('');
+									(i == 0) ? "<td class='w3-border w3-border-black w3-theme-table w3-center' style='vertical-align: middle'>"+ getDateTime(cell) +"</td>" :
+									(i == 1) ? "<td class='w3-border w3-border-black w3-theme-table w3-center' style='vertical-align: middle'><b>"+ cell.replace(';', '') +"</b></td>" :
+									(i == 2) ? "<td class='w3-border w3-border-black w3-theme-table w3-center w3-hide-small' style='vertical-align: middle'>"+ cell.replace(';', '') +"</td>" :
+									(i == 3) ? "<td class='w3-border w3-border-black w3-theme-table w3-center w3-hide-small' style='vertical-align: middle'>"+ cell.replace(';', '') +"</td>" :
+									(i == 4) ? "<td class='w3-border w3-border-black w3-theme-table w3-hide-small' style='vertical-align: middle'>"+ cell.replace(';', '') +"</td>" :
+									(i == 5) ? "<td class='w3-border w3-border-black w3-theme-table w3-center w3-hide-small' style='vertical-align: middle'>"+ getCountryCode(cell) +"</td>" :
+									"<td class='w3-border w3-border-black w3-theme-table w3-center' style='vertical-align: middle'>"+ cell.replace(';', '') +"</td>").join('')).map(row => "<tr>"+ row +"</tr>").join('');
 								var html_out_rx = "<table class='w3-table w3-striped w3-white'>";
 								html_out_rx += "<tr>";
-								html_out_rx += "<td class='w3-border w3-border-black w3-center w3-theme-light' style='width: 16%'><b>Date / Time</b></td>";
-								html_out_rx += "<td class='w3-border w3-border-black w3-center w3-theme-light' style='width: 16%'><b>Callsign, Name</b></td>";
-								html_out_rx += "<td class='w3-border w3-border-black w3-center w3-theme-light w3-hide-small' style='width: 20%'><b>City</b></td>";
-								html_out_rx += "<td class='w3-border w3-border-black w3-center w3-theme-light w3-hide-small' style='width: 9%'><b>Mode</b></td>";
-								html_out_rx += "<td class='w3-border w3-border-black w3-center w3-theme-light w3-hide-small' style='width: 34%'><b>Description</b></td>";
-								html_out_rx += "<td class='w3-border w3-border-black w3-center w3-theme-light w3-hide-small' style='width: 5%'><b>Country</b></td>";
+								html_out_rx += "<td class='w3-border w3-border-black w3-hide-small w3-center w3-theme-light' style='width: 16%; vertical-align: middle'><b>Date / Time</b></td>";
+								html_out_rx += "<td class='w3-border w3-border-black w3-hide-large w3-center w3-theme-light' style='width: 16%; vertical-align: middle'><b>Time</b></td>";
+								html_out_rx += "<td class='w3-border w3-border-black w3-center w3-theme-light' style='width: 16%; vertical-align: middle'><b>Callsign, Name</b></td>";
+								html_out_rx += "<td class='w3-border w3-border-black w3-center w3-theme-light w3-hide-small' style='width: 20%; vertical-align: middle'><b>City</b></td>";
+								html_out_rx += "<td class='w3-border w3-border-black w3-center w3-theme-light w3-hide-small' style='width: 9%; vertical-align: middle'><b>Mode</b></td>";
+								html_out_rx += "<td class='w3-border w3-border-black w3-center w3-theme-light w3-hide-small' style='width: 34%; vertical-align: middle'><b>Description</b></td>";
+								html_out_rx += "<td class='w3-border w3-border-black w3-center w3-theme-light w3-hide-small' style='width: 5%; vertical-align: middle'><b>Country</b></td>";
 								html_out_rx += "</tr>";
 								html_out_rx += data_rx;
 								html_out_rx += "<table>";
@@ -1269,17 +1449,18 @@
 								var text_tx = values.log_tx;
 								var data_tx = text_tx.split(' | ').map(row => row.split('; ').map(
 									(cell, i) =>
-									(i == 0) ? "<td class='w3-border w3-border-black w3-theme-table w3-center'>"+ getDateTime(cell) +"</td>" :
+									(i == 0) ? "<td class='w3-border w3-border-black w3-theme-table w3-center' style='vertical-align: middle'>"+ getDateTime(cell) +"</td>" :
 									(i == 1) ? "" :
 									(i == 2) ? "" :
-									(i == 3) ? "<td class='w3-border w3-border-black w3-theme-table w3-center'>"+ cell.replace(';', '') +" Sec.</td>" :
-									(i == 4) ? "<td class='w3-border w3-border-black w3-theme-table w3-center'>"+ cell.replace(';', '') +" Sec.</td>" :
-									"<td class='w3-border w3-border-black w3-theme-table w3-center'>"+ cell.replace(';', '') +"</td>").join('')).map(row => "<tr>"+ row +"</tr>").join('');
+									(i == 3) ? "<td class='w3-border w3-border-black w3-theme-table' style='text-align: right; vertical-align: middle'>"+ getRXString (cell.replace(';', '')) +"</td>" :
+									(i == 4) ? "<td class='w3-border w3-border-black w3-theme-table' style='text-align: right; vertical-align: middle'>"+ getRXString (cell.replace(';', '')) +"</td>" :
+									"<td class='w3-border w3-border-black w3-theme-table w3-center' style='vertical-align: middle'>"+ cell.replace(';', '') +"</td>").join('')).map(row => "<tr>"+ row +"</tr>").join('');
 								var html_out_tx = "<table class='w3-table w3-striped w3-white'>";
 								html_out_tx += "<tr>";
-								html_out_tx += "<td class='w3-border w3-border-black w3-center w3-theme-light' style='width: 16%'><b>Date / Time</b></td>";
-								html_out_tx += "<td class='w3-border w3-border-black w3-center w3-theme-light' style='width: 42%'><b>Transmitted</b></td>";
-								html_out_tx += "<td class='w3-border w3-border-black w3-center w3-theme-light' style='width: 42%'><b>Stopped</b></td>";
+								html_out_tx += "<td class='w3-border w3-border-black w3-hide-small w3-center w3-theme-light' style='width: 16%; vertical-align: middle'><b>Date / Time</b></td>";
+								html_out_tx += "<td class='w3-border w3-border-black w3-hide-large w3-center w3-theme-light' style='width: 16%; vertical-align: middle'><b>Time</b></td>";
+								html_out_tx += "<td class='w3-border w3-border-black w3-center w3-theme-light' style='width: 42%; vertical-align: middle'><b>Transmitted</b></td>";
+								html_out_tx += "<td class='w3-border w3-border-black w3-center w3-theme-light' style='width: 42%; vertical-align: middle'><b>Duration</b></td>";
 								html_out_tx += "</tr>";
 								html_out_tx += data_tx;
 								html_out_tx += "<table>";
