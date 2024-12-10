@@ -299,9 +299,9 @@ class MyHttpRequestHandler(http.server.SimpleHTTPRequestHandler):
                 "ip":str(self.get_ipaddress()), \
                 "uptime":str(self.get_uptime()), \
                 "log_rx":log_out_rx, \
-                "rx_active":str(self.rx_active), \
+                "rx_active":str(rx_active), \
                 "log_tx":log_out_tx, \
-                "tx_active":str(self.tx_active), \
+                "tx_active":str(tx_active), \
                 "callsign":str(config['Auth']['Callsign']), \
                 "hours":str(config['Hours']['Enabled']), \
                 "informer":str(config['Informer']['Enabled']), \
@@ -580,14 +580,14 @@ class MyHttpRequestHandler(http.server.SimpleHTTPRequestHandler):
                 if line.find('; ; ; ; ; -') != -1:
                     line = line
                 elif line.find('RX is started:') != -1:
-                    self.rx_active = 1;
+                    rx_active = 1;
                     line = line[:-25]
                     line = line.replace(': ', '; ')
                     line = line.replace('RX is started', 'RX')
                     line += '| '
                     log.append(line)
                 elif line.find('RX is stopped') != -1:
-                    self.rx_active = 0;
+                    rx_active = 0;
 
         output = log[-9:]
         output.reverse()
@@ -600,9 +600,9 @@ class MyHttpRequestHandler(http.server.SimpleHTTPRequestHandler):
             lines = fp.readlines()
             for line in lines:
                 if line.find('TX is approved and started') != -1:
-                    self.tx_active = 1;
+                    tx_active = 1;
                 elif line.find('TX is stopped:') != -1:
-                    self.tx_active = 0;
+                    tx_active = 0;
                     line = line.replace(': ', '; ')
                     line = line.replace('TX is stopped', 'TX')
                     line += '| '
