@@ -1,6 +1,6 @@
 #
 # FRN Client Console - Dashboard © 13MAD86 / Martin
-# powered by www.sdr-mkk.de
+# powered by www.fm-funkgateway.de
 #
 
 import urllib.parse as urlparse
