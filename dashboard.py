@@ -28,7 +28,7 @@ PORT = 80
 WEBPATH = "/home/pi/dashboard"
 
 rx_active = 0
-tx_active = 0
+gw_active = 0
 
 class MyHttpRequestHandler(http.server.SimpleHTTPRequestHandler):
     def do_POST(self):
@@ -275,17 +275,17 @@ class MyHttpRequestHandler(http.server.SimpleHTTPRequestHandler):
             log_out_rx = log_out_rx.replace('[gCLNT 4.09.0]', '')
             log_out_rx = log_out_rx[:-3]
 
-            log_out_tx = str(self.get_log_tx())
-            log_out_tx = log_out_tx.replace('[\'', '')
-            log_out_tx = log_out_tx.replace('\', \'', '')
-            log_out_tx = log_out_tx.replace('\']', '')
-            log_out_tx = log_out_tx.replace('TX; ', '')
-            log_out_tx = log_out_tx.replace('LP=', '')
-            log_out_tx = log_out_tx.replace('WT=', '')
-            log_out_tx = log_out_tx.replace('PT=', '')
-            log_out_tx = log_out_tx.replace('ST=', '')
-            log_out_tx = log_out_tx.replace('\\n', ' ')
-            log_out_tx = log_out_tx[:-3]
+            log_out_gw = str(self.get_log_gw())
+            log_out_gw = log_out_gw.replace('[\'', '')
+            log_out_gw = log_out_gw.replace('\', \'', '')
+            log_out_gw = log_out_gw.replace('\']', '')
+            log_out_gw = log_out_gw.replace('TX; ', '')
+            log_out_gw = log_out_gw.replace('LP=', '')
+            log_out_gw = log_out_gw.replace('WT=', '')
+            log_out_gw = log_out_gw.replace('PT=', '')
+            log_out_gw = log_out_gw.replace('ST=', '')
+            log_out_gw = log_out_gw.replace('\\n', ' ')
+            log_out_gw = log_out_gw[:-3]
 
             outputJson = { \
                 "platform":platform.system(), \
@@ -300,8 +300,8 @@ class MyHttpRequestHandler(http.server.SimpleHTTPRequestHandler):
                 "uptime":str(self.get_uptime()), \
                 "log_rx":log_out_rx, \
                 "rx_active":str(self.get_log_rx_status()), \
-                "log_tx":log_out_tx, \
-                "tx_active":str(self.get_log_tx_status()), \
+                "log_tx":log_out_gw, \
+                "gw_active":str(self.get_log_gw_status()), \
                 "callsign":str(config['Auth']['Callsign']), \
                 "hours":str(config['Hours']['Enabled']), \
                 "informer":str(config['Informer']['Enabled']), \
@@ -603,14 +603,14 @@ class MyHttpRequestHandler(http.server.SimpleHTTPRequestHandler):
 
         return rx_active
 
-    def get_log_tx(self):
+    def get_log_gw(self):
         log = []
 
         with open(r'/home/pi/frnclientconsole.log', 'r') as fp:
             lines = fp.readlines()
             for line in lines:
                 if line.find('TX is stopped:') != -1:
-                    tx_active = 0;
+                    gw_active = 0;
                     line = line.replace(': ', '; ')
                     line = line.replace('TX is stopped', 'TX')
                     line += '| '
@@ -620,18 +620,18 @@ class MyHttpRequestHandler(http.server.SimpleHTTPRequestHandler):
         output.reverse()
         return output
 
-    def get_log_tx_status(self):
+    def get_log_gw_status(self):
         log = []
 
         with open(r'/home/pi/frnclientconsole.log', 'r') as fp:
             lines = fp.readlines()
             for line in lines:
                 if line.find('TX is approved and started') != -1:
-                    tx_active = 1;
+                    gw_active = 1;
                 elif line.find('TX is stopped:') != -1:
-                    tx_active = 0;
+                    gw_active = 0;
 
-        return tx_active
+        return gw_active
 
 handler_object = MyHttpRequestHandler
 my_server = socketserver.TCPServer(("", PORT), handler_object)
