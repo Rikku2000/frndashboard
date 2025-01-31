@@ -299,9 +299,9 @@ class MyHttpRequestHandler(http.server.SimpleHTTPRequestHandler):
                 "ip":str(self.get_ipaddress()), \
                 "uptime":str(self.get_uptime()), \
                 "log_rx":log_out_rx, \
-                "rx_active":str(rx_active), \
+                "rx_active":str(self.get_log_rx_status()), \
                 "log_tx":log_out_tx, \
-                "tx_active":str(tx_active), \
+                "tx_active":str(self.get_log_tx_status()), \
                 "callsign":str(config['Auth']['Callsign']), \
                 "hours":str(config['Hours']['Enabled']), \
                 "informer":str(config['Informer']['Enabled']), \
@@ -580,18 +580,28 @@ class MyHttpRequestHandler(http.server.SimpleHTTPRequestHandler):
                 if line.find('; ; ; ; ; -') != -1:
                     line = line
                 elif line.find('RX is started:') != -1:
-                    rx_active = 1;
                     line = line[:-25]
                     line = line.replace(': ', '; ')
                     line = line.replace('RX is started', 'RX')
                     line += '| '
                     log.append(line)
-                elif line.find('RX is stopped') != -1:
-                    rx_active = 0;
 
         output = log[-9:]
         output.reverse()
         return output
+
+    def get_log_rx_status(self):
+        log = []
+
+        with open(r'/home/pi/frnclientconsole.log', 'r') as fp:
+            lines = fp.readlines()
+            for line in lines:
+                if line.find('RX is started:') != -1:
+                    rx_active = 1;
+                elif line.find('RX is stopped') != -1:
+                    rx_active = 0;
+
+        return rx_active
 
     def get_log_tx(self):
         log = []
@@ -599,9 +609,7 @@ class MyHttpRequestHandler(http.server.SimpleHTTPRequestHandler):
         with open(r'/home/pi/frnclientconsole.log', 'r') as fp:
             lines = fp.readlines()
             for line in lines:
-                if line.find('TX is approved and started') != -1:
-                    tx_active = 1;
-                elif line.find('TX is stopped:') != -1:
+                if line.find('TX is stopped:') != -1:
                     tx_active = 0;
                     line = line.replace(': ', '; ')
                     line = line.replace('TX is stopped', 'TX')
@@ -611,6 +619,19 @@ class MyHttpRequestHandler(http.server.SimpleHTTPRequestHandler):
         output = log[-13:]
         output.reverse()
         return output
+
+    def get_log_tx_status(self):
+        log = []
+
+        with open(r'/home/pi/frnclientconsole.log', 'r') as fp:
+            lines = fp.readlines()
+            for line in lines:
+                if line.find('TX is approved and started') != -1:
+                    tx_active = 1;
+                elif line.find('TX is stopped:') != -1:
+                    tx_active = 0;
+
+        return tx_active
 
 handler_object = MyHttpRequestHandler
 my_server = socketserver.TCPServer(("", PORT), handler_object)
