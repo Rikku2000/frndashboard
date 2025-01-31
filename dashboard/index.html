@@ -20,8 +20,8 @@
 				.rpi-text-pink, .rpi-hover-text-pink:hover { color:#F92672!important }
 				.rpi-text-green, .rpi-hover-text-green:hover { color:#88E22E!important }
 				.menu { display:block; }
-				.menu .receiving, .menu .config, .menu .transmission { display:none; }
-				.menu .receiving:target, .menu .config:target, .menu .transmission:target { display:block; }
+				.menu .receiving, .menu .config, .menu .gateway { display:none; }
+				.menu .receiving:target, .menu .config:target, .menu .gateway:target { display:block; }
 			</style>
 		</head>
 		<body class="w3-theme-light menu">
@@ -31,15 +31,15 @@
 					<a class="w3-bar-item w3-button w3-padding-large w3-theme-dark w3-hover-theme-dark rpi-hover-text-pink thickbox" href="index.html"><span id="statsSYSTitle">FRN Client Console</span></a>
 					<div class="w3-dropdown-hover w3-right w3-hide-small">
 						<a class="w3-bar-item w3-button w3-padding-large w3-theme-dark w3-hover-theme-dark rpi-hover-text-pink w3-right" href="#config">Config</a>
-						<a class="w3-bar-item w3-button w3-padding-large w3-theme-dark w3-hover-theme-dark rpi-hover-text-pink w3-right" href="#transmission">Transmission</a>
 						<a class="w3-bar-item w3-button w3-padding-large w3-theme-dark w3-hover-theme-dark rpi-hover-text-pink w3-right" href="#receiving">Receiving</a>
+						<a class="w3-bar-item w3-button w3-padding-large w3-theme-dark w3-hover-theme-dark rpi-hover-text-pink w3-right" href="#gateway">Gateway</a>
 						<a class="w3-bar-item w3-button w3-padding-large w3-theme-dark w3-hover-theme-dark rpi-hover-text-pink w3-right" href="live.html">Live Caller</a>
 					</div>
 				</div>
 				<div id="w3-menu" class="w3-bar-block w3-theme-dark w3-hide w3-hide-large w3-hide-medium w3-large">
 					<a class="w3-bar-item w3-button w3-padding-large w3-hover-theme-dark rpi-hover-text-pink" href="live.html">Live Caller</a>
+					<a class="w3-bar-item w3-button w3-padding-large w3-hover-theme-dark rpi-hover-text-pink" href="#gateway" onclick="openMenu()">Gateway</a>
 					<a class="w3-bar-item w3-button w3-padding-large w3-hover-theme-dark rpi-hover-text-pink" href="#receiving" onclick="openMenu()">Receiving</a>
-					<a class="w3-bar-item w3-button w3-padding-large w3-hover-theme-dark rpi-hover-text-pink" href="#transmission" onclick="openMenu()">Transmission</a>
 					<a class="w3-bar-item w3-button w3-padding-large w3-hover-theme-dark rpi-hover-text-pink" href="#config" onclick="openMenu()">Config</a>
 				</div>
 			</div>
@@ -79,9 +79,9 @@
 						</div>
 						</br>
 
-						<div class="receiving" id="receiving">
+						<div class="gateway" id="gateway">
 							<div class="w3-card w3-round-large w3-theme-dark w3-padding-large">
-								<b>Receiving</b><span class="w3-hide-small"> - List all calls to client.</span>
+								<b>Gateway</b><span class="w3-hide-small"> - List all calls to client.</span>
 								<p><div id="statsLastLogRX">---</div></p>
 							</div>
 							</br>
@@ -92,9 +92,9 @@
 							</div>
 						</div>
 
-						<div class="transmission" id="transmission">
+						<div class="receiving" id="receiving">
 								<div class="w3-card w3-round-large w3-theme-dark w3-padding-large">
-									<b>Transmission</b><span class="w3-hide-small"> - List all calls from radio.</span>
+									<b>Receiving</b><span class="w3-hide-small"> - List all calls from radio.</span>
 									<p><div id="statsLastLogTX">---</div></p>
 								</div>
 						</div>
@@ -1088,7 +1088,7 @@
 				ga = [];
 				var i;
 
-				function setPage () { location.href = "#receiving"; }
+				function setPage () { location.href = "#gateway"; }
 
 				function openMenu() {
 					var r = document.getElementById("w3-menu");
@@ -1404,14 +1404,14 @@
 								if (window.innerWidth < 600) html_plugin += "</small>";
 								document.getElementById("plugin").innerHTML=html_plugin;
 								document.getElementById("statsSYSMaster").innerHTML=values.master;
-								if (values.rx_active == "1" || values.tx_active == "1") {
+								if (values.rx_active == "1" || values.gw_active == "1") {
 									if (values.rx_active == "1")
-										document.getElementById("statsSYSTarget").innerHTML="(RX) "+ values.target;
+										document.getElementById("statsSYSTarget").innerHTML="(GW) "+ values.target;
 									else
-										document.getElementById("statsSYSTarget").innerHTML="(TX) "+ values.target;
+										document.getElementById("statsSYSTarget").innerHTML="(RX) "+ values.target;
 									document.getElementById("statsSYSTargetActive").classList.remove("w3-theme-light");
 									document.getElementById("statsSYSTargetActive").classList.add("rpi-pink");
-								} else if (values.rx_active == "0" || values.tx_active == "0") {
+								} else if (values.rx_active == "0" || values.gw_active == "0") {
 									document.getElementById("statsSYSTarget").innerHTML=values.target;
 									document.getElementById("statsSYSTargetActive").classList.remove("rpi-pink");
 									document.getElementById("statsSYSTargetActive").classList.add("w3-theme-light");
