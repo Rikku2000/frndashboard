@@ -27,9 +27,6 @@ PASS = str(config['Auth']['Password'])
 PORT = 80
 WEBPATH = "/home/pi/dashboard"
 
-rx_active = 0
-gw_active = 0
-
 class MyHttpRequestHandler(http.server.SimpleHTTPRequestHandler):
     def do_POST(self):
         try:
@@ -593,15 +590,16 @@ class MyHttpRequestHandler(http.server.SimpleHTTPRequestHandler):
     def get_log_rx_status(self):
         log = []
 
+        output = 0
         with open(r'/home/pi/frnclientconsole.log', 'r') as fp:
             lines = fp.readlines()
             for line in lines:
                 if line.find('RX is started:') != -1:
-                    rx_active = 1;
+                    output = 1;
                 elif line.find('RX is stopped') != -1:
-                    rx_active = 0;
+                    output = 0;
 
-        return rx_active
+        return output
 
     def get_log_gw(self):
         log = []
@@ -623,15 +621,16 @@ class MyHttpRequestHandler(http.server.SimpleHTTPRequestHandler):
     def get_log_gw_status(self):
         log = []
 
+        output = 0
         with open(r'/home/pi/frnclientconsole.log', 'r') as fp:
             lines = fp.readlines()
             for line in lines:
                 if line.find('TX is approved and started') != -1:
-                    gw_active = 1;
+                    output = 1;
                 elif line.find('TX is stopped:') != -1:
-                    gw_active = 0;
+                    output = 0;
 
-        return gw_active
+        return output
 
 handler_object = MyHttpRequestHandler
 my_server = socketserver.TCPServer(("", PORT), handler_object)
