@@ -1076,7 +1076,7 @@
 				<p>
 					<small>
 						AlterFRN Client by Valery (<a class="rpi-hover-text-green" href="https://alterfrn.ucoz.ru/" target="_new">alterfrn.ucoz.ru</a>)</br>
-						- Dashboard © 13MAD86 / Martin | Version 0.6 (BETA) -</br>
+						- Dashboard © 13MAD86 / Martin | Version 0.7 (BETA) -</br>
 						powered by <a class="rpi-hover-text-green" href="http://www.fm-funkgateway.de" target="_new">www.fm-funkgateway.de</a>
 					</small>
 				</p>
@@ -1418,11 +1418,10 @@
 								}
 								document.getElementById("statsSYSType").innerHTML=values.type;
 								document.getElementById("statsSYSStatus").classList.remove("w3-theme-light");
-								fetch ("http://"+ values.master, {mode: 'no-cors'}).then(r=>{
+								if (values.server_active == "1")
 									document.getElementById("statsSYSStatus").classList.add("rpi-green");
-								}).catch(e=>{
+								else
 									document.getElementById("statsSYSStatus").classList.add("rpi-pink");
-								});
 								var text_rx = values.log_rx;
 								var data_rx = text_rx.split(' | ').map(row => row.split('; ').map(
 									(cell, i) =>
