@@ -36,14 +36,19 @@ Here you need to define where the web script files are located:
 - WEBPATH = "/home/pi/dashboard"
 
 Same as in config.read, you need to define the config file location:
-- with open(r'/home/pi/frnconsole.cfg', 'w') as configfile:
+- CFGFILE = "/home/pi/dashboard/frnconsole.cfg"
 
 And finaly you need to define where the log file is located:
-- with open(r'/home/pi/frnclientconsole.log', 'r') as fp:
+- LOGFILE = "/home/pi/frnclientconsole.log"
 
 -----
 
 ChangeLog:
+
+- Version 0.7:</br>
+Fixed Server Status</br>
+Fixed GW / RX</br>
+Several minor bug fixes
 
 - Version 0.6:</br>
 Added Live Caller</br>
