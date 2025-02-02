@@ -27,7 +27,7 @@
 		<body class="w3-theme-light menu">
 			<div class="w3-top">
 				<div class="w3-bar w3-theme-dark w3-left-align w3-large">
-					<a class="w3-bar-item w3-button w3-padding-large w3-theme-dark w3-hover-theme-dark rpi-hover-text-pink thickbox" href="index.html"><span id="statsSYSTitle">FRN Client Console</span></a>
+					<a class="w3-bar-item w3-button w3-padding-large w3-theme-dark w3-hover-theme-dark rpi-hover-text-pink w3-center thickbox" href="index.html"><span id="statsSYSTitle">FRN Client Console</span></a>
 				</div>
 			</div>
 
@@ -45,7 +45,7 @@
 				<p>
 					<small>
 						AlterFRN Client by Valery (<a class="rpi-hover-text-green" href="https://alterfrn.ucoz.ru/" target="_new">alterfrn.ucoz.ru</a>)</br>
-						- Dashboard © 13MAD86 / Martin | Version 0.6 (BETA) -</br>
+						- Dashboard © 13MAD86 / Martin | Version 0.7 (BETA) -</br>
 						powered by <a class="rpi-hover-text-green" href="http://www.fm-funkgateway.de" target="_new">www.fm-funkgateway.de</a>
 					</small>
 				</p>
@@ -90,15 +90,20 @@
 								var text_rx = values.log_rx.split('; ');
 								var name_rx = text_rx[1].split(', ');
 								if (window.innerWidth < 600) {
-									var data_rx = "<p>- "+ getDateTime(text_rx[0]) +" -</br><span class='rpi-text-green' style='font-size: 48px;'><b>"+ name_rx[0] +"</b></span></br>";
+									var data_rx = "<p>- "+ getDateTime(text_rx[0]) +" -</br><b><span id='statsSYSTarget'>---</span></b></br><span class='rpi-text-green' style='font-size: 48px;'><b>"+ name_rx[0] +"</b></span>";
 									data_rx += "<h3 class='rpi-text-pink'>"+ getCountryCode(text_rx[5]) +" "+ name_rx[1] +"</h3></p>";
 									data_rx += "<p><h6><small>"+ text_rx[2] +"</small></br>"+ text_rx[5] +"</h6></p>";
 								} else {
-									var data_rx = "<p><h1>- "+ getDateTime(text_rx[0]) +" -</h1><span class='rpi-text-green' style='font-size: 96px;'><b>"+ name_rx[0] +"</b></span></br>";
+									var data_rx = "<p><h1>- "+ getDateTime(text_rx[0]) +" -</br><b><span id='statsSYSTarget'>---</span></b></h1><span class='rpi-text-green' style='font-size: 96px;'><b>"+ name_rx[0] +"</b></span></br>";
 									data_rx += "<span class='rpi-text-pink' style='font-size: 64px;'>"+ getCountryCode(text_rx[5]) +" "+ name_rx[1] +"</span></p>";
 									data_rx += "<p><h1>"+ text_rx[2] +"</br>"+ text_rx[5] +"</h1></p>";
 								}
 								document.getElementById("statsLive").innerHTML=data_rx;
+								document.getElementById("statsSYSTarget").innerHTML=values.target;
+								if (values.rx_active == "1")
+									document.getElementById("statsSYSTarget").classList.add("rpi-text-pink");
+								else
+									document.getElementById("statsSYSTarget").classList.remove("rpi-text-pink");
 							}
 
 							setTimeout("geStats('output')",2000);
