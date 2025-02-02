@@ -5,11 +5,12 @@
 
 import urllib.parse as urlparse
 from urllib.parse import parse_qs
-import platform 
+import platform
 import configparser
 import http.server
 import socketserver
 import socket
+from contextlib import closing
 import cgi
 import os
 import subprocess
@@ -18,7 +19,6 @@ import json
 import psutil
 from gpiozero import CPUTemperature
 import re
-import socket
 
 config = configparser.RawConfigParser()
 config.read(r'/home/pi/frnconsole.cfg')
@@ -26,6 +26,8 @@ config.read(r'/home/pi/frnconsole.cfg')
 PASS = str(config['Auth']['Password'])
 PORT = 80
 WEBPATH = "/home/pi/dashboard"
+CFGFILE = "/home/pi/dashboard/frnconsole.cfg"
+LOGFILE = "/home/pi/frnclientconsole.log"
 
 class MyHttpRequestHandler(http.server.SimpleHTTPRequestHandler):
     def do_POST(self):
@@ -219,7 +221,7 @@ class MyHttpRequestHandler(http.server.SimpleHTTPRequestHandler):
                         'AmplitudePort': str(fields.get('Command_AmplitudePort')).replace('[\'', '').replace('\']', '') \
                         }
 
-                    with open(r'/home/pi/frnconsole.cfg', 'w') as configfile:
+                    with open(CFGFILE, 'w') as configfile:
                         config.write(configfile)
 
                     output = "<html>"
@@ -295,6 +297,7 @@ class MyHttpRequestHandler(http.server.SimpleHTTPRequestHandler):
                 "host":str(self.get_host()), \
                 "ip":str(self.get_ipaddress()), \
                 "uptime":str(self.get_uptime()), \
+                "server_active":str(self.get_socket_port(config['Server']['ServerAddress'], int(config['Server']['ServerPort']))), \
                 "log_rx":log_out_rx, \
                 "rx_active":str(self.get_log_rx_status()), \
                 "log_tx":log_out_gw, \
@@ -557,6 +560,14 @@ class MyHttpRequestHandler(http.server.SimpleHTTPRequestHandler):
         except:
             return ""
 
+    def get_socket_port(self, host, port):
+        with closing(socket.socket(socket.AF_INET, socket.SOCK_STREAM)) as sock:
+            sock.settimeout(10)
+            if sock.connect_ex((host, port)) == 0:
+                return 1
+            else:
+                return 0
+
     def get_cpu_speed(self):
         try:
             f = os.popen('vcgencmd get_config arm_freq')
@@ -571,7 +582,7 @@ class MyHttpRequestHandler(http.server.SimpleHTTPRequestHandler):
     def get_log_rx(self):
         log = []
 
-        with open(r'/home/pi/frnclientconsole.log', 'r') as fp:
+        with open(LOGFILE, 'r') as fp:
             lines = fp.readlines()
             for line in lines:
                 if line.find('; ; ; ; ; -') != -1:
@@ -591,7 +602,7 @@ class MyHttpRequestHandler(http.server.SimpleHTTPRequestHandler):
         log = []
 
         output = 0
-        with open(r'/home/pi/frnclientconsole.log', 'r') as fp:
+        with open(LOGFILE, 'r') as fp:
             lines = fp.readlines()
             for line in lines:
                 if line.find('RX is started:') != -1:
@@ -604,7 +615,7 @@ class MyHttpRequestHandler(http.server.SimpleHTTPRequestHandler):
     def get_log_gw(self):
         log = []
 
-        with open(r'/home/pi/frnclientconsole.log', 'r') as fp:
+        with open(LOGFILE, 'r') as fp:
             lines = fp.readlines()
             for line in lines:
                 if line.find('TX is stopped:') != -1:
@@ -622,7 +633,7 @@ class MyHttpRequestHandler(http.server.SimpleHTTPRequestHandler):
         log = []
 
         output = 0
-        with open(r'/home/pi/frnclientconsole.log', 'r') as fp:
+        with open(LOGFILE, 'r') as fp:
             lines = fp.readlines()
             for line in lines:
                 if line.find('TX is approved and started') != -1:
